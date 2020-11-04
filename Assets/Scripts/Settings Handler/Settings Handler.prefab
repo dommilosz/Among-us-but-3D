@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3315788123831155932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 681912325236072463}
+  - component: {fileID: 1729304547281992621}
+  m_Layer: 0
+  m_Name: Settings Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &681912325236072463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3315788123831155932}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.875639, y: -4.554567, z: 2.4444418}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1729304547281992621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3315788123831155932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 570171d84c0358c4d91800bdb586d00e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Map: polus
+  Impostors: 2
+  Emergency_Count: 1
+  Emergency_Cooldown: 30
+  KillCooldown: 45
+  KillDistance: 10
+  PlayerSpeed: 8
+  PlayerVision: 50
+  ImpostorVision: 2
+  DiscusionTime: 15
+  VotingTime: 90
+  Confirm_Ejects: 1
+  Anonymous_Votes: 1
+  Short_Tasks: 2
+  Long_Tasks: 2
+  Common_Tasks: 2
+  Visual_Tasks: 1
+  TaskBar_Updates: Always
