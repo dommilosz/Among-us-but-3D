@@ -26,27 +26,21 @@ public class PlayerInfo : MonoBehaviour
     float backup_JumpForce;
     public void setCanMove(bool canMove)
     {
-        var rfpsc = this.GetComponentInParent<RigidbodyFirstPersonController>();
-        if (rfpsc.movementSettings.ForwardSpeed > 0 && rfpsc.movementSettings.BackwardSpeed > 0 && rfpsc.movementSettings.StrafeSpeed > 0&& rfpsc.movementSettings.JumpForce>0)
+        var pm = this.GetComponentInParent<PlayerMovement>();
+        if (pm.moveSpeed > 0 && pm.jumpForce > 0)
         {
-            backup_ForwardSpeed = rfpsc.movementSettings.ForwardSpeed;
-            backup_BackwardSpeed = rfpsc.movementSettings.BackwardSpeed;
-            backup_StrafeSpeed = rfpsc.movementSettings.StrafeSpeed;
-            backup_JumpForce = rfpsc.movementSettings.JumpForce;
+            backup_ForwardSpeed = pm.moveSpeed;
+            backup_JumpForce = pm.jumpForce;
         }
         if (!canMove)
         {
-            rfpsc.movementSettings.ForwardSpeed = 0;
-            rfpsc.movementSettings.BackwardSpeed = 0;
-            rfpsc.movementSettings.StrafeSpeed = 0;
-            rfpsc.movementSettings.JumpForce = 0;
+            pm.moveSpeed = 0;
+            pm.jumpForce = 0;
         }
         else
         {
-            rfpsc.movementSettings.ForwardSpeed = backup_ForwardSpeed;
-            rfpsc.movementSettings.BackwardSpeed = backup_BackwardSpeed;
-            rfpsc.movementSettings.StrafeSpeed = backup_StrafeSpeed;
-            rfpsc.movementSettings.JumpForce = backup_JumpForce;
+            pm.moveSpeed = backup_ForwardSpeed;
+            pm.jumpForce = backup_JumpForce;
         }
         
     }
