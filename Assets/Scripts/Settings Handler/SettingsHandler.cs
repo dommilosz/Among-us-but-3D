@@ -39,4 +39,9 @@ public class SettingsHandler : MonoBehaviour
     {
 
     }
+
+    public static SettingsHandler getSettings()
+    {
+        return GameObject.Find("Settings Handler").GetComponent<SettingsHandler>();
+    }
 }
