@@ -18419,7 +18419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overlayCanvas: {fileID: 8168026475767799905, guid: 0389c67d0ebe5cb438265251a5039b3d, type: 3}
-  mapCanvas: {fileID: 0}
+  mapCanvas: {fileID: 42102721478361188, guid: 1b234c0e1a7218145b437ce346723e73, type: 3}
 --- !u!114 &301337278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18432,8 +18432,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95906f8b0d9521f48bf756b171553afa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isImpostor: 0
-  color: red
+  isImpostor: 1
+  color: blue
   VentStanding: {fileID: 0}
   inVent: 0
 --- !u!43 &308197512
