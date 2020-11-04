@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerActions : MonoBehaviour
 {
     public GameObject overlayCanvas;
+    public GameObject mapCanvas;
     GameObject canvas;
 
     // Start is called before the first frame update
@@ -45,6 +46,11 @@ public class PlayerActions : MonoBehaviour
         {
             canvas.transform.GetChild(4).gameObject.SetActive(false);
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ToggleMap();
+        }
     }
 
     public static void UseAction()
@@ -80,5 +86,17 @@ public class PlayerActions : MonoBehaviour
     public static void KillAction()
     {
 
+    }
+
+    public void ToggleMap()
+    {
+        if (GameObject.Find("MapCanvas(Clone)") !=null)
+        {
+            Destroy(GameObject.Find("MapCanvas(Clone)"));
+        }
+        else
+        {
+            Instantiate(mapCanvas);
+        }
     }
 }
