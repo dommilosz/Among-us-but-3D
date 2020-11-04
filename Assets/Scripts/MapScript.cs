@@ -17,6 +17,6 @@ public class MapScript: MonoBehaviour
     void Update()
     {
         var player = GameObject.FindGameObjectWithTag("Player");
-        pointer.transform.localPosition = new Vector3((-player.transform.position.x)*offsetX, (-player.transform.position.z)* offsetY, 0);
+        pointer.transform.localPosition = new Vector3((player.transform.position.x)*offsetX, (player.transform.position.z)* offsetY, 0);
     }
 }
