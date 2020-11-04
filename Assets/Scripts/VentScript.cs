@@ -69,8 +69,15 @@ public class VentScript : MonoBehaviour
         if(SpawnedVentCanvas==null)
         SpawnedVentCanvas = GameObject.Instantiate(ventCanvas);
         var playerInfo = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
+        var player = GameObject.FindGameObjectWithTag("Player");
         playerInfo.inVent = true;
         playerInfo.setCanMove(false);
+
+        player.transform.position = transform.position;
+        player.transform.rotation = transform.rotation;
+
+        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z);
+
     }
     public void exitVent()
     {
@@ -82,6 +89,7 @@ public class VentScript : MonoBehaviour
     }
     public void ventNext()
     {
+        if (nextVent == null) ventPrev();
         var player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = nextVent.transform.position;
         player.transform.rotation = nextVent.transform.rotation;
@@ -90,6 +98,7 @@ public class VentScript : MonoBehaviour
     }
     public void ventPrev()
     {
+        if (prevVent == null) ventNext();
         var player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = prevVent.transform.position;
         player.transform.rotation = prevVent.transform.rotation;
