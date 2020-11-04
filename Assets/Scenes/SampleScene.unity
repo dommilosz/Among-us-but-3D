@@ -18322,9 +18322,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  counterMovement: 0.175
+  counterMovement: 0.1
   maxSlopeAngle: 35
-  slideForce: 400
+  slideForce: 600
   slideCounterMovement: 0.2
   jumpForce: 550
 --- !u!54 &301337273
