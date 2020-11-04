@@ -39,6 +39,10 @@ public class VentScript : MonoBehaviour
             ventNext();
             return;
         }
+        if (SpawnedVentCanvas != null&&!playerInfo.inVent)
+        {
+            Destroy(SpawnedVentCanvas);
+        }
     }
 
     private void OnCollisionStay(Collision collision)
