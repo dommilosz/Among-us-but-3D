@@ -15,6 +15,13 @@ public class PlayerActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //0: Use
+        //1: Kill
+        //2: Report
+        //3: Sabotage
+        //4: Vent
+
+
         var playerInfo = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
         var player = GameObject.FindGameObjectWithTag("Player");
         if (playerInfo.isImpostor)
@@ -29,8 +36,9 @@ public class PlayerActions : MonoBehaviour
             canvas.transform.GetChild(0).gameObject.SetActive(true);
             canvas.transform.GetChild(1).gameObject.SetActive(false);
         }
-        if (playerInfo.VentStanding!=null)
+        if (playerInfo.VentStanding!=null||playerInfo.inVent)
         {
+            canvas.transform.GetChild(3).gameObject.SetActive(false);
             canvas.transform.GetChild(4).gameObject.SetActive(true);
         }
         else
