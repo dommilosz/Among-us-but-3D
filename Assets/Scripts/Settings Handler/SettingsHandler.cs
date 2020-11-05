@@ -14,8 +14,8 @@ public class SettingsHandler : MonoBehaviour
     public float KillDistance = 10f;
 
     public float PlayerSpeed = 8f;
-    public float PlayerVision = 1f;
-    public float ImpostorVision = 2f;
+    public float PlayerVision = 50f;
+    public float ImpostorVision = 150f;
 
     public int DiscusionTime = 15;
     public int VotingTime = 90;
@@ -38,5 +38,10 @@ public class SettingsHandler : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public static SettingsHandler getSettings()
+    {
+        return GameObject.Find("Settings Handler").GetComponent<SettingsHandler>();
     }
 }

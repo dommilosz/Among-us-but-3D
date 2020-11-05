@@ -66,43 +66,52 @@ public class VentScript : MonoBehaviour
 
     public void enterVent()
     {
-        if(SpawnedVentCanvas==null)
-        SpawnedVentCanvas = GameObject.Instantiate(ventCanvas);
+        enterVentS(gameObject);
+    }public void exitVent()
+    {
+        exitVentS(gameObject);
+    }
+
+    public static void enterVentS(GameObject vent)
+    {
+        var ventscr = vent.GetComponent<VentScript>();
+        if (ventscr.SpawnedVentCanvas == null)
+            ventscr.SpawnedVentCanvas = GameObject.Instantiate(ventscr.ventCanvas);
         var playerInfo = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
         var player = GameObject.FindGameObjectWithTag("Player");
         playerInfo.inVent = true;
         playerInfo.setCanMove(false);
 
-        player.transform.position = transform.position;
-        player.transform.rotation = transform.rotation;
-
-        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z);
-
+        tpPlayerToVent(vent);
     }
-    public void exitVent()
+
+    public static void exitVentS(GameObject vent)
     {
+        var ventscr = vent.GetComponent<VentScript>();
         var playerInfo = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
 
-        Destroy(SpawnedVentCanvas);
+        Destroy(ventscr.SpawnedVentCanvas);
         playerInfo.inVent = false;
         playerInfo.setCanMove(true);
     }
     public void ventNext()
     {
         if (nextVent == null) ventPrev();
-        var player = GameObject.FindGameObjectWithTag("Player");
-        player.transform.position = nextVent.transform.position;
-        player.transform.rotation = nextVent.transform.rotation;
-
-        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z);
+        tpPlayerToVent(nextVent);
     }
     public void ventPrev()
     {
         if (prevVent == null) ventNext();
-        var player = GameObject.FindGameObjectWithTag("Player");
-        player.transform.position = prevVent.transform.position;
-        player.transform.rotation = prevVent.transform.rotation;
+        tpPlayerToVent(prevVent);
+    }
 
-        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z);
+    public static void tpPlayerToVent(GameObject vent)
+    {
+        var player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = vent.transform.position;
+        player.transform.rotation = vent.transform.rotation;
+
+        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 2, player.transform.position.z);
+
     }
 }
