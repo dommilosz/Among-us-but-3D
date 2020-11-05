@@ -52,7 +52,7 @@ public class PlayerActions : MonoBehaviour
             ToggleMap();
         }
 
-        if (gameObject.transform.position.y < 1)
+        if (gameObject.transform.position.y < -1)
         {
             gameObject.transform.position = new Vector3(40, 8, -86);
         }
