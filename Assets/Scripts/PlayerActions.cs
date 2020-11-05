@@ -51,6 +51,11 @@ public class PlayerActions : MonoBehaviour
         {
             ToggleMap();
         }
+
+        if (gameObject.transform.position.y < 1)
+        {
+            gameObject.transform.position = new Vector3(40, 8, -86);
+        }
     }
 
     public static void UseAction()
