@@ -36,6 +36,8 @@ public class PlayerInfo : MonoBehaviour
         {
             pm.moveSpeed = 0;
             pm.jumpForce = 0;
+
+            this.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         }
         else
         {
