@@ -44,4 +44,13 @@ public class PlayerInfo : MonoBehaviour
         }
         
     }
+
+    public static GameObject getPlayer()
+    {
+        return GameObject.FindGameObjectWithTag("Player");
+    }
+    public static PlayerInfo getPlayerInfo()
+    {
+        return GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
+    }
 }
