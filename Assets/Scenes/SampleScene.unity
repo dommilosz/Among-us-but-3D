@@ -9264,6 +9264,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skrzynka (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
 --- !u!4 &105087343 stripped
@@ -9337,6 +9341,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
       propertyPath: m_Name
       value: skrzynka (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
@@ -18543,6 +18551,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skrzynka
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
 --- !u!4 &214799789 stripped
@@ -19530,6 +19542,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skrzynka (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
 --- !u!4 &237574465 stripped
@@ -20249,6 +20265,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
       propertyPath: m_Name
       value: skrzynka (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
@@ -28454,6 +28474,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skrzynka (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
 --- !u!4 &470004911 stripped
@@ -28841,6 +28865,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skrzynka (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
 --- !u!4 &519041957 stripped
@@ -29079,6 +29107,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skrzynka (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
 --- !u!4 &553511901 stripped
@@ -29149,9 +29181,33 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.4027247
       objectReference: {fileID: 0}
+    - target: {fileID: -7640558969779515294, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7146521406498821007, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -516098083770646512, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
       propertyPath: m_Name
       value: transformator_z_elektryka 1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954849575999825625, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
@@ -29777,9 +29833,33 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.1599948
       objectReference: {fileID: 0}
+    - target: {fileID: -7640558969779515294, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7146521406498821007, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -516098083770646512, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
       propertyPath: m_Name
       value: transformator_z_elektryka 1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954849575999825625, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
@@ -29851,9 +29931,33 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.4027247
       objectReference: {fileID: 0}
+    - target: {fileID: -7640558969779515294, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7146521406498821007, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -516098083770646512, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
       propertyPath: m_Name
       value: transformator_z_elektryka 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954849575999825625, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
@@ -33225,6 +33329,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skrzynka (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
 --- !u!4 &845077157 stripped
@@ -34572,6 +34680,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skrzynka (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
 --- !u!4 &874621641 stripped
@@ -34645,6 +34757,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
       propertyPath: m_Name
       value: skrzynka (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
@@ -35048,6 +35164,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skrzynka (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
 --- !u!4 &1006889163 stripped
@@ -35126,6 +35246,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
       propertyPath: m_Name
       value: skrzynka (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
@@ -38769,6 +38893,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skrzynka (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
 --- !u!4 &1243154894 stripped
@@ -39006,6 +39134,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
       propertyPath: m_Name
       value: skrzynka (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
@@ -39393,6 +39525,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
       propertyPath: m_Name
       value: skrzynka (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
@@ -40185,9 +40321,33 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.31162
       objectReference: {fileID: 0}
+    - target: {fileID: -7640558969779515294, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7146521406498821007, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -516098083770646512, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
       propertyPath: m_Name
       value: transformator_z_elektryka 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954849575999825625, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336fda79e585340e2a0ef9dc2b8a2e49, type: 3}
@@ -57734,6 +57894,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skrzynka (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
 --- !u!4 &2094716603 stripped
@@ -60938,6 +61102,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
       propertyPath: m_Name
       value: skrzynka (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83f7cd68df1504642a6be7c19e308c57, type: 3}
