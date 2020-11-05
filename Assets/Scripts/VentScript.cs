@@ -45,12 +45,12 @@ public class VentScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider collision)
     {
-        if (collision.collider.tag.Contains("Player"))
+        if (collision.transform.tag.Contains("Player"))
         {
-            var player = collision.collider.gameObject;
-            var playerInfo = collision.collider.gameObject.GetComponent<PlayerInfo>();
+            var player = collision.gameObject;
+            var playerInfo = collision.gameObject.GetComponent<PlayerInfo>();
             if (playerInfo.isImpostor)
             {
                 playerInfo.VentStanding = this;
@@ -58,9 +58,9 @@ public class VentScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider collision)
     {
-        var playerInfo = collision.collider.gameObject.GetComponent<PlayerInfo>();
+        var playerInfo = collision.gameObject.GetComponent<PlayerInfo>();
         playerInfo.VentStanding = null;
     }
 
