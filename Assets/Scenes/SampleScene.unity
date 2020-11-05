@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 621657}
   - component: {fileID: 621656}
   - component: {fileID: 621655}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19259,7 +19259,7 @@ GameObject:
   - component: {fileID: 259237396}
   - component: {fileID: 259237395}
   - component: {fileID: 259237394}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28030,7 +28030,7 @@ GameObject:
   - component: {fileID: 517846520}
   - component: {fileID: 517846519}
   - component: {fileID: 517846518}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29775,6 +29775,7 @@ Transform:
   - {fileID: 621654}
   - {fileID: 259237393}
   - {fileID: 517846522}
+  - {fileID: 788160196}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -29791,7 +29792,7 @@ GameObject:
   - component: {fileID: 788160194}
   - component: {fileID: 788160193}
   - component: {fileID: 788160192}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30084,12 +30085,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788160191}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 135.52, y: 0.03, z: -52.18}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 390.82, y: 6.03, z: -298.18}
   m_LocalScale: {x: 2.4578, y: 1.73, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 764376943}
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &801530932
 GameObject:
@@ -31017,7 +31018,7 @@ GameObject:
   - component: {fileID: 831656638}
   - component: {fileID: 831656637}
   - component: {fileID: 831656636}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59377,6 +59378,10 @@ PrefabInstance:
     - target: {fileID: 1074354478455525076, guid: 3eedc215515ddd24fb3b1a4bb045a2db, type: 3}
       propertyPath: m_BackGroundColor.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074354478455525076, guid: 3eedc215515ddd24fb3b1a4bb045a2db, type: 3}
+      propertyPath: m_ClearFlags
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3eedc215515ddd24fb3b1a4bb045a2db, type: 3}
