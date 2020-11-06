@@ -23,8 +23,8 @@ public class PlayerActions : MonoBehaviour
         //4: Vent
 
 
-        var playerInfo = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
-        var player = GameObject.FindGameObjectWithTag("Player");
+        var playerInfo = PlayerInfo.getPlayerInfo();
+        var player = PlayerInfo.getPlayer();
         if (playerInfo.isImpostor)
         {
             canvas.transform.GetChild(3).gameObject.SetActive(true);
@@ -70,7 +70,7 @@ public class PlayerActions : MonoBehaviour
 
     public static void VentAction()
     {
-        var playerInfo = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
+        var playerInfo = PlayerInfo.getPlayerInfo();
         if (!playerInfo.inVent)
         {
             VentScript.enterVentS(playerInfo.VentStanding.gameObject);

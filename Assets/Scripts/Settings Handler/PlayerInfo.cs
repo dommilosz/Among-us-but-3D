@@ -49,10 +49,22 @@ public class PlayerInfo : MonoBehaviour
 
     public static GameObject getPlayer()
     {
-        return GameObject.FindGameObjectWithTag("Player");
+        foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (item.GetComponent<Photon.Pun.PhotonView>().IsMine)
+            {
+                return item;
+            }
+        }
+        return null;
     }
     public static PlayerInfo getPlayerInfo()
     {
-        return GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
+        return getPlayer().GetComponent<PlayerInfo>();
+    }
+
+    public static bool isMine(GameObject player)
+    {
+        return player.GetComponent<Photon.Pun.PhotonView>().IsMine;
     }
 }

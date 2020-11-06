@@ -14,6 +14,17 @@ public class AmongUsGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        var cameras = Camera.allCameras;
+
+        foreach (var item in cameras)
+        {
+            if (!PlayerInfo.isMine(item.transform.parent.gameObject))
+            {
+                if(item.name== "PlayerCamera")
+                {
+                    item.gameObject.active = false;
+                }
+            }
+        }
     }
 }

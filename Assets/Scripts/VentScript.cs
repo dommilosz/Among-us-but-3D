@@ -18,7 +18,7 @@ public class VentScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var playerInfo = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
+        var playerInfo = PlayerInfo.getPlayerInfo();
         if (Input.GetKeyDown(KeyCode.F)&&playerInfo.VentStanding==this&&!playerInfo.inVent)
         {
             enterVent();
@@ -34,7 +34,7 @@ public class VentScript : MonoBehaviour
             ventPrev();
             return;
         }
-        if (Input.GetKeyDown(KeyCode.D) && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().VentStanding == this && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().inVent)
+        if (Input.GetKeyDown(KeyCode.D) && playerInfo.VentStanding == this && playerInfo.inVent)
         {
             ventNext();
             return;
@@ -47,7 +47,7 @@ public class VentScript : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        if (collision.transform.tag.Contains("Player"))
+        if (collision.transform.tag.Contains("Player")&& PlayerInfo.isMine(collision.gameObject))
         {
             var player = collision.gameObject;
             var playerInfo = collision.gameObject.GetComponent<PlayerInfo>();
@@ -60,6 +60,7 @@ public class VentScript : MonoBehaviour
 
     private void OnTriggerExit(Collider collision)
     {
+        if (!PlayerInfo.isMine(collision.gameObject)) return;
         var playerInfo = collision.gameObject.GetComponent<PlayerInfo>();
         playerInfo.VentStanding = null;
     }
@@ -77,8 +78,8 @@ public class VentScript : MonoBehaviour
         var ventscr = vent.GetComponent<VentScript>();
         if (ventscr.SpawnedVentCanvas == null)
             ventscr.SpawnedVentCanvas = GameObject.Instantiate(ventscr.ventCanvas);
-        var playerInfo = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
-        var player = GameObject.FindGameObjectWithTag("Player");
+        var playerInfo = PlayerInfo.getPlayerInfo();
+        var player = PlayerInfo.getPlayer();
         playerInfo.inVent = true;
         playerInfo.setCanMove(false);
 
@@ -88,7 +89,7 @@ public class VentScript : MonoBehaviour
     public static void exitVentS(GameObject vent)
     {
         var ventscr = vent.GetComponent<VentScript>();
-        var playerInfo = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
+        var playerInfo = PlayerInfo.getPlayerInfo();
 
         Destroy(ventscr.SpawnedVentCanvas);
         playerInfo.inVent = false;
@@ -107,7 +108,7 @@ public class VentScript : MonoBehaviour
 
     public static void tpPlayerToVent(GameObject vent)
     {
-        var player = GameObject.FindGameObjectWithTag("Player");
+        var player = PlayerInfo.getPlayer();
         player.transform.position = vent.transform.position;
         player.transform.rotation = vent.transform.rotation;
 

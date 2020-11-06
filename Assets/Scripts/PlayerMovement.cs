@@ -58,10 +58,12 @@ public class PlayerMovement : MonoBehaviour {
 
     
     private void FixedUpdate() {
+        if (!gameObject.GetComponent<Photon.Pun.PhotonView>().IsMine) return;
         Movement();
     }
 
     private void Update() {
+        if (!gameObject.GetComponent<Photon.Pun.PhotonView>().IsMine) return;
         MyInput();
         Look();
     }

@@ -16,7 +16,7 @@ public class MapScript: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var player = GameObject.FindGameObjectWithTag("Player");
+        var player = PlayerInfo.getPlayer();
         pointer.transform.localPosition = new Vector3((player.transform.position.x)*offsetX, (player.transform.position.z)* offsetY, 0);
     }
 }
