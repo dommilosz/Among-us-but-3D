@@ -14,15 +14,18 @@ public class AmongUsGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var cameras = Camera.allCameras;
+        var players = GameObject.FindGameObjectsWithTag("Player");
 
-        foreach (var item in cameras)
+        foreach (var item in players)
         {
-            if (!PlayerInfo.isMine(item.transform.parent.gameObject))
+            if (!PlayerInfo.isMine(item))
             {
-                if(item.name== "PlayerCamera")
+                if(item.transform.Find("PlayerCamera")!=null&& item.transform.Find("Point Light") != null)
                 {
-                    item.gameObject.active = false;
+                    Destroy(item.transform.Find("PlayerCamera").gameObject);
+                    Destroy(item.transform.Find("Point Light").gameObject);
+
+                    item.GetComponent<PlayerActions>().enabled = false;
                 }
             }
         }
