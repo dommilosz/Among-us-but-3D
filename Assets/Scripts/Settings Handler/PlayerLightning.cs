@@ -16,11 +16,11 @@ public class PlayerLightning : MonoBehaviour
         var lc = gameObject.GetComponent<Light>();
         if (PlayerInfo.getPlayerInfo().isImpostor)
         {
-            lc.range = SettingsHandler.getSettings().ImpostorVision;
+            lc.range = (float)SettingsHandler.getSetting("ImpostorVision");
         }
         else
         {
-            lc.range = SettingsHandler.getSettings().PlayerVision;
+            lc.range = (float)SettingsHandler.getSetting("PlayerVision");
         }
         
     }

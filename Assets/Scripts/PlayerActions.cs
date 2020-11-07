@@ -54,7 +54,7 @@ public class PlayerActions : MonoBehaviour
 
         if (gameObject.transform.position.y < -1)
         {
-            gameObject.transform.position = new Vector3(40, 8, -86);
+            gameObject.transform.position = GameObject.Find("Game Manager").transform.position;
         }
     }
 

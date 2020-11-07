@@ -7,6 +7,7 @@ public class PlayerInfo : MonoBehaviour
 {
     public bool isImpostor = false;
     public string color = Enums.Colors.RED;
+    public string PlayerName = "DefaultUser";
     public VentScript VentStanding = null;
     public bool inVent = false;
     // Start is called before the first frame update

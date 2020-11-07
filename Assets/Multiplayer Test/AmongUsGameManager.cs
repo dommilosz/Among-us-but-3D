@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class AmongUsGameManager : MonoBehaviour
 {
+    public GameObject playersPlaceHolder;
     // Start is called before the first frame update
     void Start()
     {
-        PhotonNetwork.Instantiate("PlayerV2", transform.position, transform.rotation, 0);      // avoid this call on rejoin (ship was network instantiated before)
+        var player = PhotonNetwork.Instantiate("PlayerV2", transform.position, transform.rotation, 0);
     }
 
     // Update is called once per frame
@@ -18,6 +19,8 @@ public class AmongUsGameManager : MonoBehaviour
 
         foreach (var item in players)
         {
+            item.name = "Player " + item.GetComponent<Photon.Pun.PhotonView>().Controller.UserId;
+            item.transform.parent = playersPlaceHolder.transform;
             if (!PlayerInfo.isMine(item))
             {
                 if(item.transform.Find("PlayerCamera")!=null&& item.transform.Find("Point Light") != null)
@@ -27,6 +30,10 @@ public class AmongUsGameManager : MonoBehaviour
 
                     item.GetComponent<PlayerActions>().enabled = false;
                 }
+            }
+            else
+            {
+                item.name = "Player " + item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName+ " (ME)";
             }
         }
     }

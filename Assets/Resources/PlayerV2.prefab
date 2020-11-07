@@ -162,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isImpostor: 1
   color: blue
+  PlayerName: DefaultUser
   VentStanding: {fileID: 0}
   inVent: 0
 --- !u!114 &1074354477615942812
