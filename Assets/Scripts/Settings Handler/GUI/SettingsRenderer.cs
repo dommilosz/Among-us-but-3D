@@ -35,7 +35,7 @@ public class SettingsRenderer : MonoBehaviour
         var prop = Instantiate(propPrefab);
         prop.GetComponent<TextMeshProUGUI>().text = $"{name} : {value}";
 
-        prop.transform.parent = content.transform;
+        prop.transform.SetParent(content.transform);
         prop.transform.localPosition = new Vector3(0, y, 0);
     }
 

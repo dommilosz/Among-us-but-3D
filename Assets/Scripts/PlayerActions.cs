@@ -25,7 +25,7 @@ public class PlayerActions : MonoBehaviour
 
         var playerInfo = PlayerInfo.getPlayerInfo();
         var player = PlayerInfo.getPlayer();
-        if (playerInfo.isImpostor)
+        if ((bool)playerInfo.getSetting("isImpostor"))
         {
             canvas.transform.GetChild(3).gameObject.SetActive(true);
             canvas.transform.GetChild(0).gameObject.SetActive(false);
@@ -37,7 +37,7 @@ public class PlayerActions : MonoBehaviour
             canvas.transform.GetChild(0).gameObject.SetActive(true);
             canvas.transform.GetChild(1).gameObject.SetActive(false);
         }
-        if (playerInfo.VentStanding!=null||playerInfo.inVent)
+        if (playerInfo.VentStanding!=null|| (bool)playerInfo.getSetting("inVent"))
         {
             canvas.transform.GetChild(3).gameObject.SetActive(false);
             canvas.transform.GetChild(4).gameObject.SetActive(true);
@@ -71,12 +71,12 @@ public class PlayerActions : MonoBehaviour
     public static void VentAction()
     {
         var playerInfo = PlayerInfo.getPlayerInfo();
-        if (!playerInfo.inVent)
+        if (!(bool)playerInfo.getSetting("inVent"))
         {
             VentScript.enterVentS(playerInfo.VentStanding.gameObject);
             return;
         }
-        if (playerInfo.inVent)
+        if ((bool)playerInfo.getSetting("inVent"))
         {
             VentScript.exitVentS(playerInfo.VentStanding.gameObject);
             return;

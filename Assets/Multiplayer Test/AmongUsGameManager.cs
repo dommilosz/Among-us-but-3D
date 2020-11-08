@@ -19,7 +19,8 @@ public class AmongUsGameManager : MonoBehaviour
 
         foreach (var item in players)
         {
-            item.name = "Player " + item.GetComponent<Photon.Pun.PhotonView>().Controller.UserId;
+            item.name = "Player " + item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName;
+            item.GetComponent<PlayerInfo>().setSetting("PlayerName", item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName);
             item.transform.parent = playersPlaceHolder.transform;
             if (!PlayerInfo.isMine(item))
             {

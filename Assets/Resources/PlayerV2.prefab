@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1074354477615942812}
   - component: {fileID: 7320445781022479848}
   - component: {fileID: -1382387130891829955}
+  - component: {fileID: 4788051222799196334}
   m_Layer: 0
   m_Name: PlayerV2
   m_TagString: Player
@@ -160,11 +161,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95906f8b0d9521f48bf756b171553afa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isImpostor: 1
-  color: blue
-  PlayerName: DefaultUser
+  settings:
+  - name: Color
+    value_str: red
+  - name: isImpostor
+    value_str: False
+  - name: inVent
+    value_str: False
+  - name: PlayerName
+    value_str: False
   VentStanding: {fileID: 0}
-  inVent: 0
 --- !u!114 &1074354477615942812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +224,43 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &4788051222799196334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074354477615942807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10168c4d6250db947862c96bcf516a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - name: red
+    material: {fileID: 2100000, guid: 73ab7c6b109034fa98abdd4e5ce22c55, type: 2}
+  - name: blue
+    material: {fileID: 2100000, guid: 554f546338711ee4d8dd065932742bad, type: 2}
+  - name: brown
+    material: {fileID: 2100000, guid: bcce1aa21d2510a408b5b6ea61ebdffb, type: 2}
+  - name: cyan
+    material: {fileID: 2100000, guid: 5f3be895a1c212f41a3074e0ec3c4566, type: 2}
+  - name: gray
+    material: {fileID: 2100000, guid: 0d59e3f731d6bde4e85fb5793b50531e, type: 2}
+  - name: green
+    material: {fileID: 2100000, guid: de72f502f6c313d4e9618ae91189ef94, type: 2}
+  - name: lime
+    material: {fileID: 2100000, guid: 04288c215b9aba6428b0b208a7af2f1c, type: 2}
+  - name: orange
+    material: {fileID: 2100000, guid: 959a969c42f10424b8b5cff5c2ec22fb, type: 2}
+  - name: pink
+    material: {fileID: 2100000, guid: 477bbc3f60de88649a7789f9c872246c, type: 2}
+  - name: purple
+    material: {fileID: 2100000, guid: b6aafc6d9793b7c409d927ada2f482fa, type: 2}
+  - name: white
+    material: {fileID: 2100000, guid: 39b16fac897216444813b327dc6f9384, type: 2}
+  - name: yellow
+    material: {fileID: 2100000, guid: 8743e23e9ca6c924aa3ca6ea966cdfe4, type: 2}
 --- !u!1 &1074354478144953821
 GameObject:
   m_ObjectHideFlags: 0

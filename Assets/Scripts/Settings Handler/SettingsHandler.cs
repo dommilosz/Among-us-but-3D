@@ -124,6 +124,18 @@ public static class SettingsValues
 
         return properties.ToArray();
     }
+
+    internal static PlayerProperty[] ReturnDefaultPlayerSettings()
+    {
+        List<PlayerProperty> properties = new List<PlayerProperty>();
+
+        properties.Add(new PlayerProperty("Color", Enums.Colors.RED));
+        properties.Add(new PlayerProperty("isImpostor", false));
+        properties.Add(new PlayerProperty("inVent", false));
+        properties.Add(new PlayerProperty("PlayerName", false));
+
+        return properties.ToArray();
+    }
 }
 
 [Serializable]
@@ -174,6 +186,59 @@ public class SettingProperty
         if (changed)
         {
             SettingsHandler.sendSettings();
+        }
+        return props;
+    }
+}
+
+[Serializable]
+public class PlayerProperty
+{
+    [SerializeField]
+    public string name;
+    [SerializeField]
+    public object value { get; private set; }
+    [SerializeField]
+    public string value_str;
+    public PlayerProperty() { }
+    public PlayerProperty(string _name, object _value) { name = _name; value = _value; value_str = value.ToString(); }
+
+    public object parseValue(string obj)
+    {
+        if (value is int) return Convert.ToInt32(obj);
+        if (value is float) return float.Parse(obj);
+        if (value is bool) return Convert.ToBoolean(obj);
+
+        return obj;
+    }
+    public void setValue(object value)
+    {
+        this.value = value;
+        this.value_str = this.value.ToString();
+    }
+    public static List<PlayerProperty> checkProps(List<PlayerProperty> props,PlayerInfo info)
+    {
+        bool changed = false;
+        foreach (var item in props)
+        {
+            try
+            {
+                if (item.value.ToString() == item.value_str)
+                {
+
+                }
+                else
+                {
+                    item.setValue(item.parseValue(item.value_str));
+                    changed = true;
+                }
+            }
+            catch { }
+            item.value_str = item.value.ToString();
+        }
+        if (changed)
+        {
+            info.sendSettings();
         }
         return props;
     }

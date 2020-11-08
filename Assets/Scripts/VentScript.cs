@@ -19,27 +19,27 @@ public class VentScript : MonoBehaviour
     void Update()
     {
         var playerInfo = PlayerInfo.getPlayerInfo();
-        if (Input.GetKeyDown(KeyCode.F)&&playerInfo.VentStanding==this&&!playerInfo.inVent)
+        if (Input.GetKeyDown(KeyCode.F)&&playerInfo.VentStanding==this&&!(bool)playerInfo.getSetting("inVent"))
         {
             enterVent();
             return;
         }
-        if (Input.GetKeyDown(KeyCode.F) && playerInfo.VentStanding == this&& playerInfo.inVent)
+        if (Input.GetKeyDown(KeyCode.F) && playerInfo.VentStanding == this&& (bool)playerInfo.getSetting("inVent"))
         {
             exitVent();
             return;
         }
-        if (Input.GetKeyDown(KeyCode.A) && playerInfo.VentStanding == this && playerInfo.inVent)
+        if (Input.GetKeyDown(KeyCode.A) && playerInfo.VentStanding == this && (bool)playerInfo.getSetting("inVent"))
         {
             ventPrev();
             return;
         }
-        if (Input.GetKeyDown(KeyCode.D) && playerInfo.VentStanding == this && playerInfo.inVent)
+        if (Input.GetKeyDown(KeyCode.D) && playerInfo.VentStanding == this && (bool)playerInfo.getSetting("inVent"))
         {
             ventNext();
             return;
         }
-        if (SpawnedVentCanvas != null&&!playerInfo.inVent)
+        if (SpawnedVentCanvas != null&&!(bool)playerInfo.getSetting("inVent"))
         {
             Destroy(SpawnedVentCanvas);
         }
@@ -51,7 +51,7 @@ public class VentScript : MonoBehaviour
         {
             var player = collision.gameObject;
             var playerInfo = collision.gameObject.GetComponent<PlayerInfo>();
-            if (playerInfo.isImpostor)
+            if ((bool)playerInfo.getSetting("isInpostor"))
             {
                 playerInfo.VentStanding = this;
             }
@@ -80,7 +80,7 @@ public class VentScript : MonoBehaviour
             ventscr.SpawnedVentCanvas = GameObject.Instantiate(ventscr.ventCanvas);
         var playerInfo = PlayerInfo.getPlayerInfo();
         var player = PlayerInfo.getPlayer();
-        playerInfo.inVent = true;
+        playerInfo.setSetting("inVent", true);
         playerInfo.setCanMove(false);
 
         tpPlayerToVent(vent);
@@ -92,7 +92,7 @@ public class VentScript : MonoBehaviour
         var playerInfo = PlayerInfo.getPlayerInfo();
 
         Destroy(ventscr.SpawnedVentCanvas);
-        playerInfo.inVent = false;
+        playerInfo.setSetting("inVent", true);
         playerInfo.setCanMove(true);
     }
     public void ventNext()
