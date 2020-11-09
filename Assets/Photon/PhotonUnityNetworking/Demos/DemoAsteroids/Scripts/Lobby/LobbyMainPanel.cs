@@ -145,6 +145,12 @@ namespace Photon.Pun.Demo.Asteroids
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
+            if (newPlayer.UserId == null)
+            {
+                if(PhotonNetwork.IsMasterClient)
+                PhotonNetwork.CloseConnection(newPlayer);
+                return;
+            }
             GameObject entry = Instantiate(PlayerListEntryPrefab);
             entry.transform.SetParent(InsideRoomPanel.transform);
             entry.transform.localScale = Vector3.one;
@@ -214,7 +220,7 @@ namespace Photon.Pun.Demo.Asteroids
             byte.TryParse(MaxPlayersInputField.text, out maxPlayers);
             maxPlayers = (byte) Mathf.Clamp(maxPlayers, 2, 10);
 
-            RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers, PlayerTtl = 10000, BroadcastPropsChangeToAll = true };
+            RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers, PlayerTtl = 10000, BroadcastPropsChangeToAll = true, PublishUserId = true };
 
             PhotonNetwork.CreateRoom(roomName, options, null);
         }
