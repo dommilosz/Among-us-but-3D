@@ -30189,7 +30189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCam: {fileID: 1394150608}
   orientation: {fileID: 1488374656}
-  moveSpeed: 4500
+  moveSpeed: 3000
   maxSpeed: 20
   grounded: 0
   whatIsGround:
@@ -30199,7 +30199,7 @@ MonoBehaviour:
   maxSlopeAngle: 35
   slideForce: 600
   slideCounterMovement: 0.2
-  jumpForce: 250
+  jumpForce: 500
 --- !u!54 &437436643
 Rigidbody:
   m_ObjectHideFlags: 0
