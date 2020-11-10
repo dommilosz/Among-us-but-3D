@@ -30096,7 +30096,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b235179bd2a63d1468dd430670338c55, type: 3}
   m_Controller: {fileID: 9100000, guid: d15c65b744df7494eba5b407905cdb1e, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -30230,6 +30230,18 @@ CapsuleCollider:
   m_Height: 2.5247326
   m_Direction: 1
   m_Center: {x: 0, y: 1.4757838, z: 0}
+--- !u!114 &437436645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437436617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12adab16aa5b243c4bd1937a52bca8ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &450909643
 PrefabInstance:
   m_ObjectHideFlags: 0
