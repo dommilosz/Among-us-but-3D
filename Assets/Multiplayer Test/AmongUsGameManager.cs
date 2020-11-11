@@ -1,9 +1,10 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmongUsGameManager : MonoBehaviour
+public class AmongUsGameManager : MonoBehaviourPunCallbacks
 {
     public GameObject playersPlaceHolder;
     // Start is called before the first frame update
@@ -37,5 +38,12 @@ public class AmongUsGameManager : MonoBehaviour
                 item.name = "Player " + item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName+ " (ME)";
             }
         }
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+
+        Destroy(PlayerInfo.getPlayerObject(otherPlayer));
     }
 }

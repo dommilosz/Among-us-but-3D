@@ -12,6 +12,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
 {
     public List<PlayerProperty> settings = SettingsValues.ReturnDefaultPlayerSettings().ToList();
     public VentScript VentStanding = null;
+    public bool canUse = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -136,6 +137,25 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         return gameObject.GetComponent<PhotonView>().Owner;
     }
 
+    public static GameObject getPlayerObject(Player player)
+    {
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var item in players)
+        {
+            if (item.GetComponent<PlayerInfo>().getPUNPlayer().UserId == player.UserId) return item;
+        }
+        return null;
+    }
+    public static PlayerInfo getPlayerInfo(Player player)
+    {
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var item in players)
+        {
+            if (item.GetComponent<PlayerInfo>().getPUNPlayer().UserId == player.UserId) return item.GetComponent<PlayerInfo>();
+        }
+        return null;
+    }
+
     public static PlayerInfo getPlayerInfo()
     {
         return getPlayer().GetComponent<PlayerInfo>();
@@ -144,6 +164,22 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     public static bool isMine(GameObject player)
     {
         return player.GetComponent<Photon.Pun.PhotonView>().IsMine;
+    }
+}
+
+public static class PlayerExt
+{
+    public static void changeColor(this Player player,string color)
+    {
+        player.GetPlayerInfo().setSetting("Color", color);
+    }
+    public static PlayerInfo GetPlayerInfo(this Player player)
+    {
+        return PlayerInfo.getPlayerInfo(player);
+    }
+    public static GameObject GetPlayerObject(this Player player)
+    {
+        return PlayerInfo.getPlayerObject(player);
     }
 }
 

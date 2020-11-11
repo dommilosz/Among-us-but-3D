@@ -3443,6 +3443,7 @@ MonoBehaviour:
   StartGameButton: {fileID: 800069350}
   PlayerListEntryPrefab: {fileID: 195212, guid: d68bf8413681d9b4aa7328277e632e3f, type: 3}
   levelToLoad: Lobby
+  lobbyScene: Lobby
 --- !u!222 &1310044698
 CanvasRenderer:
   m_ObjectHideFlags: 0
