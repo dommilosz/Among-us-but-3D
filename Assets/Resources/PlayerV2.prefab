@@ -171,6 +171,7 @@ MonoBehaviour:
   - name: PlayerName
     value_str: False
   VentStanding: {fileID: 0}
+  canUse: 0
 --- !u!114 &1074354477615942812
 MonoBehaviour:
   m_ObjectHideFlags: 0

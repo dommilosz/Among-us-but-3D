@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,26 +9,63 @@ public class SettingsRenderer : MonoBehaviour
     public GameObject propPrefab_Editable;
     public GameObject propPrefab;
     public GameObject content;
-    public bool isEdit = false;
+    public GameObject content_edit_prefab;
     // Start is called before the first frame update
     void Start()
     {
-        DrawAll();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        DrawAll();
+        if(content!=null)
+        DrawUneditable();
     }
 
-    public void DrawEditableAt(float y,string name,string value)
+    public void DrawUneditable()
     {
-        var prop = Instantiate(propPrefab_Editable);
-        prop.transform.Find("SettInput").GetComponent<TMP_InputField>().text = value;
-        prop.transform.Find("Image").Find("SettName").GetComponent<TextMeshProUGUI>().text = name;
+        var values = SettingsHandler.getSettings().settings;
+        int y = 20;
+        content.transform.Clear();
+        foreach (var item in values)
+        {
+            DrawAt(y, item.name, item.value_str);
+            y -= 20;
+        }
+    }
 
-        prop.transform.parent = content.transform;
+    public void DrawEditable()
+    {
+        if (!GameObject.Find("Settings_Editor"))
+        {
+            var tmp = GameObject.Instantiate(content_edit_prefab);
+            tmp.name = "Settings_Editor";
+        }
+        var Settings_Editor = GameObject.Find("Settings_Editor");
+        var cnt = Settings_Editor.transform.Find("Image").Find("Scroll View").Find("Viewport").Find("Content");
+        cnt.Clear();
+
+        var values = SettingsHandler.getSettings().settings;
+        int y = -35;
+
+        foreach (var item in values)
+        {
+            DrawEditableAt(y, item.name, item.value_str);
+            y -=50;
+        }
+        cnt.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (-y));
+
+    }
+
+    public void DrawEditableAt(float y, string name, string value)
+    {
+        var Settings_Editor = GameObject.Find("Settings_Editor");
+        var prop = Instantiate(propPrefab_Editable);
+
+        prop.GetComponent<SettingPropertyController>().propertyName = name;
+
+        prop.transform.parent = Settings_Editor.transform.Find("Image").Find("Scroll View").Find("Viewport").Find("Content");
         prop.transform.localPosition = new Vector3(0, y, 0);
     }
     public void DrawAt(float y, string name, string value)
@@ -39,17 +77,17 @@ public class SettingsRenderer : MonoBehaviour
         prop.transform.localPosition = new Vector3(0, y, 0);
     }
 
-    public void DrawAll()
+    public void Show()
     {
-        var values = SettingsHandler.getSettings().settings;
-        int y = isEdit ? -20 : 20;
-        content.transform.Clear();
-        foreach (var item in values)
-        {
-            if (isEdit) DrawEditableAt(y, item.name, item.value_str);
-            if (!isEdit) DrawAt(y, item.name, item.value_str);
+        if (GameObject.Find("Settings_Editor")) return;
+        MouseUnLocker.UnlockMouse();
+        DrawEditable();
+    }
 
-            y -= isEdit ? 40 : 15;
-        }
+    public void Hide()
+    {
+        MouseUnLocker.LockMouse();
+        var Settings_Editor = GameObject.Find("Settings_Editor");
+        Destroy(Settings_Editor);
     }
 }

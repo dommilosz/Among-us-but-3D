@@ -7,6 +7,7 @@ MonoImporter:
   - propPrefab_Editable: {fileID: 2986803383535043643, guid: c432afd9fdde5184b974bda38241ebc0, type: 3}
   - propPrefab: {fileID: 6167438281698695667, guid: 77d993619c815bc40bf870a417147aad, type: 3}
   - content: {instanceID: 0}
+  - content_edit_prefab: {fileID: 1233409241519914723, guid: 27b00c33fab4e6140b98381dcb00cf3d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -81,6 +81,13 @@ public class SettingsHandler : MonoBehaviourPunCallbacks
         sendSettings();
     }
 
+    public static void setSettingStr(string name, string value)
+    {
+        getSettings().settings[getSettings().settings.IndexOf(getSettingItem(name))].value_str = value;
+        getSettings().settings = SettingProperty.checkProps(getSettings().settings);
+        sendSettings();
+    }
+
     public static void sendSettings()
     {
         if (PhotonNetwork.IsMasterClient)
