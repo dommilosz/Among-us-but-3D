@@ -51,7 +51,7 @@ public class VentScript : MonoBehaviour
         {
             var player = collision.gameObject;
             var playerInfo = collision.gameObject.GetComponent<PlayerInfo>();
-            if ((bool)playerInfo.getSetting("isInpostor"))
+            if ((bool)playerInfo.getSetting("isImpostor"))
             {
                 playerInfo.VentStanding = this;
             }

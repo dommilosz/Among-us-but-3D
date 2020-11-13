@@ -16,7 +16,12 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-
+        if (isMine(getPlayer()))
+        {
+            OnPlayerPropertiesUpdate(getPUNPlayer(), getPUNPlayer().CustomProperties);
+            sendSettings();
+        }
+       
     }
 
     // Update is called once per frame
