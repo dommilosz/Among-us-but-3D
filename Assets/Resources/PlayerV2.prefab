@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 7320445781022479848}
   - component: {fileID: -1382387130891829955}
   - component: {fileID: 4788051222799196334}
+  - component: {fileID: 2906926448988881606}
   m_Layer: 0
   m_Name: PlayerV2
   m_TagString: Player
@@ -205,6 +206,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: -1382387130891829955}
+  - {fileID: 6691395182569280036}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -261,6 +263,19 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 39b16fac897216444813b327dc6f9384, type: 2}
   - name: yellow
     material: {fileID: 2100000, guid: 8743e23e9ca6c924aa3ca6ea966cdfe4, type: 2}
+--- !u!114 &2906926448988881606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074354477615942807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d1b459d32f5c64a90ba8f5e8006ca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  labelPrefab: {fileID: 3443684058239920446, guid: 3ecdec449ac31f146a7aac74bddb407f, type: 3}
 --- !u!1 &1074354478144953821
 GameObject:
   m_ObjectHideFlags: 0

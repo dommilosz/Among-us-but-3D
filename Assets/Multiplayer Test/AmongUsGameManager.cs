@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AmongUsGameManager : MonoBehaviourPunCallbacks
 {
@@ -16,6 +17,12 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        if (PhotonNetwork.CurrentRoom == null)
+        {
+            SceneManager.LoadScene("AmongUS3D-LobbyScene");
+            return;
+        }
+
         var players = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (var item in players)

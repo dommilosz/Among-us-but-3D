@@ -28,10 +28,12 @@ public class AmongUsLobbyManager : MonoBehaviour
 
     public void UpdatePlayersCount()
     {
-        int count = PhotonNetwork.PlayerList.Length;
-        playersCount.GetComponent<TextMeshProUGUI>().text = $"{count.ToString()}/10";
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            int count = PhotonNetwork.PlayerList.Length;
+            playersCount.GetComponent<TextMeshProUGUI>().text = $"{count.ToString()}/{PhotonNetwork.CurrentRoom.MaxPlayers}";
 
-
+        }
     }
 
     public void StartGame()

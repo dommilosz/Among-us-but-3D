@@ -161,7 +161,7 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
     {
         string playerName = PlayerNameInput.text;
 
-        if (!playerName.Equals(""))
+        if (!playerName.Equals("") && playerName.Length < 20)
         {
             PhotonNetwork.LocalPlayer.NickName = playerName;
             PhotonNetwork.ConnectUsingSettings();
@@ -170,6 +170,12 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         {
             Debug.LogError("Player Name is invalid.");
         }
+    }
+
+    public void OnLogOutButtonClicked()
+    {
+        PhotonNetwork.Disconnect();
+        SetActivePanel("LoginPanel");
     }
 
     public void OnRoomListButtonClicked()
