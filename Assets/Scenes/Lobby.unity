@@ -362,7 +362,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -172.62479}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &328700344
 MonoBehaviour:
@@ -3959,6 +3959,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersCount: {fileID: 328700342}
+  starting: 0
+  timer: 5
   minPlayers: 7
 --- !u!1001 &1605803073
 PrefabInstance:
@@ -4107,6 +4109,10 @@ PrefabInstance:
     - target: {fileID: 1446199624171668683, guid: 6a060a84d1c0c364589d499ae05dda33, type: 3}
       propertyPath: m_Name
       value: Game Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507556070202069073, guid: 6a060a84d1c0c364589d499ae05dda33, type: 3}
+      propertyPath: viewIdField
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a060a84d1c0c364589d499ae05dda33, type: 3}

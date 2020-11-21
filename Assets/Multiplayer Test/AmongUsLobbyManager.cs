@@ -25,33 +25,35 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
     {
         UpdatePlayersCount();
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (PhotonNetwork.IsMasterClient && Input.GetKeyDown(KeyCode.Return))
         {
             if (starting)
                 changeTimer(false);
             else changeTimer(true);
-                    
+
         }
     }
 
     [PunRPC]
-    private void changeTimer(bool v,float t=5f)
+    private void changeTimer(bool v, float t = 5f)
     {
         timer = t; starting = v;
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonView photonView = PhotonView.Get(this);
-            photonView.RPC("changeTimer", RpcTarget.All,new object[]{v,t});
+            photonView.RPC("changeTimer", RpcTarget.Others, new object[] { v, t });
         }
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        base.OnPlayerEnteredRoom(newPlayer);
         if (PhotonNetwork.IsMasterClient)
             changeTimer(false);
     }
-    public override void OnPlayerLeftRoom(Player newPlayer)
+    public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        base.OnPlayerLeftRoom(otherPlayer);
         if (PhotonNetwork.IsMasterClient)
             changeTimer(false);
     }

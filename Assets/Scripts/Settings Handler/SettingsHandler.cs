@@ -13,7 +13,11 @@ public class SettingsHandler : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-
+        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Settings"))
+        {
+            var settings = (object[])PhotonNetwork.CurrentRoom.CustomProperties["Settings"];
+            LoadValues(settings);
+        }
     }
 
     // Update is called once per frame
