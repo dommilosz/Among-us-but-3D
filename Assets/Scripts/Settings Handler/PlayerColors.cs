@@ -9,7 +9,7 @@ public class PlayerColors : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -20,10 +20,23 @@ public class PlayerColors : MonoBehaviour
         {
             if (((string)playerInfo.getSetting("Color")).ToLower() == item.name)
             {
-                playerInfo.gameObject.GetComponent<MeshRenderer>().material = item.material;
+                if (playerInfo.gameObject.GetComponent<MeshRenderer>() != null)
+                {
+                    playerInfo.gameObject.GetComponent<MeshRenderer>().material = item.material;
+
+                }
+                else
+                {
+                    //playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials[0] = item.material;
+                    {
+                        var mats = playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials;
+                        mats[0] = item.material;
+                        playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials = mats;
+                    }
+                }
             }
         }
-       
+
     }
 }
 

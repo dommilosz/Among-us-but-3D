@@ -8,10 +8,11 @@ using UnityEngine.SceneManagement;
 public class AmongUsGameManager : MonoBehaviourPunCallbacks
 {
     public GameObject playersPlaceHolder;
+    public GameObject playerPrefab;
     // Start is called before the first frame update
     void Start()
     {
-        var player = PhotonNetwork.Instantiate("PlayerV2", transform.position, transform.rotation, 0);
+        var player = PhotonNetwork.Instantiate(playerPrefab.name, transform.position, transform.rotation, 0);
     }
 
     // Update is called once per frame

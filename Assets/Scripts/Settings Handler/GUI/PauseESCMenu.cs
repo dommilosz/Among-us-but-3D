@@ -46,9 +46,7 @@ public class PauseESCMenu : MonoBehaviour
 
     public void LeaveRoom()
     {
-        SceneManager.LoadScene("AmongUS3D-LobbyScene");
-        PhotonNetwork.LeaveRoom();
-        SceneManager.LoadScene("AmongUS3D-LobbyScene");
-        SceneManager.LoadScene("AmongUS3D-LobbyScene");
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.ConnectUsingSettings();
     }
 }

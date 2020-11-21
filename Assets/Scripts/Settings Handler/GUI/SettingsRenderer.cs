@@ -19,19 +19,25 @@ public class SettingsRenderer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(content!=null)
-        DrawUneditable();
+        UpdateProps();
+    }
+
+    public void UpdateProps()
+    {
+        if (content != null)
+            DrawUneditable();
     }
 
     public void DrawUneditable()
     {
         var values = SettingsHandler.getSettings().settings;
-        int y = 20;
-        content.transform.Clear();
+        int y = -20;
+        if (content.transform.childCount != SettingsHandler.getSettings().settings.Count)
+            content.transform.Clear();
         foreach (var item in values)
         {
             DrawAt(y, item.name, item.value_str);
-            y -= 20;
+            y -= 25;
         }
     }
 
@@ -52,7 +58,7 @@ public class SettingsRenderer : MonoBehaviour
         foreach (var item in values)
         {
             DrawEditableAt(y, item.name, item.value_str);
-            y -=50;
+            y -= 50;
         }
         cnt.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (-y));
 
@@ -70,11 +76,22 @@ public class SettingsRenderer : MonoBehaviour
     }
     public void DrawAt(float y, string name, string value)
     {
-        var prop = Instantiate(propPrefab);
-        prop.GetComponent<TextMeshProUGUI>().text = $"{name} : {value}";
+        if (content.transform.Find("settProp_" + name) != null)
+        {
+            var prop = content.transform.Find("settProp_" + name);
+            prop.GetComponent<TextMeshProUGUI>().text = $"{name} : {value}";
+            prop.transform.localPosition = new Vector3(0, y, 0);
+        }
+        else
+        {
+            var prop = Instantiate(propPrefab);
+            prop.GetComponent<TextMeshProUGUI>().text = $"{name} : {value}";
 
-        prop.transform.SetParent(content.transform);
-        prop.transform.localPosition = new Vector3(0, y, 0);
+            prop.transform.SetParent(content.transform);
+            prop.transform.localPosition = new Vector3(0, y, 0);
+
+            prop.name = "settProp_" + name;
+        }
     }
 
     public void Show()
