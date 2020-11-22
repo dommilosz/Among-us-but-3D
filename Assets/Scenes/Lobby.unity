@@ -919,7 +919,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh48590
+  m_Name: pb_Mesh17420
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3959,8 +3959,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersCount: {fileID: 328700342}
+  roleCanvas: {fileID: 2271276488775441006, guid: 87c3e96920ff16c4192d09dfb46acb52, type: 3}
   starting: 0
   timer: 5
+  role_timer: 5
+  showingRole: 0
   minPlayers: 7
 --- !u!1001 &1605803073
 PrefabInstance:
@@ -4332,7 +4335,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh48544
+  m_Name: pb_Mesh17366
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

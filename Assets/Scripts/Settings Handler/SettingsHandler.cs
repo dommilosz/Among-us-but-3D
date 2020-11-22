@@ -140,7 +140,7 @@ public static class SettingsValues
     {
         List<PlayerProperty> properties = new List<PlayerProperty>();
 
-        properties.Add(new PlayerProperty("Color", Enums.Colors.RED));
+        properties.Add(new PlayerProperty("Color", "red"));
         properties.Add(new PlayerProperty("isImpostor", false));
         properties.Add(new PlayerProperty("inVent", false));
         properties.Add(new PlayerProperty("PlayerName", false));

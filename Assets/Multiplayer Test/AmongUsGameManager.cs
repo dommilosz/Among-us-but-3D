@@ -54,4 +54,23 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
 
         Destroy(PlayerInfo.getPlayerObject(otherPlayer));
     }
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+        
+        List<string> claimed_colors = new List<string>();
+        foreach (var item in PhotonNetwork.PlayerList)
+        {
+            var obj = GameObject.Find("Color_" + (string)item.GetPlayerInfo().getSetting("Color"));
+            obj.transform.Find("off").gameObject.SetActive(true);
+            claimed_colors.Add((string)item.GetPlayerInfo().getSetting("Color"));
+        }
+        foreach (var item in Enums.Colors.AllColors)
+        {
+            if (!claimed_colors.Contains(item))
+            {
+                newPlayer.GetPlayerInfo().setSetting("Color", item);
+            }
+        } 
+    }
 }

@@ -11,8 +11,11 @@ using Random = UnityEngine.Random;
 public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
 {
     public GameObject playersCount;
+    public GameObject roleCanvas;
     public bool starting = false;
     public float timer = 5;
+    public float role_timer = 5;
+    public bool showingRole = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +32,20 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
         {
             if (starting)
                 changeTimer(false);
-            else changeTimer(true);
-
+            else if(enoughPlayers()) changeTimer(true);
         }
+
+        if (showingRole)
+        {
+            role_timer -= Time.deltaTime;
+            if (role_timer < 0) LoadGameScene();
+        }
+    }
+
+    private void LoadGameScene()
+    {
+        showingRole = false;
+        PhotonNetwork.LoadLevel($"AmongUs_{(string)SettingsHandler.getSetting("Map")}");
     }
 
     [PunRPC]
@@ -42,6 +56,32 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
         {
             PhotonView photonView = PhotonView.Get(this);
             photonView.RPC("changeTimer", RpcTarget.Others, new object[] { v, t });
+        }
+    }
+
+    [PunRPC]
+    private void showRole()
+    {
+        showingRole = true;
+        if (GameObject.Find("Role_Canvas") == null)
+        {
+            GameObject.Instantiate(roleCanvas).name = "Role_Canvas";
+        }
+        var canvas = GameObject.Find("Role_Canvas");
+        bool isImpostor = (bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("isImpostor");
+        int impCount = (int)SettingsHandler.getSetting("Impostors");
+        int oppCount = isImpostor? PhotonNetwork.PlayerList.Length-impCount : (int)SettingsHandler.getSetting("Impostors");
+        string oppRole = isImpostor ? "Crewmates" : (impCount > 1 ? "Impostors" : "Impostor");
+
+        canvas.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = $"There is {oppCount} <b><color={(isImpostor?"green":"red")}>{oppRole}</color></b> Among Us";
+
+        canvas.transform.Find("Crewmate").gameObject.SetActive(!isImpostor);
+        canvas.transform.Find("Impostor").gameObject.SetActive(isImpostor);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("showRole", RpcTarget.Others);
         }
     }
 
@@ -108,10 +148,11 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
 
                 PhotonNetwork.PlayerList[impo_rnd].GetPlayerInfo().setSetting("isImpostor", true);
             }
-            PhotonNetwork.LoadLevel($"AmongUs_{(string)SettingsHandler.getSetting("Map")}");
+            showRole();
         }
     }
     public int minPlayers = 7;
+
     public bool canStart()
     {
         if (!enoughPlayers()) return false;

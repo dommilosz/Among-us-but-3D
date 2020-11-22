@@ -18,9 +18,6 @@ public class Enums : MonoBehaviour
     }
     public static class Colors
     {
-        public static string RED = "red";
-        public static string BLUE = "blue";
-
-        //TO BE CONTINUED
+        public static string[] AllColors = new string[] { "red","blue","green","pink","orange","yellow","gray","white","purple","brown","aqua","lime"};
     }
 }
