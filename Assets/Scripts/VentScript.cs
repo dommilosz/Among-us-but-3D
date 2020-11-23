@@ -81,7 +81,9 @@ public class VentScript : MonoBehaviour
         var playerInfo = PlayerInfo.getPlayerInfo();
         var player = PlayerInfo.getPlayer();
         playerInfo.setSetting("inVent", true);
-        playerInfo.setCanMove(false);
+        playerInfo.canMove = false;
+
+        player.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 
         tpPlayerToVent(vent);
     }
@@ -92,8 +94,8 @@ public class VentScript : MonoBehaviour
         var playerInfo = PlayerInfo.getPlayerInfo();
 
         Destroy(ventscr.SpawnedVentCanvas);
-        playerInfo.setSetting("inVent", true);
-        playerInfo.setCanMove(true);
+        playerInfo.setSetting("inVent", false);
+        playerInfo.canMove = true;
     }
     public void ventNext()
     {

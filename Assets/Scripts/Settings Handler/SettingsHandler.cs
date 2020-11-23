@@ -23,7 +23,10 @@ public class SettingsHandler : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        settings = SettingProperty.checkProps(settings);
+        if (SettingProperty.checkProps(settings))
+        {
+            sendSettings();
+        }
     }
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
@@ -88,7 +91,7 @@ public class SettingsHandler : MonoBehaviourPunCallbacks
     public static void setSettingStr(string name, string value)
     {
         getSettings().settings[getSettings().settings.IndexOf(getSettingItem(name))].value_str = value;
-        getSettings().settings = SettingProperty.checkProps(getSettings().settings);
+        SettingProperty.checkProps(getSettings().settings);
         sendSettings();
     }
 
@@ -136,14 +139,14 @@ public static class SettingsValues
         return properties.ToArray();
     }
 
-    internal static PlayerProperty[] ReturnDefaultPlayerSettings()
+    internal static SettingProperty[] ReturnDefaultPlayerSettings()
     {
-        List<PlayerProperty> properties = new List<PlayerProperty>();
+        List<SettingProperty> properties = new List<SettingProperty>();
 
-        properties.Add(new PlayerProperty("Color", "red"));
-        properties.Add(new PlayerProperty("isImpostor", false));
-        properties.Add(new PlayerProperty("inVent", false));
-        properties.Add(new PlayerProperty("PlayerName", false));
+        properties.Add(new SettingProperty("Color", "red"));
+        properties.Add(new SettingProperty("isImpostor", false));
+        properties.Add(new SettingProperty("inVent", false));
+        properties.Add(new SettingProperty("PlayerName", false));
 
         return properties.ToArray();
     }
@@ -158,6 +161,7 @@ public class SettingProperty
     public object value { get; private set; }
     [SerializeField]
     public string value_str;
+    public delegate void SendCallbackDelegate(List<SettingProperty> props);
     public SettingProperty() { }
     public SettingProperty(string _name, object _value) { name = _name; value = _value; value_str = value.ToString(); }
 
@@ -174,7 +178,7 @@ public class SettingProperty
         this.value = value;
         this.value_str = this.value.ToString();
     }
-    public static List<SettingProperty> checkProps(List<SettingProperty> props)
+    public static bool checkProps(List<SettingProperty> props)
     {
         bool changed = false;
         foreach (var item in props)
@@ -194,63 +198,6 @@ public class SettingProperty
             catch { }
             item.value_str = item.value.ToString();
         }
-        if (changed)
-        {
-            SettingsHandler.sendSettings();
-        }
-        return props;
-    }
-}
-
-[Serializable]
-public class PlayerProperty
-{
-    [SerializeField]
-    public string name;
-    [SerializeField]
-    public object value { get; private set; }
-    [SerializeField]
-    public string value_str;
-    public PlayerProperty() { }
-    public PlayerProperty(string _name, object _value) { name = _name; value = _value; value_str = value.ToString(); }
-
-    public object parseValue(string obj)
-    {
-        if (value is int) return Convert.ToInt32(obj);
-        if (value is float) return float.Parse(obj);
-        if (value is bool) return Convert.ToBoolean(obj);
-
-        return obj;
-    }
-    public void setValue(object value)
-    {
-        this.value = value;
-        this.value_str = this.value.ToString();
-    }
-    public static List<PlayerProperty> checkProps(List<PlayerProperty> props,PlayerInfo info)
-    {
-        bool changed = false;
-        foreach (var item in props)
-        {
-            try
-            {
-                if (item.value.ToString() == item.value_str)
-                {
-
-                }
-                else
-                {
-                    item.setValue(item.parseValue(item.value_str));
-                    changed = true;
-                }
-            }
-            catch { }
-            item.value_str = item.value.ToString();
-        }
-        if (changed)
-        {
-            info.sendSettings();
-        }
-        return props;
+        return changed;
     }
 }

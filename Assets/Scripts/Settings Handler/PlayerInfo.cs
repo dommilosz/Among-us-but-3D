@@ -10,9 +10,10 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerInfo : MonoBehaviourPunCallbacks
 {
-    public List<PlayerProperty> settings = SettingsValues.ReturnDefaultPlayerSettings().ToList();
+    public List<SettingProperty> settings = SettingsValues.ReturnDefaultPlayerSettings().ToList();
     public VentScript VentStanding = null;
     public bool canUse = false;
+    public bool canMove { get { return GetComponent<PlayerMovement>().canMove; } set {GetComponent<PlayerMovement>().canMove = value; } }
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,28 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         {
             OnPlayerPropertiesUpdate(getPUNPlayer(), getPUNPlayer().CustomProperties);
             sendSettings();
+
+            List<string> claimed_colors = new List<string>();
+            foreach (var item in PhotonNetwork.PlayerList)
+            {
+                try
+                {
+                    claimed_colors.Add((string)item.GetPlayerInfo().getSetting("Color"));
+                }
+                catch { }
+            }
+
+            if (claimed_colors.Contains(PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Color")))
+            {
+                foreach (var item in Enums.Colors.AllColors)
+                {
+                    if (!claimed_colors.Contains(item))
+                    {
+                        setSetting("Color", item);
+                        break;
+                    }
+                }
+            }
         }
        
     }
@@ -27,7 +50,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        settings = PlayerProperty.checkProps(settings, this);
+        if (SettingProperty.checkProps(settings)) sendSettings();
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -73,7 +96,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         }
         return null;
     }
-    public PlayerProperty getSettingItem(string name)
+    public SettingProperty getSettingItem(string name)
     {
         foreach (var item in settings)
         {
@@ -96,33 +119,6 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         Hashtable ht = new Hashtable();
         ht.Add("Data", ReturnValues());
         getPUNPlayer().SetCustomProperties(ht);
-    }
-
-    float backup_ForwardSpeed;
-    float backup_BackwardSpeed;
-    float backup_StrafeSpeed;
-    float backup_JumpForce;
-    public void setCanMove(bool canMove)
-    {
-        var pm = this.GetComponentInParent<PlayerMovement>();
-        if (pm.moveSpeed > 0 && pm.jumpForce > 0)
-        {
-            backup_ForwardSpeed = pm.moveSpeed;
-            backup_JumpForce = pm.jumpForce;
-        }
-        if (!canMove)
-        {
-            pm.moveSpeed = 0;
-            pm.jumpForce = 0;
-
-            this.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-        }
-        else
-        {
-            pm.moveSpeed = backup_ForwardSpeed;
-            pm.jumpForce = backup_JumpForce;
-        }
-
     }
 
     public static GameObject getPlayer()

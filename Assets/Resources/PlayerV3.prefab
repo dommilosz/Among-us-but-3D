@@ -87,6 +87,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCam: {fileID: 1074354478455525079}
   orientation: {fileID: 1074354478374722408}
+  canMove: 1
+  canJump: 1
+  canRotate: 1
+  canCrouch: 1
   moveSpeed: 4500
   maxSpeed: 20
   grounded: 0
@@ -372,6 +376,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1074354477615942806}
+  x_Offset: 0
+  y_Offset: 1.2
+  z_Offset: 0
 --- !u!45 &7953189896319924291
 Skybox:
   m_ObjectHideFlags: 0

@@ -18,4 +18,9 @@ public static class TransformEx
         transform.position = new Vector3(transform.position.x + x, transform.position.y + y, transform.position.z + z);
         return transform;
     }
+    
+    public static void Destroy(this GameObject go)
+    {
+        GameObject.Destroy(go);
+    }
 }

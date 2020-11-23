@@ -8,7 +8,12 @@ public class PlayerMovement : MonoBehaviour {
     //Assingables
     public Transform playerCam;
     public Transform orientation;
-    
+
+    public bool canMove = true;
+    public bool canJump = true;
+    public bool canRotate = true;
+    public bool canCrouch = true;
+
     //Other
     private Rigidbody rb;
 
@@ -85,6 +90,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void StartCrouch() {
+        if (!canCrouch) return;
         transform.localScale = crouchScale;
         transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
         if (rb.velocity.magnitude > 0.5f) {
@@ -100,6 +106,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Movement() {
+        if (!canMove) return;
         //Extra gravity
         rb.AddForce(Vector3.down * Time.deltaTime * 10);
         
@@ -146,6 +153,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Jump() {
+        if (!canJump) return;
         if (grounded && readyToJump) {
             readyToJump = false;
 
@@ -170,6 +178,7 @@ public class PlayerMovement : MonoBehaviour {
     
     private float desiredX;
     private void Look() {
+        if (!canRotate) return;
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
 

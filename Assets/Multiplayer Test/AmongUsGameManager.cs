@@ -26,6 +26,19 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
 
         var players = GameObject.FindGameObjectsWithTag("Player");
 
+        List<string> names = new List<string>();
+        foreach (var item in players)
+        {
+            if (name.Contains(item.GetComponent<PhotonView>().Owner.UserId))
+            {
+                item.Destroy();
+            }
+            else
+            {
+                names.Add(item.GetComponent<PhotonView>().Owner.UserId);
+            }
+        }
+
         foreach (var item in players)
         {
             item.name = "Player " + item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName;
@@ -33,7 +46,7 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
             item.transform.parent = playersPlaceHolder.transform;
             if (!PlayerInfo.isMine(item))
             {
-                if(item.transform.Find("PlayerCamera")!=null&& item.transform.Find("Point Light") != null)
+                if (item.transform.Find("PlayerCamera") != null && item.transform.Find("Point Light") != null)
                 {
                     Destroy(item.transform.Find("PlayerCamera").gameObject);
                     Destroy(item.transform.Find("Point Light").gameObject);
@@ -43,7 +56,8 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
             }
             else
             {
-                item.name = "Player " + item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName+ " (ME)";
+                item.name = "Player " + item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName + " (ME)";
+                item.transform.Find("Orientation").Find("playerbestmodel").gameObject.active = false;
             }
         }
     }
@@ -57,20 +71,5 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
-        
-        List<string> claimed_colors = new List<string>();
-        foreach (var item in PhotonNetwork.PlayerList)
-        {
-            var obj = GameObject.Find("Color_" + (string)item.GetPlayerInfo().getSetting("Color"));
-            obj.transform.Find("off").gameObject.SetActive(true);
-            claimed_colors.Add((string)item.GetPlayerInfo().getSetting("Color"));
-        }
-        foreach (var item in Enums.Colors.AllColors)
-        {
-            if (!claimed_colors.Contains(item))
-            {
-                newPlayer.GetPlayerInfo().setSetting("Color", item);
-            }
-        } 
     }
 }

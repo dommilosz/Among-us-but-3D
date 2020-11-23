@@ -36,6 +36,12 @@ public class PauseESCMenu : MonoBehaviour
     {
         GameObject.Instantiate(menuPrefab).name = "PauseMenu";
         var menu = GameObject.Find("PauseMenu");
+
+        foreach (var item in GameObject.FindGameObjectsWithTag("GUI"))
+        {
+            item.Destroy();
+        }
+
         MouseUnLocker.UnlockMouse();
     }
 
