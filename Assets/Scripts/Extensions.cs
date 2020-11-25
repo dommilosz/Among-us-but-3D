@@ -21,6 +21,19 @@ public static class TransformEx
     
     public static void Destroy(this GameObject go)
     {
-        GameObject.Destroy(go);
+        try
+        {
+            GameObject.Destroy(go);
+        }
+        catch { }
+    }
+
+    public static void PUNDestroy(this GameObject go)
+    {
+        try
+        {
+            Photon.Pun.PhotonNetwork.Destroy(go);
+        }
+        catch { }
     }
 }

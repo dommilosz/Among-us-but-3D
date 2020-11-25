@@ -6,19 +6,24 @@ public class PlayerActions : MonoBehaviour
 {
     public GameObject overlayCanvas;
     public GameObject mapCanvas;
+    GameObject canvas = null;
 
     // Start is called before the first frame update
     void Start()
     {
         if (GameObject.Find("OverlayCanvas") == null)
         {
-            var canvas = Instantiate(overlayCanvas);
+            canvas = Instantiate(overlayCanvas);
             canvas.name = "OverlayCanvas";
         }
     }
     // Update is called once per frame
     void Update()
     {
+        if (GameObject.Find("OverlayCanvas") == null)
+        {
+            Start();
+        }
         var canvas = GameObject.Find("OverlayCanvas");
         //0: Use
         //1: Kill

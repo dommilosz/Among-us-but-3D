@@ -7,12 +7,19 @@ using UnityEngine.SceneManagement;
 
 public class AmongUsGameManager : MonoBehaviourPunCallbacks
 {
-    public GameObject playersPlaceHolder;
+    GameObject playersPlaceHolder;
     public GameObject playerPrefab;
     // Start is called before the first frame update
     void Start()
     {
-        var player = PhotonNetwork.Instantiate(playerPrefab.name, transform.position, transform.rotation, 0);
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+        playersPlaceHolder = GameObject.Find("Players");
+    }
+
+    private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
+    {
+        PhotonNetwork.LocalPlayer.GetPlayerObject().transform.position = GetGameManager().transform.position;
+        PhotonNetwork.LocalPlayer.GetPlayerObject().transform.rotation = GetGameManager().transform.rotation;
     }
 
     // Update is called once per frame
@@ -25,20 +32,7 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
         }
 
         var players = GameObject.FindGameObjectsWithTag("Player");
-
-        List<string> names = new List<string>();
-        foreach (var item in players)
-        {
-            if (name.Contains(item.GetComponent<PhotonView>().Owner.UserId))
-            {
-                item.Destroy();
-            }
-            else
-            {
-                names.Add(item.GetComponent<PhotonView>().Owner.UserId);
-            }
-        }
-
+        DontDestroyOnLoad(GameObject.Find("Players"));
         foreach (var item in players)
         {
             item.name = "Player " + item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName;
@@ -71,5 +65,29 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
+    }
+
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+    }
+
+    public void SpawnPlayer(Player player)
+    {
+        //if (!PhotonNetwork.IsMasterClient) return;
+        if (GameObject.Find("Player " + PhotonNetwork.LocalPlayer.NickName) == null)
+        {
+            SpawnPlayerF(player);
+        }
+    }
+    public void SpawnPlayerF(Player player)
+    {
+        var playerObj = PhotonNetwork.Instantiate(playerPrefab.name, transform.position, transform.rotation, 0);
+        playerObj.name = "Player " + player.NickName;
+    }
+
+    public static AmongUsGameManager GetGameManager()
+    {
+        return GameObject.Find("Game Manager").GetComponent<AmongUsGameManager>();
     }
 }

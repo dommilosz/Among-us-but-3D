@@ -20,7 +20,7 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-
+        AmongUsGameManager.GetGameManager().SpawnPlayer(PhotonNetwork.LocalPlayer);
     }
 
     // Update is called once per frame
