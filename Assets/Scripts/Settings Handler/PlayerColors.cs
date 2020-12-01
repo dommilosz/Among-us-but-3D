@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerColors : MonoBehaviour
 {
     public MaterialObj[] colors;
+    public Material[] colors_outlines;
+    public Material[] colors_outlines_red;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +35,12 @@ public class PlayerColors : MonoBehaviour
                     {
                         var mats = playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials;
                         mats[0] = item.material;
+                        mats[0] = colors_outlines[colors.ToList().IndexOf(item)];
+                        if (PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().SelectedPlayer == gameObject.GetComponent<PhotonView>().Owner.UserId)
+                        {
+                            mats[0] = colors_outlines_red[colors.ToList().IndexOf(item)];
+                        }
+                        
                         playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials = mats;
                     }
                 }

@@ -119,7 +119,7 @@ public static class SettingsValues
         properties.Add(new SettingProperty("Emergency_Cooldown", 30));
 
         properties.Add(new SettingProperty("KillCooldown", 45f));
-        properties.Add(new SettingProperty("KillDistance", 10f));
+        properties.Add(new SettingProperty("KillDistance", 10));
 
         properties.Add(new SettingProperty("PlayerSpeed", 8f));
         properties.Add(new SettingProperty("PlayerVision", 50f));
@@ -146,7 +146,9 @@ public static class SettingsValues
         properties.Add(new SettingProperty("Color", "red"));
         properties.Add(new SettingProperty("isImpostor", false));
         properties.Add(new SettingProperty("inVent", false));
-        properties.Add(new SettingProperty("PlayerName", false));
+        properties.Add(new SettingProperty("PlayerName", ""));
+        properties.Add(new SettingProperty("Alive", true));
+        properties.Add(new SettingProperty("Invisible", false));
 
         return properties.ToArray();
     }

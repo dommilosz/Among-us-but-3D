@@ -14,12 +14,13 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     public VentScript VentStanding = null;
     public bool canUse = false;
     public bool canMove { get { return GetComponent<PlayerMovement>().canMove; } set {GetComponent<PlayerMovement>().canMove = value; } }
+
     // Start is called before the first frame update
     void Start()
     {
+        settings = SettingsValues.ReturnDefaultPlayerSettings().ToList();
         if (isMine(getPlayer()))
         {
-            OnPlayerPropertiesUpdate(getPUNPlayer(), getPUNPlayer().CustomProperties);
             sendSettings();
 
             List<string> claimed_colors = new List<string>();
@@ -50,6 +51,13 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        if (!(bool)getSetting("Alive")|| (bool)getSetting("inVent")) 
+        {
+            setSetting("Invisible", true);
+        }else if ((bool)getSetting("Invisible"))
+        {
+            setSetting("Invisible", false);
+        }
         if (SettingProperty.checkProps(settings)) sendSettings();
     }
 
@@ -165,6 +173,15 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     public static bool isMine(GameObject player)
     {
         return player.GetComponent<Photon.Pun.PhotonView>().IsMine;
+    }
+
+    public static Player getPlayerByID(string userID)
+    {
+        foreach (var item in PhotonNetwork.PlayerList)
+        {
+            if (item.UserId == userID) return item;
+        }
+        return null;
     }
 }
 

@@ -20,11 +20,14 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LocalPlayer.GetPlayerObject().transform.position = GetGameManager().transform.position;
         PhotonNetwork.LocalPlayer.GetPlayerObject().transform.rotation = GetGameManager().transform.rotation;
+
+        PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillCd = (float)SettingsHandler.getSetting("KillCooldown");
     }
 
     // Update is called once per frame
     void Update()
     {
+        playersPlaceHolder = GameObject.Find("Players");
         if (PhotonNetwork.CurrentRoom == null)
         {
             SceneManager.LoadScene("AmongUS3D-LobbyScene");
@@ -37,21 +40,30 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
         {
             item.name = "Player " + item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName;
             item.GetComponent<PlayerInfo>().setSetting("PlayerName", item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName);
-            item.transform.parent = playersPlaceHolder.transform;
+            item.transform.SetParent(playersPlaceHolder.transform);
             if (!PlayerInfo.isMine(item))
             {
+                if ((bool)item.GetComponent<PlayerInfo>().getSetting("Invisible"))
+                {
+                    item.gameObject.SetActive(false);
+                }
+                else
+                {
+                    item.gameObject.SetActive(true);
+                }
                 if (item.transform.Find("PlayerCamera") != null && item.transform.Find("Point Light") != null)
                 {
                     Destroy(item.transform.Find("PlayerCamera").gameObject);
                     Destroy(item.transform.Find("Point Light").gameObject);
 
                     item.GetComponent<PlayerActions>().enabled = false;
+                    item.GetComponent<KillScript>().enabled = false;
                 }
             }
             else
             {
                 item.name = "Player " + item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName + " (ME)";
-                item.transform.Find("Orientation").Find("playerbestmodel").gameObject.active = false;
+                item.transform.Find("Orientation").Find("playerbestmodel").gameObject.SetActive(false);
             }
         }
     }

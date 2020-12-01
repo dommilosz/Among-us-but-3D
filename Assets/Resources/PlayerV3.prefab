@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -1382387130891829955}
   - component: {fileID: 4788051222799196334}
   - component: {fileID: 2906926448988881606}
+  - component: {fileID: 81768243503864706}
   m_Layer: 0
   m_Name: PlayerV3
   m_TagString: Player
@@ -217,6 +218,32 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 39b16fac897216444813b327dc6f9384, type: 2}
   - name: yellow
     material: {fileID: 2100000, guid: 8743e23e9ca6c924aa3ca6ea966cdfe4, type: 2}
+  colors_outlines:
+  - {fileID: 2100000, guid: 0f91a5e3a88e32d46ba9e5f56b8d5e44, type: 2}
+  - {fileID: 2100000, guid: b583ed5ef1778f1489b3e072c57b1ebf, type: 2}
+  - {fileID: 2100000, guid: 6597837e3f884aa43945b8912681f6df, type: 2}
+  - {fileID: 2100000, guid: 0e2810fd2c602244daf962100fbe701b, type: 2}
+  - {fileID: 2100000, guid: 3d5b8900687927c439ba71e66840cba1, type: 2}
+  - {fileID: 2100000, guid: 223f55c2f2d254b4ba0aee3839324700, type: 2}
+  - {fileID: 2100000, guid: 3f017ded021e0a34697f636187dcf5e4, type: 2}
+  - {fileID: 2100000, guid: 451a93e057aa56e4ba125ee81fcd1b1f, type: 2}
+  - {fileID: 2100000, guid: b1ad999a80c628241940368093b25e56, type: 2}
+  - {fileID: 2100000, guid: f3193598edc0dfa47b9f9b7b789d8a58, type: 2}
+  - {fileID: 2100000, guid: 97a037d9cf3c8d9458637105b8e5c229, type: 2}
+  - {fileID: 2100000, guid: 5b134982a63d72d45bc5ffce00214a9b, type: 2}
+  colors_outlines_red:
+  - {fileID: 2100000, guid: cc341334fa11e164dbec39188f0d66b1, type: 2}
+  - {fileID: 2100000, guid: e8ecd5f03d647134085993c19aa4ee9e, type: 2}
+  - {fileID: 2100000, guid: 376bda78a2c5b11458ce1bec72790a01, type: 2}
+  - {fileID: 2100000, guid: cf7f7d44a3b409b43b575277690be10d, type: 2}
+  - {fileID: 2100000, guid: e0414c6c914e95b499a2121f5840d753, type: 2}
+  - {fileID: 2100000, guid: 4bbc65e3513e5474fb54877ca12a26c8, type: 2}
+  - {fileID: 2100000, guid: accd8414fb6575043a403ddb05ad027c, type: 2}
+  - {fileID: 2100000, guid: 537bf85fef26f4446b622617b06fbe36, type: 2}
+  - {fileID: 2100000, guid: 4a9e846331222d74099f0076a270c853, type: 2}
+  - {fileID: 2100000, guid: b629a44ba4f9f05489cfb0738d6719eb, type: 2}
+  - {fileID: 2100000, guid: 43925982f3da395448afea364a5b380e, type: 2}
+  - {fileID: 2100000, guid: bfbe424e8fe44844a95ef9d66ae9d0dd, type: 2}
 --- !u!114 &2906926448988881606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +258,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   labelPrefab: {fileID: 3443684058239920446, guid: 3ecdec449ac31f146a7aac74bddb407f, type: 3}
   YOffset: 2
+--- !u!114 &81768243503864706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074354477615942807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e043a8c0abaade4cb02e1944684f41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KillCd: 0
+  KillParticleSystem: {fileID: 7262533682901903737, guid: 4d1e6de219d2535478acb57603690e89, type: 3}
+  KilledByCanvas: {fileID: 8197197659547483501, guid: 0a6378aff7322f64db80ca6be9cda735, type: 3}
+  bodyPrefab: {fileID: 0}
+  SelectedPlayer: 
 --- !u!1 &1074354478374722409
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,7 +506,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.7
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

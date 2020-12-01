@@ -71,7 +71,7 @@ public class SettingsRenderer : MonoBehaviour
 
         prop.GetComponent<SettingPropertyController>().propertyName = name;
 
-        prop.transform.parent = Settings_Editor.transform.Find("Image").Find("Scroll View").Find("Viewport").Find("Content");
+        prop.transform.SetParent(Settings_Editor.transform.Find("Image").Find("Scroll View").Find("Viewport").Find("Content"));
         prop.transform.localPosition = new Vector3(0, y, 0);
     }
     public void DrawAt(float y, string name, string value)

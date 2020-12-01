@@ -27,6 +27,14 @@ public static class TransformEx
         }
         catch { }
     }
+    public static void Destroy(this GameObject go,float timeout)
+    {
+        try
+        {
+            GameObject.Destroy(go,timeout);
+        }
+        catch { }
+    }
 
     public static void PUNDestroy(this GameObject go)
     {

@@ -1,3 +1,5 @@
+using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,37 +33,58 @@ public class PlayerActions : MonoBehaviour
         //3: Sabotage
         //4: Vent
 
-        canvas.transform.GetChild(0).gameObject.SetActive(false);
-        canvas.transform.GetChild(1).gameObject.SetActive(false);
-        canvas.transform.GetChild(3).gameObject.SetActive(false);
+        var useButton = canvas.transform.GetChild(0).gameObject;
+        var killButton = canvas.transform.GetChild(1).gameObject;
+        var reportButton = canvas.transform.GetChild(2).gameObject;
+        var sabotageButton = canvas.transform.GetChild(3).gameObject;
+        var ventButton = canvas.transform.GetChild(4).gameObject;
+
+        useButton.SetActive(false);
+        killButton.SetActive(false);
+        sabotageButton.SetActive(false);
 
         var playerInfo = PlayerInfo.getPlayerInfo();
         var player = PlayerInfo.getPlayer();
         if ((bool)playerInfo.getSetting("isImpostor"))
         {
-            canvas.transform.GetChild(3).gameObject.SetActive(true);
-            canvas.transform.GetChild(0).gameObject.SetActive(false);
-            canvas.transform.GetChild(1).gameObject.SetActive(true);
+            sabotageButton.SetActive(true);
+            useButton.SetActive(false);
+            killButton.SetActive(true);
+
+            int killCD = (int)Math.Round(PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillCd);
+            if (PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillCd == 0)
+            {
+                killButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"KILL (Ready)";
+            }
+            else
+            {
+                killButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"KILL ({killCD})";
+            }
+            
         }
         else
         {
-            canvas.transform.GetChild(3).gameObject.SetActive(false);
-            canvas.transform.GetChild(0).gameObject.SetActive(true);
-            canvas.transform.GetChild(1).gameObject.SetActive(false);
+            sabotageButton.SetActive(false);
+            useButton.gameObject.SetActive(true);
+            killButton.gameObject.SetActive(false);
         }
-        if (playerInfo.VentStanding!=null|| (bool)playerInfo.getSetting("inVent"))
+        if (playerInfo.VentStanding != null || (bool)playerInfo.getSetting("inVent"))
         {
-            canvas.transform.GetChild(3).gameObject.SetActive(false);
-            canvas.transform.GetChild(4).gameObject.SetActive(true);
+            sabotageButton.SetActive(false);
+            ventButton.SetActive(true);
         }
         else
         {
-            canvas.transform.GetChild(4).gameObject.SetActive(false);
+            ventButton.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             ToggleMap();
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            KillAction();
         }
 
         if (gameObject.transform.position.y < -1)
@@ -97,17 +120,17 @@ public class PlayerActions : MonoBehaviour
 
     public static void ReportAction()
     {
-        
+
     }
 
     public static void KillAction()
     {
-
+        PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillClosestPlayer();
     }
 
     public void ToggleMap()
     {
-        if (GameObject.Find("MapCanvas(Clone)") !=null)
+        if (GameObject.Find("MapCanvas(Clone)") != null)
         {
             Destroy(GameObject.Find("MapCanvas(Clone)"));
         }

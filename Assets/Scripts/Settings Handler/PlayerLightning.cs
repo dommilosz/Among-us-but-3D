@@ -22,6 +22,11 @@ public class PlayerLightning : MonoBehaviour
         {
             lc.range = (float)SettingsHandler.getSetting("PlayerVision");
         }
-        
+
+        if (!(bool)PlayerInfo.getPlayerInfo().getSetting("Alive"))
+        {
+            lc.range = 300;
+        }
+
     }
 }
