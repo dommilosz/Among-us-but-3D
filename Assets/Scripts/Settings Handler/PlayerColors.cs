@@ -7,45 +7,56 @@ using System.Linq;
 
 public class PlayerColors : MonoBehaviour
 {
-    public MaterialObj[] colors;
-    public Material[] colors_outlines;
-    public Material[] colors_outlines_red;
+    public Shader OutlineShader;
+    public Shader TransparencyShader;
+    public Color mainColor = new Color(255,0,0);
+    public Color outlineColor = new Color(0,0,0);
+    public float outlineWidth = 0.007f;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        var playerInfo = gameObject.GetComponent<PlayerInfo>();
+        var mats = playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials;
+        
+        playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials = mats;
     }
 
     // Update is called once per frame
     void Update()
     {
         var playerInfo = gameObject.GetComponent<PlayerInfo>();
-        foreach (var item in colors)
-        {
-            if (((string)playerInfo.getSetting("Color")).ToLower() == item.name)
-            {
-                if (playerInfo.gameObject.GetComponent<MeshRenderer>() != null)
-                {
-                    playerInfo.gameObject.GetComponent<MeshRenderer>().material = item.material;
+        outlineWidth = 0.007f;
+        outlineColor = new Color(0, 0, 0);
+        mainColor = Enums.Colors.getColorByName((string)playerInfo.getSetting("Color"));
 
-                }
-                else
-                {
-                    //playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials[0] = item.material;
-                    {
-                        var mats = playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials;
-                        mats[0] = item.material;
-                        mats[0] = colors_outlines[colors.ToList().IndexOf(item)];
-                        if (PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().SelectedPlayer == gameObject.GetComponent<PhotonView>().Owner.UserId)
-                        {
-                            mats[0] = colors_outlines_red[colors.ToList().IndexOf(item)];
-                        }
-                        
-                        playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials = mats;
-                    }
-                }
-            }
+        if ((bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("isImpostor") && PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().SelectedPlayer == gameObject.GetComponent<PhotonView>().Owner.UserId)
+        {
+            outlineColor = new Color(0.8f, 0, 0);
+            outlineWidth = 0.02f;
         }
+
+        var mats = transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials;
+
+        if (!(bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Alive")&&!(bool)playerInfo.getSetting("Alive"))
+        {
+            mainColor.a = 0.3f;
+
+            mats[0] = new Material(TransparencyShader);
+            mats[0].SetColor("_Color", mainColor);
+        }
+        else
+        {
+            mats[0] = new Material(OutlineShader);
+            mats[0].SetColor("_Color", mainColor);
+            mats[0].SetColor("_OutlineColor", outlineColor);
+            mats[0].SetFloat("_Outline", outlineWidth);
+        }
+
+
+        transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials = mats;
+
+
 
     }
 }

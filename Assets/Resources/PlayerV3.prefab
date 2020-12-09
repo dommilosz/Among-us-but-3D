@@ -193,57 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10168c4d6250db947862c96bcf516a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors:
-  - name: red
-    material: {fileID: 2100000, guid: 73ab7c6b109034fa98abdd4e5ce22c55, type: 2}
-  - name: blue
-    material: {fileID: 2100000, guid: 554f546338711ee4d8dd065932742bad, type: 2}
-  - name: brown
-    material: {fileID: 2100000, guid: bcce1aa21d2510a408b5b6ea61ebdffb, type: 2}
-  - name: cyan
-    material: {fileID: 2100000, guid: 5f3be895a1c212f41a3074e0ec3c4566, type: 2}
-  - name: gray
-    material: {fileID: 2100000, guid: 0d59e3f731d6bde4e85fb5793b50531e, type: 2}
-  - name: green
-    material: {fileID: 2100000, guid: de72f502f6c313d4e9618ae91189ef94, type: 2}
-  - name: lime
-    material: {fileID: 2100000, guid: 04288c215b9aba6428b0b208a7af2f1c, type: 2}
-  - name: orange
-    material: {fileID: 2100000, guid: 959a969c42f10424b8b5cff5c2ec22fb, type: 2}
-  - name: pink
-    material: {fileID: 2100000, guid: 477bbc3f60de88649a7789f9c872246c, type: 2}
-  - name: purple
-    material: {fileID: 2100000, guid: b6aafc6d9793b7c409d927ada2f482fa, type: 2}
-  - name: white
-    material: {fileID: 2100000, guid: 39b16fac897216444813b327dc6f9384, type: 2}
-  - name: yellow
-    material: {fileID: 2100000, guid: 8743e23e9ca6c924aa3ca6ea966cdfe4, type: 2}
-  colors_outlines:
-  - {fileID: 2100000, guid: 0f91a5e3a88e32d46ba9e5f56b8d5e44, type: 2}
-  - {fileID: 2100000, guid: b583ed5ef1778f1489b3e072c57b1ebf, type: 2}
-  - {fileID: 2100000, guid: 6597837e3f884aa43945b8912681f6df, type: 2}
-  - {fileID: 2100000, guid: 0e2810fd2c602244daf962100fbe701b, type: 2}
-  - {fileID: 2100000, guid: 3d5b8900687927c439ba71e66840cba1, type: 2}
-  - {fileID: 2100000, guid: 223f55c2f2d254b4ba0aee3839324700, type: 2}
-  - {fileID: 2100000, guid: 3f017ded021e0a34697f636187dcf5e4, type: 2}
-  - {fileID: 2100000, guid: 451a93e057aa56e4ba125ee81fcd1b1f, type: 2}
-  - {fileID: 2100000, guid: b1ad999a80c628241940368093b25e56, type: 2}
-  - {fileID: 2100000, guid: f3193598edc0dfa47b9f9b7b789d8a58, type: 2}
-  - {fileID: 2100000, guid: 97a037d9cf3c8d9458637105b8e5c229, type: 2}
-  - {fileID: 2100000, guid: 5b134982a63d72d45bc5ffce00214a9b, type: 2}
-  colors_outlines_red:
-  - {fileID: 2100000, guid: cc341334fa11e164dbec39188f0d66b1, type: 2}
-  - {fileID: 2100000, guid: e8ecd5f03d647134085993c19aa4ee9e, type: 2}
-  - {fileID: 2100000, guid: 376bda78a2c5b11458ce1bec72790a01, type: 2}
-  - {fileID: 2100000, guid: cf7f7d44a3b409b43b575277690be10d, type: 2}
-  - {fileID: 2100000, guid: e0414c6c914e95b499a2121f5840d753, type: 2}
-  - {fileID: 2100000, guid: 4bbc65e3513e5474fb54877ca12a26c8, type: 2}
-  - {fileID: 2100000, guid: accd8414fb6575043a403ddb05ad027c, type: 2}
-  - {fileID: 2100000, guid: 537bf85fef26f4446b622617b06fbe36, type: 2}
-  - {fileID: 2100000, guid: 4a9e846331222d74099f0076a270c853, type: 2}
-  - {fileID: 2100000, guid: b629a44ba4f9f05489cfb0738d6719eb, type: 2}
-  - {fileID: 2100000, guid: 43925982f3da395448afea364a5b380e, type: 2}
-  - {fileID: 2100000, guid: bfbe424e8fe44844a95ef9d66ae9d0dd, type: 2}
+  OutlineShader: {fileID: 4800000, guid: 054a31a99d11e49d110086ba44295342, type: 3}
+  TransparencyShader: {fileID: 4800000, guid: d10b7365d632d514697f2acc61fdda9c, type: 3}
+  mainColor: {r: 255, g: 0, b: 0, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 0.007
 --- !u!114 &2906926448988881606
 MonoBehaviour:
   m_ObjectHideFlags: 0

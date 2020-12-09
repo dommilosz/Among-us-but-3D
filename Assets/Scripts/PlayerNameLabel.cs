@@ -20,8 +20,11 @@ public class PlayerNameLabel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var mainCam = PhotonNetwork.LocalPlayer.GetPlayerObject().transform.Find("PlayerCamera");
-        getLabel().transform.rotation = mainCam.rotation;
+        if (getLabel() != null)
+        {
+            var mainCam = PhotonNetwork.LocalPlayer.GetPlayerObject().transform.Find("PlayerCamera");
+            getLabel().transform.rotation = mainCam.rotation;
+        }
     }
 
     public GameObject getLabel()

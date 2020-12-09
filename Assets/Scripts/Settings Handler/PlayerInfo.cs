@@ -51,13 +51,18 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if (!(bool)getSetting("Alive")|| (bool)getSetting("inVent")) 
+        if (getPUNPlayer().IsLocal)
         {
-            setSetting("Invisible", true);
-        }else if ((bool)getSetting("Invisible"))
-        {
-            setSetting("Invisible", false);
+            if (!(bool)getSetting("Alive") || (bool)getSetting("inVent"))
+            {
+                setSetting("Invisible", true);
+            }
+            else if ((bool)getSetting("Invisible"))
+            {
+                setSetting("Invisible", false);
+            }
         }
+        
         if (SettingProperty.checkProps(settings)) sendSettings();
     }
 

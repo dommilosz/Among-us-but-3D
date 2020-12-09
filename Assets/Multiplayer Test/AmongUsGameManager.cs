@@ -45,11 +45,15 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
             {
                 if ((bool)item.GetComponent<PlayerInfo>().getSetting("Invisible"))
                 {
-                    item.gameObject.SetActive(false);
+                    ShowPlayer(false, item);
                 }
                 else
                 {
-                    item.gameObject.SetActive(true);
+                    ShowPlayer(true, item);
+                }
+                if (!(bool)item.GetComponent<PlayerInfo>().getSetting("Alive")&& !(bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Alive"))
+                {
+                    ShowPlayer(true,item);
                 }
                 if (item.transform.Find("PlayerCamera") != null && item.transform.Find("Point Light") != null)
                 {
@@ -66,6 +70,12 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
                 item.transform.Find("Orientation").Find("playerbestmodel").gameObject.SetActive(false);
             }
         }
+    }
+
+    public void ShowPlayer(bool show,GameObject item)
+    {
+        item.transform.Find("Orientation").Find("playerbestmodel").gameObject.SetActive(show);
+        item.transform.Find($"{item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName}- [label]").gameObject.SetActive(show);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

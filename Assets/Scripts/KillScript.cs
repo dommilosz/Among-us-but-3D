@@ -50,7 +50,7 @@ public class KillScript : MonoBehaviour
     public void KillPlayer(Player player)
     {
         PhotonView photonView = PhotonView.Get(this);
-        photonView.RPC("KillPlayer", RpcTarget.All, new object[] { player.UserId });
+        photonView.RPC("KillPlayer", RpcTarget.All, new object[] { player.UserId,PhotonNetwork.LocalPlayer });
     }
 
     public bool canKill()
@@ -93,13 +93,17 @@ public class KillScript : MonoBehaviour
     public string SelectedPlayer;
 
     [PunRPC]
-    public void KillPlayer(string playerID)
+    public void KillPlayer(string playerID,Player sender)
     {
         if (PhotonNetwork.LocalPlayer.UserId == playerID)
         {
             PhotonNetwork.LocalPlayer.GetPlayerInfo().setSetting("Alive", false);
             GameObject kbc = GameObject.Instantiate(KilledByCanvas);
-            kbc.Destroy(3000);
+            var color = (string)sender.GetPlayerInfo().getSetting("Color");
+            var colorCode = Enums.Colors.getColorCodeByName(color);
+
+            kbc.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = $"Killed by <color={colorCode}>{color}</color>";
+            kbc.Destroy(5);
         }
         var player = PlayerInfo.getPlayerByID(playerID);
         var playerObj = player.GetPlayerObject();
@@ -108,7 +112,7 @@ public class KillScript : MonoBehaviour
         var z = playerObj.transform.position.z;
 
         var kps = GameObject.Instantiate(KillParticleSystem, new Vector3(x, y, z), Quaternion.identity);
-        GameObject.Destroy(kps, 5000);
+        GameObject.Destroy(kps, 5);
 
         var body = GameObject.Instantiate(bodyPrefab, new Vector3(x, y, z), Quaternion.identity);
         body.name = $"Body {playerID}";
