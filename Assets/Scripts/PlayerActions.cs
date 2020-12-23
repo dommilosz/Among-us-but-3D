@@ -1,14 +1,19 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerActions : MonoBehaviour
 {
     public GameObject overlayCanvas;
     public GameObject mapCanvas;
     GameObject canvas = null;
+    public int ReportDistance = 100;
+    public bool canReport = false;
+    public GameObject MeetingCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +50,37 @@ public class PlayerActions : MonoBehaviour
 
         var playerInfo = PlayerInfo.getPlayerInfo();
         var player = PlayerInfo.getPlayer();
+        bool alive = (bool)playerInfo.getSetting("Alive");
+
+        RaycastHit hit;
+
+        // if raycast hits, it checks if it hit an object with the tag Player
+        if (Physics.Raycast(transform.Find("Orientation").position, transform.Find("Orientation").forward, out hit, ReportDistance) && hit.collider.gameObject.CompareTag("Body"))
+        {
+            reportButton.transform.Find("Image").GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+            canReport = true;
+        }
+        else
+        {
+            reportButton.transform.Find("Image").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
+        }
+
+        killButton.transform.Find("Image").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
+
+        var killScript = PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>();
+        if (killScript.SelectedPlayer.Length > 0)
+        {
+            killButton.transform.Find("Image").GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+
+        }
+        useButton.transform.Find("Image").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
+
+        if (PlayerInfo.getPlayerInfo().canUse)
+        {
+            useButton.transform.Find("Image").GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+
+        }
+
         if ((bool)playerInfo.getSetting("isImpostor"))
         {
             sabotageButton.SetActive(true);
@@ -54,11 +90,11 @@ public class PlayerActions : MonoBehaviour
             int killCD = (int)Math.Round(PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillCd);
             if (PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillCd == 0)
             {
-                killButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"KILL (Ready)";
+                killButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"";
             }
             else
             {
-                killButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"KILL ({killCD})";
+                killButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"{killCD}";
             }
             
         }
@@ -80,11 +116,26 @@ public class PlayerActions : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            ToggleMap();
+            if (GameObject.Find("MeetingCanvas") != null) return;
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                ToggleSabotage();
+            }
+            else
+            {
+                ToggleMap();
+            }
+            
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q)&&alive)
         {
+            if (GameObject.Find("MeetingCanvas") != null) return;
             KillAction();
+        }
+        if (Input.GetKeyDown(KeyCode.R)&&alive)
+        {
+            if (GameObject.Find("MeetingCanvas") != null) return;
+            ReportAction(hit.transform.name.Replace("Body ",""));
         }
 
         if (gameObject.transform.position.y < -1)
@@ -118,9 +169,48 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    public static void ReportAction()
+    public static void ReportAction(string color)
+    {
+        if (GameObject.Find("MeetingCanvas") != null) return;
+        var playerInfo = PlayerInfo.getPlayerInfo();
+        var PA = PlayerInfo.getPlayer().GetComponent<PlayerActions>();
+        if (color != "meeting")
+            if (!PA.canReport) return;
+
+        PhotonView photonView = PhotonView.Get(PA);
+
+        photonView.RPC("BodyReported", RpcTarget.All, new object[] { PhotonNetwork.LocalPlayer.NickName, color });
+
+    }
+
+    [PunRPC]
+    public void BodyReported(string reportingPlayer,string color)
     {
 
+        try
+        {
+            if (color != "meeting")
+            {
+                Enums.Colors.getColorByName(color);
+            }
+            if (color == "meeting")
+            {
+                color = "red";
+            }
+            if (GameObject.Find("MeetingCanvas") != null) return;
+            var PA = PlayerInfo.getPlayer().GetComponent<PlayerActions>();
+            var PAc = Instantiate(PA.MeetingCanvas);
+            PAc.GetComponent<DBReported>().bodyColor = color;
+            PAc.name = "MeetingCanvas";
+            PAc.transform.Find("MeetingCanvas").GetComponent<MeetingHandler>().ReportingPlayerName = reportingPlayer;
+        }
+        catch { }
+    }
+
+    [PunRPC]
+    public void PlayerVoted()
+    {
+        MeetingRenderer.shouldRedraw = true;
     }
 
     public static void KillAction()
@@ -130,13 +220,29 @@ public class PlayerActions : MonoBehaviour
 
     public void ToggleMap()
     {
-        if (GameObject.Find("MapCanvas(Clone)") != null)
+        if (GameObject.Find("MapCanvas") != null)
         {
-            Destroy(GameObject.Find("MapCanvas(Clone)"));
+            Destroy(GameObject.Find("MapCanvas"));
         }
         else
         {
-            Instantiate(mapCanvas);
+            Instantiate(mapCanvas).name = "MapCanvas";
+        }
+    }
+
+    public void ToggleSabotage()
+    {
+        if (GameObject.Find("MapCanvas") != null)
+        {
+            Destroy(GameObject.Find("MapCanvas"));
+            MouseUnLocker.LockMouse();
+        }
+        else
+        {
+            var canvas = Instantiate(mapCanvas);
+            canvas.name = "MapCanvas";
+            canvas.GetComponent<MapScript>().sabotage = true;
+            MouseUnLocker.UnlockMouse();
         }
     }
 }

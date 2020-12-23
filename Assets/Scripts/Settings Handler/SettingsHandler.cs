@@ -116,7 +116,7 @@ public static class SettingsValues
         properties.Add(new SettingProperty("Impostors", 2));
 
         properties.Add(new SettingProperty("Emergency_Count", 1));
-        properties.Add(new SettingProperty("Emergency_Cooldown", 30));
+        properties.Add(new SettingProperty("Emergency_Cooldown", 30f));
 
         properties.Add(new SettingProperty("KillCooldown", 45f));
         properties.Add(new SettingProperty("KillDistance", 10));

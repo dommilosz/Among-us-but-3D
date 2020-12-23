@@ -126,6 +126,8 @@ MonoBehaviour:
     value_str: False
   VentStanding: {fileID: 0}
   canUse: 0
+  MeetingsLeft: 2
+  MeetingsCooldown: 60
 --- !u!114 &1074354477615942812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +142,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overlayCanvas: {fileID: 8168026475767799905, guid: 0389c67d0ebe5cb438265251a5039b3d, type: 3}
   mapCanvas: {fileID: 42102721478361188, guid: 1b234c0e1a7218145b437ce346723e73, type: 3}
+  ReportDistance: 100
+  canReport: 0
+  MeetingCanvas: {fileID: 5655549999996471365, guid: df31b833e953df14eb7ec9571fef3636, type: 3}
 --- !u!114 &7320445781022479848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,7 +232,7 @@ MonoBehaviour:
   KillCd: 0
   KillParticleSystem: {fileID: 7262533682901903737, guid: 4d1e6de219d2535478acb57603690e89, type: 3}
   KilledByCanvas: {fileID: 8197197659547483501, guid: 0a6378aff7322f64db80ca6be9cda735, type: 3}
-  bodyPrefab: {fileID: 0}
+  bodyPrefab: {fileID: 8957541254428733700, guid: 9fd5fdc7e54c8ac42b47f0d9cdaad73c, type: 3}
   SelectedPlayer: 
 --- !u!1 &1074354478374722409
 GameObject:

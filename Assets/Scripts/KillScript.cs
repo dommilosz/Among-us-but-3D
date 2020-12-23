@@ -115,7 +115,12 @@ public class KillScript : MonoBehaviour
         GameObject.Destroy(kps, 5);
 
         var body = GameObject.Instantiate(bodyPrefab, new Vector3(x, y, z), Quaternion.identity);
-        body.name = $"Body {playerID}";
+        string deadColor = "";
+        foreach (var item in PhotonNetwork.PlayerList)
+        {
+            if (item.UserId == playerID) deadColor= (string)item.GetPlayerInfo().getSetting("Color");
+        }
+        body.name = $"Body {deadColor}";
         body.tag = "Body";
         body.transform.SetParent(GameObject.Find("Players").transform);
 

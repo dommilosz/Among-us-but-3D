@@ -13,6 +13,8 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     public List<SettingProperty> settings = SettingsValues.ReturnDefaultPlayerSettings().ToList();
     public VentScript VentStanding = null;
     public bool canUse = false;
+    public int MeetingsLeft = 2;
+    public float MeetingsCooldown = 60f;
     public bool canMove { get { return GetComponent<PlayerMovement>().canMove; } set {GetComponent<PlayerMovement>().canMove = value; } }
 
     // Start is called before the first frame update
@@ -22,7 +24,8 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         if (isMine(getPlayer()))
         {
             sendSettings();
-
+            MeetingsLeft = (int)SettingsHandler.getSetting("Emergency_Count");
+            MeetingsCooldown = (float)SettingsHandler.getSetting("Emergency_Cooldown");
             List<string> claimed_colors = new List<string>();
             foreach (var item in PhotonNetwork.PlayerList)
             {
@@ -51,6 +54,8 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        MeetingsCooldown -= Time.deltaTime;
+        if (MeetingsCooldown <= 0) MeetingsCooldown = 0;
         if (getPUNPlayer().IsLocal)
         {
             if (!(bool)getSetting("Alive") || (bool)getSetting("inVent"))
@@ -185,6 +190,14 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         foreach (var item in PhotonNetwork.PlayerList)
         {
             if (item.UserId == userID) return item;
+        }
+        return null;
+    }
+    public static Player getPlayerByName(string name)
+    {
+        foreach (var item in PhotonNetwork.PlayerList)
+        {
+            if (item.NickName == name) return item;
         }
         return null;
     }

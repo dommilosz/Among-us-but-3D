@@ -29,9 +29,9 @@ public class MenuHandler : MonoBehaviour
         PlayerActions.VentAction();
     }
 
-    public void ReportAction()
+    public void ReportAction(string color)
     {
-        PlayerActions.ReportAction();
+        PlayerActions.ReportAction(color);
     }
 
     public void KillAction()
