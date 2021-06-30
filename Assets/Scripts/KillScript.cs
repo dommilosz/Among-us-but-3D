@@ -6,16 +6,18 @@ using UnityEngine;
 
 public class KillScript : MonoBehaviour
 {
-    public float KillCd;
+    public TimedAbility KillAbility;
     // Start is called before the first frame update
     void Start()
     {
-        KillCd = (float)SettingsHandler.getSetting("KillCooldown");
+        KillAbility =new TimedAbility(KillAction, (float)SettingsHandler.getSetting("KillCooldown"));
+        KillAbility.Start();
     }
 
     // Update is called once per frame
     void Update()
     {
+        KillAbility.Tick();
         RaycastHit hit;
 
         // if raycast hits, it checks if it hit an object with the tag Player
@@ -27,37 +29,34 @@ public class KillScript : MonoBehaviour
         {
             SelectedPlayer = "";
         }
-
-        if (KillCd > 0)
-        {
-            KillCd -= Time.deltaTime;
-        }
-        if (KillCd < 0)
-        {
-            KillCd = 0;
-        }
     }
     public void KillClosestPlayer()
     {
-        if (!canKill()) return;
+        if (!IsImpostor()) return;
         if (SelectedPlayer.Length <= 0) return;
         var p = PlayerInfo.getPlayerByID(SelectedPlayer);
         if (!canKillPlayer(p)) return;
-        KillCd = (float)SettingsHandler.getSetting("KillCooldown");
-        KillPlayer(p);
-        
+
+        if (KillAbility.action == null) KillAbility.action = KillAction;
+
+        KillAbility.Use();
     }
+
+    public void KillAction()
+    {
+        var p = PlayerInfo.getPlayerByID(SelectedPlayer);
+        KillPlayer(p);
+    }
+
     public void KillPlayer(Player player)
     {
         PhotonView photonView = PhotonView.Get(this);
         photonView.RPC("KillPlayer", RpcTarget.All, new object[] { player.UserId,PhotonNetwork.LocalPlayer });
     }
 
-    public bool canKill()
+    public bool IsImpostor()
     {
-        if (!(bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("isImpostor")) return false;
-        if (KillCd <= 0) return true;
-        return false;
+        return PhotonNetwork.LocalPlayer.GetPlayerInfo().IsImpostor();
     }
 
     public Player getClosestPlayer()
@@ -82,6 +81,7 @@ public class KillScript : MonoBehaviour
 
     public bool canKillPlayer(Player p)
     {
+        if (p.GetPlayerInfo().IsImpostor()) return false;
         if (getDistanceToPlayer(p) <= (int)SettingsHandler.getSetting("KillDistance")) return true;
         return false;
     }

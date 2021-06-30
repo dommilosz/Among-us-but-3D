@@ -230,16 +230,86 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   voted: 0
-  DiscusionTimeLeft: 0
-  VotingTimeLeft: 0
-  ProceedingTimeLeft: 0
-  Phase: Discussion
-  PhaseTime: 30
   ReportingPlayerName: 
   meetingRenderer: {fileID: 0}
   lava: {fileID: 5250117224727626335}
   skip: {fileID: 3341344589654066928}
   allVoted: 0
+--- !u!1 &1421146519151331812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5203050738713837388}
+  - component: {fileID: 2439506104548078422}
+  - component: {fileID: 7764166788938869738}
+  m_Layer: 0
+  m_Name: Meeting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &5203050738713837388
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421146519151331812}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2058221939763592361}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.5, y: 21.4}
+  m_SizeDelta: {x: 800.2621, y: 213.906}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2439506104548078422
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421146519151331812}
+  m_CullTransparentMesh: 0
+--- !u!114 &7764166788938869738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421146519151331812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 3155d2b67dcb56a46b5fd798f570f1d6, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2395812453940044108
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +753,7 @@ GameObject:
   - component: {fileID: 5307017996939474989}
   - component: {fileID: 372121417423314436}
   m_Layer: 0
-  m_Name: Image
+  m_Name: DeadBodyReported
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1134,6 +1204,7 @@ Transform:
   m_Children:
   - {fileID: 2243375100858624743}
   - {fileID: 5528912848517059913}
+  - {fileID: 5203050738713837388}
   m_Father: {fileID: 1507108683738490176}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1274,8 +1345,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skipped: 0
   tie: 0
-  toShowMsg: 5
-  tohideMsg: 5
   text: {fileID: 4902800035299861572}
   playerbestmodel: {fileID: 6769495107554832512}
 --- !u!1 &5655549999996471365
@@ -1392,8 +1461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a357ed0990b47a4aad47797ad776085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeToMeeting: 5
-  bodyColor: red
+  bodyColor: blue
 --- !u!1 &5675872404323279490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,7 +1596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.07450981, g: 0.1764706, b: 0.80784315, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

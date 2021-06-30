@@ -1,8 +1,5 @@
 using Photon.Pun;
-using Photon.Realtime;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -87,8 +84,8 @@ public class PlayerActions : MonoBehaviour
             useButton.SetActive(false);
             killButton.SetActive(true);
 
-            int killCD = (int)Math.Round(PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillCd);
-            if (PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillCd == 0)
+            int killCD = (int)Math.Round(PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillAbility.RemCooldown);
+            if (PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillAbility.Ready)
             {
                 killButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"";
             }
@@ -96,7 +93,7 @@ public class PlayerActions : MonoBehaviour
             {
                 killButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"{killCD}";
             }
-            
+
         }
         else
         {
@@ -125,17 +122,17 @@ public class PlayerActions : MonoBehaviour
             {
                 ToggleMap();
             }
-            
+
         }
-        if (Input.GetKeyDown(KeyCode.Q)&&alive)
+        if (Input.GetKeyDown(KeyCode.Q) && alive)
         {
             if (GameObject.Find("MeetingCanvas") != null) return;
             KillAction();
         }
-        if (Input.GetKeyDown(KeyCode.R)&&alive)
+        if (Input.GetKeyDown(KeyCode.R) && alive)
         {
-            if (GameObject.Find("MeetingCanvas") != null) return;
-            ReportAction(hit.transform.name.Replace("Body ",""));
+            if (GameObject.Find("MeetingCanvas") != null || hit.transform == null) return;
+            ReportAction(hit.transform.name.Replace("Body ", ""));
         }
 
         if (gameObject.transform.position.y < -1)
@@ -174,33 +171,41 @@ public class PlayerActions : MonoBehaviour
         if (GameObject.Find("MeetingCanvas") != null) return;
         var playerInfo = PlayerInfo.getPlayerInfo();
         var PA = PlayerInfo.getPlayer().GetComponent<PlayerActions>();
-        if (color != "meeting")
-            if (!PA.canReport) return;
-
+        if (!PA.canReport) return;
         PhotonView photonView = PhotonView.Get(PA);
+        photonView.RPC("BodyReported", RpcTarget.All, new object[] { PhotonNetwork.LocalPlayer.NickName, color,false });
+    }
+    public static void MeetingAction(string color)
+    {
+        if (GameObject.Find("MeetingCanvas") != null) return;
+        var playerInfo = PlayerInfo.getPlayerInfo();
+        var PA = PlayerInfo.getPlayer().GetComponent<PlayerActions>();
+        PhotonView photonView = PhotonView.Get(PA);
+        photonView.RPC("BodyReported", RpcTarget.All, new object[] { PhotonNetwork.LocalPlayer.NickName, color, true });
+    }
 
-        photonView.RPC("BodyReported", RpcTarget.All, new object[] { PhotonNetwork.LocalPlayer.NickName, color });
+    public static PhotonView GetPhotonView()
+    {
+        var PA = PlayerInfo.getPlayer().GetComponent<PlayerActions>();
+        return PhotonView.Get(PA);
+    }
 
+    public static void Meeting()
+    {
+        MeetingAction((string)PlayerInfo.getPlayerInfo().getSetting("Color"));
     }
 
     [PunRPC]
-    public void BodyReported(string reportingPlayer,string color)
+    public void BodyReported(string reportingPlayer, string color,bool meeting)
     {
-
         try
         {
-            if (color != "meeting")
-            {
-                Enums.Colors.getColorByName(color);
-            }
-            if (color == "meeting")
-            {
-                color = "red";
-            }
             if (GameObject.Find("MeetingCanvas") != null) return;
             var PA = PlayerInfo.getPlayer().GetComponent<PlayerActions>();
             var PAc = Instantiate(PA.MeetingCanvas);
+            PAc.GetComponent<DBReported>().meeting = meeting;
             PAc.GetComponent<DBReported>().bodyColor = color;
+
             PAc.name = "MeetingCanvas";
             PAc.transform.Find("MeetingCanvas").GetComponent<MeetingHandler>().ReportingPlayerName = reportingPlayer;
         }

@@ -1,7 +1,5 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,10 +22,17 @@ public class MeetingRenderer : MonoBehaviour
         framesToRender -= 1;
         if (framesToRender <= 0)
         {
-            Render();
+            try
+            {
+                Render();
+            }
+            catch
+            {
+
+            }
             framesToRender = 20;
         }
-        
+
     }
 
     public void Render()
@@ -43,7 +48,7 @@ public class MeetingRenderer : MonoBehaviour
         {
             if ((bool)item.GetPlayerInfo().getSetting("Alive"))
             {
-                renderPlayer(item,x,y);
+                renderPlayer(item, x, y);
                 x += 140;
                 if (x >= 430) { y -= 50; x = 10; }
             }
@@ -52,14 +57,14 @@ public class MeetingRenderer : MonoBehaviour
         {
             if (!(bool)item.GetPlayerInfo().getSetting("Alive"))
             {
-                renderPlayer(item,x,y);
+                renderPlayer(item, x, y);
                 x += 140;
                 if (x >= 430) { y -= 50; x = 10; }
             }
         }
     }
 
-    public void renderPlayer(Player item,int x,int y)
+    public void renderPlayer(Player item, int x, int y)
     {
         var mP = Instantiate(MeetingPlayer);
         mP.transform.SetParent(transform);
@@ -69,9 +74,10 @@ public class MeetingRenderer : MonoBehaviour
         mP.tag = "Meeting_Player";
         mP.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = item.NickName;
 
-        if( (bool) PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("isImpostor")){
+        if ((bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("isImpostor"))
+        {
             if ((bool)item.GetPlayerInfo().getSetting("isImpostor"))
-                mP.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f,0f,0f);
+                mP.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().color = new Color(1f, 0f, 0f);
         }
 
         if (meetingHandler.ReportingPlayerName == item.NickName)
@@ -87,7 +93,7 @@ public class MeetingRenderer : MonoBehaviour
         {
             mP.transform.Find("Dead").gameObject.SetActive(true);
         }
-        if (PhotonNetwork.LocalPlayer.CustomProperties["Voted"]!=null&& (string)PhotonNetwork.LocalPlayer.CustomProperties["Voted"]!=""&& (string)PhotonNetwork.LocalPlayer.CustomProperties["Voted"]==item.NickName)
+        if (PhotonNetwork.LocalPlayer.CustomProperties["Voted"] != null && (string)PhotonNetwork.LocalPlayer.CustomProperties["Voted"] != "" && (string)PhotonNetwork.LocalPlayer.CustomProperties["Voted"] == item.NickName)
         {
             mP.GetComponent<Image>().color = new Color(1, 1, 0, 1);
         }
@@ -95,7 +101,7 @@ public class MeetingRenderer : MonoBehaviour
         {
             mP.transform.Find("VoteBtn").gameObject.SetActive(false);
         }
-        if(meetingHandler.Phase== "Proceeding")
+        if (meetingHandler.sequence.GetCurrentEvent().name == "Proceeding")
         {
             mP.transform.Find("PlayersVoted").GetComponentInChildren<VoteSpawner>().TargetVote = item.NickName;
             mP.transform.Find("PlayersVoted").gameObject.SetActive(true);

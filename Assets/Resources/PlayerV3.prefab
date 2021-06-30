@@ -126,8 +126,7 @@ MonoBehaviour:
     value_str: False
   VentStanding: {fileID: 0}
   canUse: 0
-  MeetingsLeft: 2
-  MeetingsCooldown: 60
+  TasksGenerated: 0
 --- !u!114 &1074354477615942812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e043a8c0abaade4cb02e1944684f41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KillCd: 0
   KillParticleSystem: {fileID: 7262533682901903737, guid: 4d1e6de219d2535478acb57603690e89, type: 3}
   KilledByCanvas: {fileID: 8197197659547483501, guid: 0a6378aff7322f64db80ca6be9cda735, type: 3}
   bodyPrefab: {fileID: 8957541254428733700, guid: 9fd5fdc7e54c8ac42b47f0d9cdaad73c, type: 3}

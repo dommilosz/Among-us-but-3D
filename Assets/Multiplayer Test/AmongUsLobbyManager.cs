@@ -12,15 +12,24 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
 {
     public GameObject playersCount;
     public GameObject roleCanvas;
-    public bool starting = false;
-    public float timer = 5;
-    public float role_timer = 5;
+    public TimedCallback StartTimer;
+    public TimedCallback RoleTimer;
     public bool showingRole = false;
 
     // Start is called before the first frame update
     void Start()
     {
         AmongUsGameManager.GetGameManager().SpawnPlayer(PhotonNetwork.LocalPlayer);
+
+        if (debug)
+        {
+            SettingsHandler.setSetting("Impostors",0);
+            SettingsHandler.setSetting("Map", "debug");
+            LoadGameScene();
+        }
+
+        StartTimer = new TimedCallback(StartGame, 5);
+        RoleTimer = new TimedCallback(LoadGameScene, 5);
     }
 
     // Update is called once per frame
@@ -30,16 +39,13 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient && Input.GetKeyDown(KeyCode.Return))
         {
-            if (starting)
+            if (StartTimer.enabled)
                 changeTimer(false);
             else if(enoughPlayers()) changeTimer(true);
         }
 
-        if (showingRole)
-        {
-            role_timer -= Time.deltaTime;
-            if (role_timer < 0) LoadGameScene();
-        }
+        StartTimer.Tick();
+        RoleTimer.Tick();
     }
 
     private void LoadGameScene()
@@ -51,7 +57,8 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void changeTimer(bool v, float t = 5f)
     {
-        timer = t; starting = v;
+        StartTimer.RemDelay = t;
+        StartTimer.enabled = v;
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonView photonView = PhotonView.Get(this);
@@ -62,6 +69,7 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void showRole()
     {
+        RoleTimer.Start();
         showingRole = true;
         if (GameObject.Find("Role_Canvas") == null)
         {
@@ -118,11 +126,9 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
                 label.text = $"{count}/{max} (MIN: {minPlayers})";
             }
 
-            if (starting)
+            if (StartTimer.enabled)
             {
-                label.text = $"{count}/{max} (Start in {Math.Round(timer)})";
-                timer -= Time.deltaTime;
-                if (timer < 0) StartGame();
+                label.text = $"{count}/{max} (Start in {Math.Round(StartTimer.RemDelay)})";
             }
         }
     }
@@ -131,7 +137,6 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
     {
         if (canStart())
         {
-            starting = false;
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
@@ -152,6 +157,7 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
         }
     }
     public int minPlayers = 7;
+    public static bool debug;
 
     public bool canStart()
     {

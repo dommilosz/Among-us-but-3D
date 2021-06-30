@@ -7,14 +7,17 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class DBReported : MonoBehaviour
 {
-    public float TimeToMeeting = 5f;
+    public TimedCallback MeetingCallback;
     public string bodyColor = "red";
+    internal bool meeting = false;
+
     // Start is called before the first frame update
     void Start()
     {
 
         transform.Find("DBReported").Find("BodyColor").GetComponent<Image>().color = Enums.Colors.getColorByName(bodyColor);
-        TimeToMeeting = 5f;
+        MeetingCallback = new TimedCallback(Meeting, 5);
+        MeetingCallback.Start();
         Hashtable ht = new Hashtable();
         ht.Add("Voted", "");
         PhotonNetwork.LocalPlayer.SetCustomProperties(ht);
@@ -23,16 +26,24 @@ public class DBReported : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MeetingCallback.Tick();
         MouseUnLocker.UnlockMouse();
-        if (TimeToMeeting > 0)
-            TimeToMeeting -= Time.deltaTime;
-        if (TimeToMeeting < 0) TimeToMeeting = 0;
-
-        if (TimeToMeeting <= 0)
-        {
-            transform.Find("DBReported").gameObject.SetActive(false);
-            transform.Find("MeetingCanvas").gameObject.SetActive(true);
-        }
         transform.Find("DBReported").Find("BodyColor").GetComponent<Image>().color = Enums.Colors.getColorByName(bodyColor);
+        transform.Find("DBReported").Find("Meeting").gameObject.SetActive(meeting);
+        transform.Find("DBReported").Find("DeadBodyReported").gameObject.SetActive(!meeting);
+    }
+
+    void Meeting()
+    {
+        transform.Find("DBReported").gameObject.SetActive(false);
+        transform.Find("MeetingCanvas").gameObject.SetActive(true);
+    }
+
+    private void OnValidate()
+    {
+        if (Application.isEditor)
+        {
+            transform.Find("DBReported").Find("BodyColor").GetComponent<Image>().color = Enums.Colors.getColorByName(bodyColor);
+        }
     }
 }

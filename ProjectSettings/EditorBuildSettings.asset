@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AmongUs_polus.unity
     guid: 6bdfb899c2cdbf84fba19377c88dee2e
+  - enabled: 1
+    path: Assets/Scenes/AmongUs_debug.unity
+    guid: 1c860f571bada064086de2b4300ff2fc
   m_configObjects: {}

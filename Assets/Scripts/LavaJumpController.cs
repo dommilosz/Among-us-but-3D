@@ -10,58 +10,79 @@ public class LavaJumpController : MonoBehaviour
     public Player playerToDrop;
     public bool skipped = false;
     public bool tie = false;
-    public float toShowMsg = 5f;
-    public float tohideMsg = 5f;
     public GameObject text;
     public GameObject playerbestmodel;
+
+    public TimedCallback MsgShow;
+    public TimedCallback MsgHide;
+
     // Start is called before the first frame update
     void Start()
     {
+        MsgShow = new TimedCallback(ShowMsg, 5);
+        MsgHide = new TimedCallback(HideMsg, 5);
+        MsgShow.Start();
         if (skipped || tie)
         {
             playerbestmodel.SetActive(false);
             return;
         }
-        var colorToDrop = (string)playerToDrop.GetPlayerInfo().getSetting("Color");
-        playerbestmodel.transform.Find("Image").GetComponent<Image>().color = Enums.Colors.getColorByName(colorToDrop);
+        else
+        {
+            var colorToDrop = (string)playerToDrop.GetPlayerInfo().getSetting("Color");
+            playerbestmodel.transform.Find("Image").GetComponent<Image>().color = Enums.Colors.getColorByName(colorToDrop);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        toShowMsg -= Time.deltaTime;
-        if (toShowMsg <= 0)
+        MsgShow.Tick();
+        MsgHide.Tick();
+    }
+
+    public string GetEjectMsg()
+    {
+        string NoOneBase = "No one was ejected: ";
+        string EjectedBase = "%p was ejected";
+        string KnownEjectedBase = "%p was %n The Impostor";
+        if (skipped) return NoOneBase + "Skipped";
+        if (tie) return NoOneBase + "Tie";
+
+        string RawMsg;
+        if ((bool)SettingsHandler.getSetting("Confirm_Ejects"))
         {
-            if (skipped || tie)
-            {
-                string txt2 =  skipped ? "Skipped" : "Tie" ;
-                string txt = $"No one was ejected ({txt2})";
-                text.GetComponent<TMPro.TextMeshProUGUI>().text = $"{txt}";
-                text.SetActive(true);
-            }
-            else
-            {
-
-
-                bool isImpostor = (bool)playerToDrop.GetPlayerInfo().getSetting("isImpostor");
-                string txt = isImpostor ? "" : "Not ";
-                text.GetComponent<TMPro.TextMeshProUGUI>().text = $"{playerToDrop.NickName} was {txt}An Impostor";
-                text.SetActive(true);
-
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    playerToDrop.GetPlayerInfo().setSetting("Alive", false);
-                }
-            }
-            tohideMsg -= Time.deltaTime;
+            RawMsg = KnownEjectedBase;
         }
-        if (tohideMsg <= 0)
+        else
         {
-            PhotonNetwork.LocalPlayer.GetPlayerObject().transform.position = GameObject.Find("AfterMeetingLocation").transform.position;
-            MouseUnLocker.LockMouse();
-            PlayerInfo.getPlayerInfo().MeetingsCooldown = (float)SettingsHandler.getSetting("Emergency_Cooldown");
-            PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillCd = (float)SettingsHandler.getSetting("KillCooldown");
-            GameObject.Find("MeetingCanvas").Destroy();
+            RawMsg = EjectedBase;
         }
+        bool isImpostor = (bool)playerToDrop.GetPlayerInfo().getSetting("isImpostor");
+        return RawMsg.Replace("%p", playerToDrop.NickName).Replace("%n ", isImpostor ? "" : "Not ");
+    }
+
+    public void ShowMsg()
+    {
+        text.GetComponent<TMPro.TextMeshProUGUI>().text = GetEjectMsg();
+        text.SetActive(true);
+
+        if (!tie && !skipped)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                playerToDrop.GetPlayerInfo().setSetting("Alive", false);
+            }
+        }
+        MsgHide.Start();
+    }
+
+    public void HideMsg()
+    {
+        PhotonNetwork.LocalPlayer.GetPlayerObject().transform.position = GameObject.Find("AfterMeetingLocation").transform.position;
+        MouseUnLocker.LockMouse();
+        PlayerInfo.getPlayerInfo().MeetingAbility.Reset();
+        PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillAbility.Reset();
+        GameObject.Find("MeetingCanvas").Destroy();
     }
 }

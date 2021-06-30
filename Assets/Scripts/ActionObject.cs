@@ -14,6 +14,7 @@ public class ActionObject : MonoBehaviour
     [SerializeField]
     public UnityEvent m_event;
     public bool global = false;
+    public bool ActionEnabled = true;
 
     // Start is called before the first frame update
     void Start()
@@ -24,14 +25,16 @@ public class ActionObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!ActionEnabled) return;
         if (global)
         {
-            if (Input.GetKeyDown(Key)) m_event.Invoke();
+            if (Key!=null&&Input.GetKeyDown(Key)) m_event.Invoke();
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
+        if (!ActionEnabled) return;
         if (other.gameObject.tag.Contains("Player") && PlayerInfo.isMine(other.gameObject))
         {
             if (Input.GetKeyDown(Key)) m_event.Invoke();

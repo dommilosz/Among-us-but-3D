@@ -9,6 +9,7 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
 {
     GameObject playersPlaceHolder;
     public GameObject playerPrefab;
+    public bool debug = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,10 +19,12 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
+        SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+        PhotonNetwork.LocalPlayer.GetPlayerInfo().Start();
         PhotonNetwork.LocalPlayer.GetPlayerObject().transform.position = GetGameManager().transform.position;
         PhotonNetwork.LocalPlayer.GetPlayerObject().transform.rotation = GetGameManager().transform.rotation;
 
-        PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillCd = (float)SettingsHandler.getSetting("KillCooldown");
+        PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillAbility.Reset();
     }
 
     // Update is called once per frame
@@ -30,6 +33,8 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
         playersPlaceHolder = GameObject.Find("Players");
         if (PhotonNetwork.CurrentRoom == null)
         {
+            LobbyMainPanel.debug = debug;
+            AmongUsLobbyManager.debug = debug;
             SceneManager.LoadScene("AmongUS3D-LobbyScene");
             return;
         }

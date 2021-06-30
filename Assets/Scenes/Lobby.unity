@@ -3739,9 +3739,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playersCount: {fileID: 328700342}
   roleCanvas: {fileID: 2271276488775441006, guid: 87c3e96920ff16c4192d09dfb46acb52, type: 3}
-  starting: 0
-  timer: 5
-  role_timer: 5
   showingRole: 0
   minPlayers: 7
 --- !u!1001 &1605803073
@@ -3896,7 +3893,9 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1627192752353261764, guid: 6a060a84d1c0c364589d499ae05dda33, type: 3}
+    - {fileID: 2329647473248444073, guid: 6a060a84d1c0c364589d499ae05dda33, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6a060a84d1c0c364589d499ae05dda33, type: 3}
 --- !u!1 &1620398989 stripped
 GameObject:

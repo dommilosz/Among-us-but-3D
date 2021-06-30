@@ -46,6 +46,8 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
     public string levelToLoad = "";
     public string lobbyScene = "lobby";
 
+    public static bool debug = false;
+
     #region UNITY
 
     public void Awake()
@@ -56,6 +58,11 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         roomListEntries = new Dictionary<string, GameObject>();
 
         PlayerNameInput.text = "Player " + Random.Range(1000, 10000);
+
+        if (debug)
+        {
+            OnLoginButtonClicked();
+        }
     }
 
     #endregion
@@ -65,6 +72,11 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         this.SetActivePanel(SelectionPanel.name);
+        if (debug)
+        {
+            RoomOptions options = new RoomOptions { MaxPlayers = 10, PlayerTtl = 10000, BroadcastPropsChangeToAll = true, PublishUserId = true };
+            PhotonNetwork.CreateRoom("debug", options, null);
+        }
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

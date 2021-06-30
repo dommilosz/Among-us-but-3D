@@ -3,7 +3,10 @@ using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -13,19 +16,24 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     public List<SettingProperty> settings = SettingsValues.ReturnDefaultPlayerSettings().ToList();
     public VentScript VentStanding = null;
     public bool canUse = false;
-    public int MeetingsLeft = 2;
-    public float MeetingsCooldown = 60f;
-    public bool canMove { get { return GetComponent<PlayerMovement>().canMove; } set {GetComponent<PlayerMovement>().canMove = value; } }
+    public TimedAbility MeetingAbility;
+    public bool canMove { get { return GetComponent<PlayerMovement>().canMove; } set { GetComponent<PlayerMovement>().canMove = value; } }
+    public TaskManager.AllTasks Tasks;
+    public bool TasksGenerated = false;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         settings = SettingsValues.ReturnDefaultPlayerSettings().ToList();
         if (isMine(getPlayer()))
         {
             sendSettings();
-            MeetingsLeft = (int)SettingsHandler.getSetting("Emergency_Count");
-            MeetingsCooldown = (float)SettingsHandler.getSetting("Emergency_Cooldown");
+            int MeetingsLeft = (int)SettingsHandler.getSetting("Emergency_Count");
+            float MeetingsCooldown = (float)SettingsHandler.getSetting("Emergency_Cooldown");
+            MeetingAbility = new TimedAbility(TimedCallback.EmptyCallback, MeetingsCooldown);
+            MeetingAbility.SetUses(MeetingsLeft);
+            MeetingAbility.Start();
+            TasksGenerated = false;
             List<string> claimed_colors = new List<string>();
             foreach (var item in PhotonNetwork.PlayerList)
             {
@@ -47,17 +55,27 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
                     }
                 }
             }
+
         }
-       
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        MeetingsCooldown -= Time.deltaTime;
-        if (MeetingsCooldown <= 0) MeetingsCooldown = 0;
+        if (!TasksGenerated)
+        {
+            Tasks = new TaskManager.AllTasks();
+            Tasks.GenerateTasks();
+            TasksGenerated = true;
+        }
+        if (isMine(getPlayer()))
+        {
+            MeetingAbility.Tick();
+        }
         if (getPUNPlayer().IsLocal)
         {
+            setSetting("DoneTasks", Tasks.CompletedTasks.Count);
             if (!(bool)getSetting("Alive") || (bool)getSetting("inVent"))
             {
                 setSetting("Invisible", true);
@@ -67,7 +85,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
                 setSetting("Invisible", false);
             }
         }
-        
+
         if (SettingProperty.checkProps(settings)) sendSettings();
     }
 
@@ -82,6 +100,12 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
                 LoadValues(settings);
             }
         }
+    }
+
+    [PunRPC]
+    public void AddCommonTasks(byte[] cTasks)
+    {
+        TaskManager.AllTasks.AddCommonTasks(cTasks);
     }
 
     public void LoadValues(object[] settings)
@@ -177,6 +201,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
 
     public static PlayerInfo getPlayerInfo()
     {
+        if (getPlayer() == null) return null;
         return getPlayer().GetComponent<PlayerInfo>();
     }
 
@@ -201,8 +226,17 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         }
         return null;
     }
-}
 
+    public bool IsImpostor()
+    {
+        return (bool)getSetting("isImpostor");
+    }
+
+    public bool IsAlive()
+    {
+        return (bool)getSetting("Alive");
+    }
+}
 public static class PlayerExt
 {
     public static void changeColor(this Player player,string color)

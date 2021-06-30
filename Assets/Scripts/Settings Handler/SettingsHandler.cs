@@ -149,6 +149,7 @@ public static class SettingsValues
         properties.Add(new SettingProperty("PlayerName", ""));
         properties.Add(new SettingProperty("Alive", true));
         properties.Add(new SettingProperty("Invisible", false));
+        properties.Add(new SettingProperty("DoneTasks", 0));
 
         return properties.ToArray();
     }
