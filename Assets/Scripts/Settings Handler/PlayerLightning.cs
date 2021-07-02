@@ -21,6 +21,10 @@ public class PlayerLightning : MonoBehaviour
         else
         {
             lc.range = (float)SettingsHandler.getSetting("PlayerVision");
+            if (SabotageScript.GetCurrentSabotage()!=null&&SabotageScript.GetCurrentSabotage().Type==SabotageScript.Sabotages.FixLights)
+            {
+                lc.range = (float)(0.2 * lc.range);
+            }
         }
 
         if (!(bool)PlayerInfo.getPlayerInfo().getSetting("Alive"))

@@ -158,12 +158,9 @@ public class TaskManager : MonoBehaviour
         public static List<string[]> Pairs = new List<string[]>();
         public static List<LongTask> PossibleLongTasks = new List<LongTask>();
 
-        public LongTask(string[] pair)
+        public LongTask(Task[] tasks)
         {
-            foreach (var item in pair)
-            {
-                tasks.Add(Task.GetByName(item));
-            }
+            this.tasks = tasks.ToList();
         }
 
         public LongTask(Task task)
@@ -179,7 +176,13 @@ public class TaskManager : MonoBehaviour
 
             foreach (var item in Pairs)
             {
-                PossibleLongTasks.Add(new LongTask(item));
+                var tmpTasks = new List<Task>();
+                foreach (var item2 in item)
+                {
+                    tmpTasks.Add(Task.GetByName(item2));
+                }
+                if(!tmpTasks.Contains(null))
+                PossibleLongTasks.Add(new LongTask(tmpTasks.ToArray()));
             }
             //Pairs.Add(new string[] {"wires","wires","wires","wires" });
 

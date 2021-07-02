@@ -57,6 +57,15 @@ public class MeetingHandler : MonoBehaviour
         {
             sequence.GoTo("Proceeding");
         }
+
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            AmongUsGameManager.GetGameManager().TempData["MeetingTimer"] = sequence.GetCurrentEvent().RemDelay;
+            AmongUsGameManager.GetGameManager().TempData["MeetingSeqIndex"] = sequence.index;
+            AmongUsGameManager.GetGameManager().SaveTempData();
+        }
+        sequence.GetCurrentEvent().RemDelay = (float)AmongUsGameManager.GetGameManager().TempData.Get("MeetingTimer", sequence.GetCurrentEvent().RemDelay);
+        sequence.index = (int)AmongUsGameManager.GetGameManager().TempData.Get("MeetingSeqIndex", sequence.index) ;
     }
 
     public void DiscussionTime()

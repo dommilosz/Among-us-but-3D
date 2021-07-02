@@ -32,5 +32,10 @@ public class Debug_Reload : MonoBehaviour
                 Time.timeScale = 50;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            PlayerInfo.getPlayerInfo().setSetting("isImpostor", !PlayerInfo.getPlayerInfo().IsImpostor());
+        }
     }
 }

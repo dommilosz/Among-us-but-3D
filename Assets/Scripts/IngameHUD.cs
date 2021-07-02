@@ -46,5 +46,8 @@ public class IngameHUD : MonoBehaviour
             }
             tasksLbl.AppText(item.GetCurrentTask().name + $" {item.GetStringProgress()}" + " (Long)", color,true);
         }
+
+        if(SabotageScript.GetCurrentSabotage()!=null)
+        gameObject.transform.Find("Sabotage").GetComponent<TMPro.TextMeshProUGUI>().text = SabotageScript.GetCurrentSabotage().ToString();
     }
 }

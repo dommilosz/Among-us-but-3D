@@ -75,13 +75,12 @@ public class PlayerActions : MonoBehaviour
         if (PlayerInfo.getPlayerInfo().canUse)
         {
             useButton.transform.Find("Image").GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
-
         }
 
         if ((bool)playerInfo.getSetting("isImpostor"))
         {
-            sabotageButton.SetActive(true);
-            useButton.SetActive(false);
+            sabotageButton.SetActive(!PlayerInfo.getPlayerInfo().canUse);
+            useButton.SetActive(PlayerInfo.getPlayerInfo().canUse);
             killButton.SetActive(true);
 
             int killCD = (int)Math.Round(PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillAbility.RemCooldown);
@@ -93,7 +92,12 @@ public class PlayerActions : MonoBehaviour
             {
                 killButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"{killCD}";
             }
+            if (Input.GetKeyDown(KeyCode.E)&& !PlayerInfo.getPlayerInfo().canUse)
+            {
+                if (GameObject.Find("MeetingCanvas") != null) return;
+                ToggleMap();
 
+            }
         }
         else
         {
@@ -114,14 +118,7 @@ public class PlayerActions : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (GameObject.Find("MeetingCanvas") != null) return;
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                ToggleSabotage();
-            }
-            else
-            {
-                ToggleMap();
-            }
+            ToggleMap();
 
         }
         if (Input.GetKeyDown(KeyCode.Q) && alive)
@@ -228,25 +225,11 @@ public class PlayerActions : MonoBehaviour
         if (GameObject.Find("MapCanvas") != null)
         {
             Destroy(GameObject.Find("MapCanvas"));
-        }
-        else
-        {
-            Instantiate(mapCanvas).name = "MapCanvas";
-        }
-    }
-
-    public void ToggleSabotage()
-    {
-        if (GameObject.Find("MapCanvas") != null)
-        {
-            Destroy(GameObject.Find("MapCanvas"));
             MouseUnLocker.LockMouse();
         }
         else
         {
-            var canvas = Instantiate(mapCanvas);
-            canvas.name = "MapCanvas";
-            canvas.GetComponent<MapScript>().sabotage = true;
+            Instantiate(mapCanvas).name = "MapCanvas";
             MouseUnLocker.UnlockMouse();
         }
     }

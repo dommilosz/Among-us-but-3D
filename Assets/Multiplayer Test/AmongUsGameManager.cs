@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using ExitGames.Client.Photon;
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,16 +11,27 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
     GameObject playersPlaceHolder;
     public GameObject playerPrefab;
     public bool debug = false;
+    public Dictionary<string, object> TempData = new Dictionary<string, object>();
+
     // Start is called before the first frame update
     void Start()
     {
         SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         playersPlaceHolder = GameObject.Find("Players");
+        TempData = new Dictionary<string, object>();
+        TempData.Clear();
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            SaveTempData();
+        }
     }
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
         SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+
+        TimedAbility.ResetAllAbilities();
+
         PhotonNetwork.LocalPlayer.GetPlayerInfo().Start();
         PhotonNetwork.LocalPlayer.GetPlayerObject().transform.position = GetGameManager().transform.position;
         PhotonNetwork.LocalPlayer.GetPlayerObject().transform.rotation = GetGameManager().transform.rotation;
@@ -75,6 +87,8 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
                 item.transform.Find("Orientation").Find("playerbestmodel").gameObject.SetActive(false);
             }
         }
+
+        LoadTempData();
     }
 
     public void ShowPlayer(bool show,GameObject item)
@@ -116,5 +130,22 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
     public static AmongUsGameManager GetGameManager()
     {
         return GameObject.Find("Game Manager").GetComponent<AmongUsGameManager>();
+    }
+
+    public void SaveTempData()
+    {
+        ExitGames.Client.Photon.Hashtable ht = new ExitGames.Client.Photon.Hashtable();
+        ht.Add("Temp", TempData);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(ht);
+    }
+
+    public void LoadTempData()
+    {
+        ExitGames.Client.Photon.Hashtable ht = PhotonNetwork.CurrentRoom.CustomProperties;
+        TempData = (Dictionary<string, object>)ht["Temp"];
+        if (TempData == null)
+        {
+            TempData = new Dictionary<string, object>();
+        }
     }
 }

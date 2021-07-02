@@ -25,6 +25,11 @@ public class TaskObj : MonoBehaviour
         bool canDo = CanDoTask();
         ao.ActionEnabled = canDo;
         GetComponent<Outline>().enabled = canDo;
+        if (SabotageScript.GetCurrentSabotage() != null && SabotageScript.GetCurrentSabotage().Type == SabotageScript.Sabotages.Comms)
+        {
+            GetComponent<Outline>().enabled = false;
+        }
+        
     }
 
     public void StartTask()

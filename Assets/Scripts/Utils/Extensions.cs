@@ -66,4 +66,21 @@ public static class UtilsExtensions
     {
         TMP.text = text + (newline ? "\n" : String.Empty);
     }
+
+    public static int Floor(this float f)
+    {
+        return (int)Math.Floor(f);
+    }
+
+    public static U Get<T,U>(this Dictionary<T,U> dict,T key, U _default)
+    {
+        if (dict.ContainsKey(key))
+        {
+            return dict[key];
+        }
+        else
+        {
+            return _default;
+        }
+    }
 }

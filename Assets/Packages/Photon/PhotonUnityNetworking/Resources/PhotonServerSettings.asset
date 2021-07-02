@@ -44,6 +44,7 @@ MonoBehaviour:
   - BodyReported
   - PlayerVoted
   - AddCommonTasks
+  - SyncSabotageRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

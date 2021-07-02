@@ -81,8 +81,7 @@ public class LavaJumpController : MonoBehaviour
     {
         PhotonNetwork.LocalPlayer.GetPlayerObject().transform.position = GameObject.Find("AfterMeetingLocation").transform.position;
         MouseUnLocker.LockMouse();
-        PlayerInfo.getPlayerInfo().MeetingAbility.Reset();
-        PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillAbility.Reset();
         GameObject.Find("MeetingCanvas").Destroy();
+        TimedAbility.ResetAllAbilities();
     }
 }

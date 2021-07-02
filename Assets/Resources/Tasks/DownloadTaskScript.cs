@@ -20,7 +20,8 @@ public class DownloadTaskScript : MonoBehaviour
         timer.Tick();
         if (timer.executed)
         {
-            gameObject.GetComponent<TaskGUI>().EndTask(true);
+            gameObject.GetComponent<TaskGUI>()._EndTask(true);
+            this.enabled = false;
         }
         var parentW = progressBar.transform.parent.GetComponent<RectTransform>().rect.width;
         var ratio = (float)(7 - timer.RemDelay) / 7;

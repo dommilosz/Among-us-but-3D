@@ -17,11 +17,11 @@ public class TaskGUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            EndTask(false);
+            _EndTask(false);
         }
     }
 
-    public void EndTask(bool success)
+    public void _EndTask(bool success)
     {
         if (success)
         {
@@ -31,9 +31,17 @@ public class TaskGUI : MonoBehaviour
             }
             task.task.Done = true;
         }
+        EndTask(success);
+        MouseUnLocker.LockMouse();
+        PlayerInfo.getPlayerInfo().canMove = true;
+    }
+
+    public static void EndTask(bool success)
+    {
         if (GameObject.Find("CurrentTask"))
         {
-            GameObject.Find("CurrentTask").Destroy();
+            if(success) GameObject.Find("CurrentTask").Destroy(1.5f);
+            else GameObject.Find("CurrentTask").Destroy();
         }
         MouseUnLocker.LockMouse();
         PlayerInfo.getPlayerInfo().canMove = true;

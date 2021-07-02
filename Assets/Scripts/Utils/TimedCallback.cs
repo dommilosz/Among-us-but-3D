@@ -177,6 +177,8 @@ public class TimedAbility
     public int UsesLeft = 0;
     public int Uses = 0;
 
+    public static List<TimedAbility> abilities = new List<TimedAbility>();
+
     public bool Ready
     {
         get { return RemCooldown <= 0; }
@@ -186,6 +188,7 @@ public class TimedAbility
     {
         RemCooldown = cooldown;
         this.cooldown = cooldown;
+        abilities.Add(this);
     }
 
     public void Start()
@@ -247,5 +250,14 @@ public class TimedAbility
         UsesLeft = uses;
         Uses = uses;
         Infinite = false;
+    }
+
+    public static void ResetAllAbilities()
+    {
+        foreach (var item in abilities)
+        {
+            if(item!=null)
+            item.Reset();
+        }
     }
 }
