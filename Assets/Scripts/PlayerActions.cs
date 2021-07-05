@@ -129,6 +129,7 @@ public class PlayerActions : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && alive)
         {
             if (GameObject.Find("MeetingCanvas") != null || hit.transform == null) return;
+            if (!hit.transform.CompareTag("Body")) return;
             ReportAction(hit.transform.name.Replace("Body ", ""));
         }
 
@@ -166,6 +167,7 @@ public class PlayerActions : MonoBehaviour
     public static void ReportAction(string color)
     {
         if (GameObject.Find("MeetingCanvas") != null) return;
+        AmongUsGameManager.GetGameManager().TempData["MeetingSeqIndex"] = -1;
         var playerInfo = PlayerInfo.getPlayerInfo();
         var PA = PlayerInfo.getPlayer().GetComponent<PlayerActions>();
         if (!PA.canReport) return;
@@ -175,6 +177,7 @@ public class PlayerActions : MonoBehaviour
     public static void MeetingAction(string color)
     {
         if (GameObject.Find("MeetingCanvas") != null) return;
+        AmongUsGameManager.GetGameManager().TempData["MeetingSeqIndex"] = -1;
         var playerInfo = PlayerInfo.getPlayerInfo();
         var PA = PlayerInfo.getPlayer().GetComponent<PlayerActions>();
         PhotonView photonView = PhotonView.Get(PA);
@@ -197,6 +200,7 @@ public class PlayerActions : MonoBehaviour
     {
         try
         {
+            BodyScript.DestroyBodies();
             if (GameObject.Find("MeetingCanvas") != null) return;
             var PA = PlayerInfo.getPlayer().GetComponent<PlayerActions>();
             var PAc = Instantiate(PA.MeetingCanvas);

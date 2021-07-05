@@ -64,8 +64,28 @@ public class MeetingHandler : MonoBehaviour
             AmongUsGameManager.GetGameManager().TempData["MeetingSeqIndex"] = sequence.index;
             AmongUsGameManager.GetGameManager().SaveTempData();
         }
-        sequence.GetCurrentEvent().RemDelay = (float)AmongUsGameManager.GetGameManager().TempData.Get("MeetingTimer", sequence.GetCurrentEvent().RemDelay);
-        sequence.index = (int)AmongUsGameManager.GetGameManager().TempData.Get("MeetingSeqIndex", sequence.index) ;
+
+        float serverDelay = (float)AmongUsGameManager.GetGameManager().TempData.Get("MeetingTimer", sequence.GetCurrentEvent().RemDelay);
+        float clientDelay = sequence.GetCurrentEvent().RemDelay;
+        int serverIndex = (int)AmongUsGameManager.GetGameManager().TempData.Get("MeetingSeqIndex", sequence.index);
+        int clientIndex = sequence.index;
+
+        if (serverIndex != -1)
+        {
+            if (serverIndex == clientIndex)
+            {
+                sequence.GetCurrentEvent().RemDelay = serverDelay;
+            }
+            if (serverIndex > clientIndex)
+            {
+                sequence.GetCurrentEvent().RemDelay = 0;
+            }
+            if (serverIndex < clientIndex)
+            {
+                sequence.GetCurrentEvent().RemDelay = 10;
+            }
+        }
+
     }
 
     public void DiscussionTime()

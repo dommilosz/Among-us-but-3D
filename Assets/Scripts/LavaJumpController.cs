@@ -43,23 +43,30 @@ public class LavaJumpController : MonoBehaviour
 
     public string GetEjectMsg()
     {
-        string NoOneBase = "No one was ejected: ";
-        string EjectedBase = "%p was ejected";
-        string KnownEjectedBase = "%p was %n The Impostor";
-        if (skipped) return NoOneBase + "Skipped";
-        if (tie) return NoOneBase + "Tie";
+        try
+        {
+            string NoOneBase = "No one was ejected: ";
+            string EjectedBase = "%p was ejected";
+            string KnownEjectedBase = "%p was %n The Impostor";
+            if (skipped) return NoOneBase + "Skipped";
+            if (tie) return NoOneBase + "Tie";
 
-        string RawMsg;
-        if ((bool)SettingsHandler.getSetting("Confirm_Ejects"))
-        {
-            RawMsg = KnownEjectedBase;
+            string RawMsg;
+            if ((bool)SettingsHandler.getSetting("Confirm_Ejects"))
+            {
+                RawMsg = KnownEjectedBase;
+            }
+            else
+            {
+                RawMsg = EjectedBase;
+            }
+            bool isImpostor = (bool)playerToDrop.GetPlayerInfo().getSetting("isImpostor");
+            return RawMsg.Replace("%p", playerToDrop.NickName).Replace("%n ", isImpostor ? "" : "Not ");
         }
-        else
+        catch
         {
-            RawMsg = EjectedBase;
+            return "Player ejected on his own.";
         }
-        bool isImpostor = (bool)playerToDrop.GetPlayerInfo().getSetting("isImpostor");
-        return RawMsg.Replace("%p", playerToDrop.NickName).Replace("%n ", isImpostor ? "" : "Not ");
     }
 
     public void ShowMsg()
@@ -69,10 +76,14 @@ public class LavaJumpController : MonoBehaviour
 
         if (!tie && !skipped)
         {
-            if (PhotonNetwork.IsMasterClient)
+            try
             {
-                playerToDrop.GetPlayerInfo().setSetting("Alive", false);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    playerToDrop.GetPlayerInfo().setSetting("Alive", false);
+                }
             }
+            catch { }
         }
         MsgHide.Start();
     }

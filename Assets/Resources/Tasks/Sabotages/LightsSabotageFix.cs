@@ -28,7 +28,7 @@ public class LightsSabotageFix : MonoBehaviour
             if (!enabled) allEnabled = false;
             transform.Find("Switch:" + i.ToString()).GetComponent<Image>().color = enabled ? Color.green : Color.black;
         }
-        if (allEnabled && PhotonNetwork.LocalPlayer.IsMasterClient)
+        if (allEnabled)
         {
             SabotageScript.StartSabotage(Sabotages.None, true);
             TaskGUI.EndTask(true);

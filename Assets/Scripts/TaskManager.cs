@@ -26,7 +26,11 @@ public class TaskManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        var CTasks = AmongUsGameManager.GetGameManager().TempData.Get("CommonTasks",null);
+        if (CTasks != null&&CTasks.GetType() == typeof(byte[]))
+        {
+            AllTasks.AddCommonTasks((byte[])CTasks);
+        }
     }
 
     [Serializable]
@@ -288,7 +292,9 @@ public class TaskManager : MonoBehaviour
                 formatter.Serialize(s, CTasks);
                 s.Flush();
 
-                PlayerActions.GetPhotonView().RPC("AddCommonTasks", RpcTarget.All, s.ReadAllBytes());
+                AmongUsGameManager.GetGameManager().TempData["CommonTasks"] = s.ReadAllBytes();
+                AmongUsGameManager.GetGameManager().SaveTempData();
+
                 s.Close();
             }
         }
@@ -322,15 +328,15 @@ public class TaskManager : MonoBehaviour
 
         public static void AddCommonTasks(byte[] cTasks)
         {
-            var CTasks = new List<string>();
             var Tasks = PlayerInfo.getPlayerInfo().Tasks;
             Stream s = new MemoryStream();
             s.WriteAllBytes(cTasks);
             s.Position = 0;
             IFormatter formatter = new BinaryFormatter();
-            CTasks = ((string[])formatter.Deserialize(s)).ToList();
+            var CTasks = ((string[])formatter.Deserialize(s)).ToList();
             s.Flush();
             s.Close();
+            Tasks.CommonTasks.Clear();
             foreach (var item in CTasks)
             {
                 Tasks.CommonTasks.Add(TaskManager.Task.GetByName(item, TaskManager.TaskTypes.Common));

@@ -21,10 +21,31 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     public TaskManager.AllTasks Tasks;
     public bool TasksGenerated = false;
 
+    public Dictionary<string, object> TempData = new Dictionary<string, object>();
+
+    public void SaveTempData()
+    {
+        Hashtable ht = new Hashtable();
+        ht.Add("Temp", TempData);
+        getPUNPlayer().SetCustomProperties(ht);
+    }
+
+    public void LoadTempData()
+    {
+        Hashtable ht = getPUNPlayer().CustomProperties;
+        TempData = (Dictionary<string, object>)ht["Temp"];
+        if (TempData == null)
+        {
+            TempData = new Dictionary<string, object>();
+        }
+    }
+
     // Start is called before the first frame update
     public void Start()
     {
         settings = SettingsValues.ReturnDefaultPlayerSettings().ToList();
+        TempData.Clear();
+        SaveTempData();
         if (isMine(getPlayer()))
         {
             sendSettings();
@@ -63,6 +84,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        LoadTempData();
         if (!TasksGenerated)
         {
             Tasks = new TaskManager.AllTasks();
@@ -100,12 +122,6 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
                 LoadValues(settings);
             }
         }
-    }
-
-    [PunRPC]
-    public void AddCommonTasks(byte[] cTasks)
-    {
-        TaskManager.AllTasks.AddCommonTasks(cTasks);
     }
 
     public void LoadValues(object[] settings)

@@ -35,6 +35,10 @@ public class SabotageScript : MonoBehaviour
                 AmongUsGameManager.GetGameManager().TempData["SabotageTime"] = CurrentSabotage.TimeLeft;
             }
         }
+
+        if (GameObject.Find("CurrentTask")==null)
+            ReactorSabotageFix.SetState(0);
+
         if (CurrentSabotage.TimeLeft < 0 && CurrentSabotage.TimeLeft != -1)
         {
 

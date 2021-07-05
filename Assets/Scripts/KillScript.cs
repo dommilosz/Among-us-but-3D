@@ -51,7 +51,7 @@ public class KillScript : MonoBehaviour
     public void KillPlayer(Player player)
     {
         PhotonView photonView = PhotonView.Get(this);
-        photonView.RPC("KillPlayer", RpcTarget.All, new object[] { player.UserId,PhotonNetwork.LocalPlayer });
+        photonView.RPC("KillPlayer", RpcTarget.All, new object[] { player,PhotonNetwork.LocalPlayer });
     }
 
     public bool IsImpostor()
@@ -93,9 +93,9 @@ public class KillScript : MonoBehaviour
     public string SelectedPlayer;
 
     [PunRPC]
-    public void KillPlayer(string playerID,Player sender)
+    public void KillPlayer(Player deadPlayer,Player sender)
     {
-        if (PhotonNetwork.LocalPlayer.UserId == playerID)
+        if (PhotonNetwork.LocalPlayer.UserId == deadPlayer.UserId)
         {
             PhotonNetwork.LocalPlayer.GetPlayerInfo().setSetting("Alive", false);
             GameObject kbc = GameObject.Instantiate(KilledByCanvas);
@@ -105,8 +105,7 @@ public class KillScript : MonoBehaviour
             kbc.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = $"Killed by <color={colorCode}>{color}</color>";
             kbc.Destroy(5);
         }
-        var player = PlayerInfo.getPlayerByID(playerID);
-        var playerObj = player.GetPlayerObject();
+        var playerObj = deadPlayer.GetPlayerObject();
         var x = playerObj.transform.position.x;
         var y = playerObj.transform.position.y;
         var z = playerObj.transform.position.z;
@@ -115,14 +114,13 @@ public class KillScript : MonoBehaviour
         GameObject.Destroy(kps, 5);
 
         var body = GameObject.Instantiate(bodyPrefab, new Vector3(x, y, z), Quaternion.identity);
-        string deadColor = "";
-        foreach (var item in PhotonNetwork.PlayerList)
-        {
-            if (item.UserId == playerID) deadColor= (string)item.GetPlayerInfo().getSetting("Color");
-        }
-        body.name = $"Body {deadColor}";
+        string deadColor = (string)deadPlayer.GetPlayerInfo().getSetting("Color");
+
+        body.name = $"Body {deadPlayer.NickName}";
+        var bs = body.GetComponent<BodyScript>();
+        bs.player = deadPlayer;
+        bs.color = deadColor;
         body.tag = "Body";
-        body.transform.SetParent(GameObject.Find("Players").transform);
 
     }
 }

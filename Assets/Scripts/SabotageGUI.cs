@@ -17,6 +17,10 @@ public class SabotageGUI : MonoBehaviour
         {
             TaskGUI.EndTask(false);
         }
+        if (GameObject.Find("CurrentTask")&& SabotageScript.GetCurrentSabotage().Type==SabotageScript.Sabotages.None)
+        {
+            TaskGUI.EndTask(true);
+        }
     }
 
 }

@@ -49,5 +49,16 @@ public class Enums : MonoBehaviour
         {
             return getColorCodeByName(color).Replace("#","");
         }
+
+        public static Material getMaterial(Color color)
+        {
+            var mat = new Material(Shader.Find("Standard"));
+            mat.color = color;
+            return mat;
+        }
+        public static Material getMaterial(string color)
+        {
+            return getMaterial(getColorByName(color));
+        }
     }
 }

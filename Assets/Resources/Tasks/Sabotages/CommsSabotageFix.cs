@@ -14,7 +14,8 @@ public class CommsSabotageFix : MonoBehaviour
     void Start()
     {
         if((int)AmongUsGameManager.GetGameManager().TempData["CommsSabotage"]== -1)
-        AmongUsGameManager.GetGameManager().TempData["CommsSabotage"]=UnityEngine.Random.Range(((rvs.rangeMin) / DegreesPerCheck).Floor() + 1, ((rvs.rangeMax) / DegreesPerCheck).Floor() - 1);
+        AmongUsGameManager.GetGameManager().TempData["CommsSabotage"]=Random.Range(((rvs.rangeMin) / DegreesPerCheck).Floor() + 1, ((rvs.rangeMax) / DegreesPerCheck).Floor() - 1);
+        AmongUsGameManager.GetGameManager().SaveTempData();
     }
 
     // Update is called once per frame
