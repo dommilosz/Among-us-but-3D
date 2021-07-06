@@ -1,6 +1,4 @@
 ﻿using Photon.Pun;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,7 +24,7 @@ public class MeetingHandler : MonoBehaviour
         int _ProceedingTime = 5;
 
         sequence = new TimedCallbackSequence();
-        sequence.AddElement(DiscussionTime, _DiscusionTime,"Discussion");
+        sequence.AddElement(DiscussionTime, _DiscusionTime, "Discussion");
         sequence.AddElement(VotingTime, _VotingTime, "Voting");
         sequence.AddElement(ProcedingTime, _ProceedingTime, "Proceeding");
         transform.Find("Discussion").gameObject.SetActive(true);
@@ -40,7 +38,6 @@ public class MeetingHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MouseUnLocker.UnlockMouse();
         sequence.Tick();
         transform.Find("TimeLeft").GetComponent<TMPro.TextMeshProUGUI>().text = $"{sequence.GetCurrentEvent().name} {sequence.GetTimeLeftOfCurrentEvent()}s";
 
@@ -109,7 +106,7 @@ public class MeetingHandler : MonoBehaviour
             if ((bool)item.GetPlayerInfo().getSetting("Alive") && (string)item.CustomProperties["Voted"] != null && (string)item.CustomProperties["Voted"] != "")
             {
                 string vote = (string)item.CustomProperties["Voted"];
-                if(vote==SkipSpecialValue)
+                if (vote == SkipSpecialValue)
                     VoteClass.CountSpecial(vote);
                 VoteClass.CountVote(vote);
             }
@@ -130,7 +127,7 @@ public class MeetingHandler : MonoBehaviour
     public bool allVoted = false;
     public void Vote(string player)
     {
-        if (sequence.GetCurrentEvent().name!="Voting") return;
+        if (sequence.GetCurrentEvent().name != "Voting") return;
         if (!(bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Alive")) return;
         Hashtable ht = new Hashtable();
         ht.Add("Voted", player);
@@ -193,7 +190,7 @@ public class MeetingHandler : MonoBehaviour
         {
             votes.Clear();
             new VoteClass(SkipSpecialValue, true);
-            new VoteClass("Special::Empty",true);
+            new VoteClass("Special::Empty", true);
         }
 
         public static VoteClass GetSpecial(string type)
@@ -210,8 +207,8 @@ public class MeetingHandler : MonoBehaviour
 
         public static VoteResult GetResult()
         {
-            VoteClass res=null;
-            VoteClass res2=null;
+            VoteClass res = null;
+            VoteClass res2 = null;
             foreach (var item in votes)
             {
                 if (res == null)
@@ -227,7 +224,7 @@ public class MeetingHandler : MonoBehaviour
                 }
             }
 
-            if (res2!=null&&res.count == res2.count)
+            if (res2 != null && res.count == res2.count)
             {
                 return VoteResult.Tie;
             }
@@ -239,7 +236,7 @@ public class MeetingHandler : MonoBehaviour
             return new VoteResult(res.player, false);
         }
 
-        
+
     }
 
     public class VoteResult

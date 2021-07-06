@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class TransformEx
 {
@@ -13,12 +11,12 @@ public static class TransformEx
         return transform;
     }
 
-    public static Transform Move(this Transform transform,float x,float y,float z)
+    public static Transform Move(this Transform transform, float x, float y, float z)
     {
         transform.position = new Vector3(transform.position.x + x, transform.position.y + y, transform.position.z + z);
         return transform;
     }
-    
+
     public static void Destroy(this GameObject go)
     {
         try
@@ -27,11 +25,11 @@ public static class TransformEx
         }
         catch { }
     }
-    public static void Destroy(this GameObject go,float timeout)
+    public static void Destroy(this GameObject go, float timeout)
     {
         try
         {
-            GameObject.Destroy(go,timeout);
+            GameObject.Destroy(go, timeout);
         }
         catch { }
     }

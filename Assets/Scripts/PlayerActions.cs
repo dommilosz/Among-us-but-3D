@@ -92,7 +92,7 @@ public class PlayerActions : MonoBehaviour
             {
                 killButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"{killCD}";
             }
-            if (Input.GetKeyDown(KeyCode.E)&& !PlayerInfo.getPlayerInfo().canUse)
+            if (Input.GetKeyDown(KeyCode.E) && !PlayerInfo.getPlayerInfo().canUse)
             {
                 if (GameObject.Find("MeetingCanvas") != null) return;
                 ToggleMap();
@@ -172,7 +172,7 @@ public class PlayerActions : MonoBehaviour
         var PA = PlayerInfo.getPlayer().GetComponent<PlayerActions>();
         if (!PA.canReport) return;
         PhotonView photonView = PhotonView.Get(PA);
-        photonView.RPC("BodyReported", RpcTarget.All, new object[] { PhotonNetwork.LocalPlayer.NickName, color,false });
+        photonView.RPC("BodyReported", RpcTarget.All, new object[] { PhotonNetwork.LocalPlayer.NickName, color, false });
     }
     public static void MeetingAction(string color)
     {
@@ -196,14 +196,14 @@ public class PlayerActions : MonoBehaviour
     }
 
     [PunRPC]
-    public void BodyReported(string reportingPlayer, string color,bool meeting)
+    public void BodyReported(string reportingPlayer, string color, bool meeting)
     {
         try
         {
             BodyScript.DestroyBodies();
             if (GameObject.Find("MeetingCanvas") != null) return;
             var PA = PlayerInfo.getPlayer().GetComponent<PlayerActions>();
-            var PAc = Instantiate(PA.MeetingCanvas);
+            var PAc = GuiLock.InstantiateGUIForce(PA.MeetingCanvas);
             PAc.GetComponent<DBReported>().meeting = meeting;
             PAc.GetComponent<DBReported>().bodyColor = color;
 
@@ -229,12 +229,12 @@ public class PlayerActions : MonoBehaviour
         if (GameObject.Find("MapCanvas") != null)
         {
             Destroy(GameObject.Find("MapCanvas"));
-            MouseUnLocker.LockMouse();
         }
         else
         {
-            Instantiate(mapCanvas).name = "MapCanvas";
-            MouseUnLocker.UnlockMouse();
+            var mc = GuiLock.InstantiateGUI(mapCanvas, true, true, true);
+            if (mc != null)
+                mc.name = "MapCanvas";
         }
     }
 }

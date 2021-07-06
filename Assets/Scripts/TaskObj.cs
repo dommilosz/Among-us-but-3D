@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using static TaskManager;
 
 public class TaskObj : MonoBehaviour
@@ -21,7 +19,7 @@ public class TaskObj : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
+    {
         bool canDo = CanDoTask();
         ao.ActionEnabled = canDo;
         GetComponent<Outline>().enabled = canDo;
@@ -29,24 +27,22 @@ public class TaskObj : MonoBehaviour
         {
             GetComponent<Outline>().enabled = false;
         }
-        
+
     }
 
     public void StartTask()
     {
-        if (GameObject.Find("CurrentTask")){
-            GameObject.Find("CurrentTask").Destroy();
-        }
-        var task = Instantiate(TaskManager.Task.GetByName(TaskName).prefab);
+        var task = GuiLock.InstantiateGUI(TaskManager.Task.GetByName(TaskName).prefab, true, true, true);
+        if (task == null) return;
         task.name = "CurrentTask";
         var tgui = task.GetComponent<TaskGUI>();
-        tgui.TaskName= TaskName;
+        tgui.TaskName = TaskName;
         tgui.task = this;
-        MouseUnLocker.UnlockMouse();
         PlayerInfo.getPlayerInfo().canMove = false;
     }
 
-    public bool CanDoTask() {
+    public bool CanDoTask()
+    {
         if (PlayerInfo.getPlayerInfo().IsImpostor()) return false;
         if (!task.Active) return false;
         if (task.Done) return false;

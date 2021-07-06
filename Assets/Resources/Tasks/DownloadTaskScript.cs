@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class DownloadTaskScript : MonoBehaviour
@@ -11,7 +9,7 @@ public class DownloadTaskScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timer = new TimedCallback(TimedCallback.EmptyCallback,7);
+        timer = new TimedCallback(TimedCallback.EmptyCallback, 7);
     }
 
     // Update is called once per frame

@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,14 +43,13 @@ public class ColorPickerGUI : MonoBehaviour
 
     public void Show()
     {
-        if (!GameObject.Find("ColorPicker"))
-            GameObject.Instantiate(prefab).name = "ColorPicker";
-        MouseUnLocker.UnlockMouse();
+        var cp = GuiLock.InstantiateGUI(prefab, true, true, true);
+        if (cp != null)
+            cp.name = "ColorPicker";
     }
 
     public void Hide()
     {
         if (GameObject.Find("ColorPicker")) Destroy(GameObject.Find("ColorPicker"));
-        MouseUnLocker.LockMouse();
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class VoteButtonHandler : MonoBehaviour
 {
@@ -22,6 +19,6 @@ public class VoteButtonHandler : MonoBehaviour
     public void Vote()
     {
         if (!(bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Alive")) return;
-        meetingHandler.Vote(gameObject.name.Replace("Meeting_",""));
+        meetingHandler.Vote(gameObject.name.Replace("Meeting_", ""));
     }
 }

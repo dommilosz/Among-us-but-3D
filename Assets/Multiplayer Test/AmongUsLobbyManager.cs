@@ -1,8 +1,6 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -23,7 +21,7 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
 
         if (debug)
         {
-            SettingsHandler.setSetting("Impostors",0);
+            SettingsHandler.setSetting("Impostors", 0);
             SettingsHandler.setSetting("Map", "debug");
             LoadGameScene();
         }
@@ -41,7 +39,7 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
         {
             if (StartTimer.enabled)
                 changeTimer(false);
-            else if(enoughPlayers()) changeTimer(true);
+            else if (enoughPlayers()) changeTimer(true);
         }
 
         StartTimer.Tick();
@@ -73,15 +71,15 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
         showingRole = true;
         if (GameObject.Find("Role_Canvas") == null)
         {
-            GameObject.Instantiate(roleCanvas).name = "Role_Canvas";
+            GuiLock.InstantiateGUIForce(roleCanvas, true, false, false).name = "Role_Canvas";
         }
         var canvas = GameObject.Find("Role_Canvas");
         bool isImpostor = (bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("isImpostor");
         int impCount = (int)SettingsHandler.getSetting("Impostors");
-        int oppCount = isImpostor? PhotonNetwork.PlayerList.Length-impCount : (int)SettingsHandler.getSetting("Impostors");
+        int oppCount = isImpostor ? PhotonNetwork.PlayerList.Length - impCount : (int)SettingsHandler.getSetting("Impostors");
         string oppRole = isImpostor ? "Crewmates" : (impCount > 1 ? "Impostors" : "Impostor");
 
-        canvas.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = $"There is {oppCount} <b><color={(isImpostor?"green":"red")}>{oppRole}</color></b> Among Us";
+        canvas.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = $"There is {oppCount} <b><color={(isImpostor ? "green" : "red")}>{oppRole}</color></b> Among Us";
 
         canvas.transform.Find("Crewmate").gameObject.SetActive(!isImpostor);
         canvas.transform.Find("Impostor").gameObject.SetActive(isImpostor);

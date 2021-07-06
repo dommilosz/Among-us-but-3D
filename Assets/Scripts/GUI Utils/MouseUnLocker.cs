@@ -1,22 +1,42 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MouseUnLocker : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public static void UnlockMouse()
+    public static bool MouseLocked
+    {
+        get
+        {
+            return _MouseLocked;
+        }
+        set
+        {
+            _MouseLocked = value;
+            if (_MouseLocked)
+            {
+                LockMouse();
+            }
+            else
+            {
+                UnlockMouse();
+            }
+        }
+    }
+
+    private static bool _MouseLocked = true;
+
+    private static void UnlockMouse()
     {
         var player = PlayerInfo.getPlayer();
         player.GetComponent<PlayerMovement>().enabled = false;
@@ -24,7 +44,7 @@ public class MouseUnLocker : MonoBehaviour
         Cursor.visible = true;
     }
 
-    public static void LockMouse()
+    private static void LockMouse()
     {
         var player = PlayerInfo.getPlayer();
         player.GetComponent<PlayerMovement>().enabled = true;

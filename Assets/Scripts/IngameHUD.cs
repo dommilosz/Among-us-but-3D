@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class IngameHUD : MonoBehaviour
 {
@@ -10,9 +8,9 @@ public class IngameHUD : MonoBehaviour
     {
         if (GameObject.Find("HUD") == null)
         {
-            Instantiate(HUDPrefab).name="HUD";
+            Instantiate(HUDPrefab).name = "HUD";
         }
-        
+
     }
 
     // Update is called once per frame
@@ -27,16 +25,16 @@ public class IngameHUD : MonoBehaviour
         tasksLbl.text = "";
         foreach (var item in playerInfo.Tasks.ShortTasks)
         {
-            tasksLbl.AppText(item.name + " (Short)", item.Done ? Color.green : Color.white,true);
+            tasksLbl.AppText(item.name + " (Short)", item.Done ? Color.green : Color.white, true);
         }
         foreach (var item in playerInfo.Tasks.CommonTasks)
         {
-            tasksLbl.AppText(item.name + " (Common)", item.Done?Color.green:Color.white,true);
+            tasksLbl.AppText(item.name + " (Common)", item.Done ? Color.green : Color.white, true);
         }
         foreach (var item in playerInfo.Tasks.LongTasks)
         {
             var color = Color.white;
-            if(item.Started)
+            if (item.Started)
             {
                 color = Color.yellow;
             }
@@ -44,10 +42,10 @@ public class IngameHUD : MonoBehaviour
             {
                 color = Color.green;
             }
-            tasksLbl.AppText(item.GetCurrentTask().name + $" {item.GetStringProgress()}" + " (Long)", color,true);
+            tasksLbl.AppText(item.GetCurrentTask().name + $" {item.GetStringProgress()}" + " (Long)", color, true);
         }
 
-        if(SabotageScript.GetCurrentSabotage()!=null)
-        gameObject.transform.Find("Sabotage").GetComponent<TMPro.TextMeshProUGUI>().text = SabotageScript.GetCurrentSabotage().ToString();
+        if (SabotageScript.GetCurrentSabotage() != null)
+            gameObject.transform.Find("Sabotage").GetComponent<TMPro.TextMeshProUGUI>().text = SabotageScript.GetCurrentSabotage().ToString();
     }
 }

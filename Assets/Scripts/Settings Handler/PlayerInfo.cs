@@ -1,14 +1,8 @@
 using Photon.Pun;
 using Photon.Realtime;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using UnityStandardAssets.Characters.FirstPerson;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerInfo : MonoBehaviourPunCallbacks
@@ -255,7 +249,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
 }
 public static class PlayerExt
 {
-    public static void changeColor(this Player player,string color)
+    public static void changeColor(this Player player, string color)
     {
         player.GetPlayerInfo().setSetting("Color", color);
     }

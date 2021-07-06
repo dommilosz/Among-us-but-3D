@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class SettingsRenderer : MonoBehaviour
@@ -45,8 +42,9 @@ public class SettingsRenderer : MonoBehaviour
     {
         if (!GameObject.Find("Settings_Editor"))
         {
-            var tmp = GameObject.Instantiate(content_edit_prefab);
-            tmp.name = "Settings_Editor";
+            var tmp = GuiLock.InstantiateGUI(content_edit_prefab, true, true, true);
+            if (tmp != null)
+                tmp.name = "Settings_Editor";
         }
         var Settings_Editor = GameObject.Find("Settings_Editor");
         var cnt = Settings_Editor.transform.Find("Image").Find("Scroll View").Find("Viewport").Find("Content");
@@ -97,13 +95,11 @@ public class SettingsRenderer : MonoBehaviour
     public void Show()
     {
         if (GameObject.Find("Settings_Editor")) return;
-        MouseUnLocker.UnlockMouse();
         DrawEditable();
     }
 
     public void Hide()
     {
-        MouseUnLocker.LockMouse();
         var Settings_Editor = GameObject.Find("Settings_Editor");
         Destroy(Settings_Editor);
     }

@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class RoomListEntry : MonoBehaviour
 {
     public Text RoomNameText;

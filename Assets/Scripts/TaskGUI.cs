@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TaskGUI : MonoBehaviour
 {
@@ -9,16 +7,13 @@ public class TaskGUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            _EndTask(false);
-        }
+
     }
 
     public void _EndTask(bool success)
@@ -32,7 +27,6 @@ public class TaskGUI : MonoBehaviour
             task.task.Done = true;
         }
         EndTask(success);
-        MouseUnLocker.LockMouse();
         PlayerInfo.getPlayerInfo().canMove = true;
     }
 
@@ -40,10 +34,9 @@ public class TaskGUI : MonoBehaviour
     {
         if (GameObject.Find("CurrentTask"))
         {
-            if(success) GameObject.Find("CurrentTask").Destroy(1.5f);
+            if (success) GameObject.Find("CurrentTask").Destroy(1.5f);
             else GameObject.Find("CurrentTask").Destroy();
         }
-        MouseUnLocker.LockMouse();
         PlayerInfo.getPlayerInfo().canMove = true;
     }
 

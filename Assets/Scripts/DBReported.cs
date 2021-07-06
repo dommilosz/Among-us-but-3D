@@ -1,6 +1,4 @@
 ﻿using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -27,7 +25,6 @@ public class DBReported : MonoBehaviour
     void Update()
     {
         MeetingCallback.Tick();
-        MouseUnLocker.UnlockMouse();
         transform.Find("DBReported").Find("BodyColor").GetComponent<Image>().color = Enums.Colors.getColorByName(bodyColor);
         transform.Find("DBReported").Find("Meeting").gameObject.SetActive(meeting);
         transform.Find("DBReported").Find("DeadBodyReported").gameObject.SetActive(!meeting);

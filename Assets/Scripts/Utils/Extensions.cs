@@ -27,13 +27,13 @@ public static class UtilsExtensions
         return list.ToArray().ToList();
     }
 
-    public static void SetRectWidth(this RectTransform transform,float width)
+    public static void SetRectWidth(this RectTransform transform, float width)
     {
-        transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,width);
+        transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
     }
-    public static void SetRectHeight(this RectTransform transform,float height)
+    public static void SetRectHeight(this RectTransform transform, float height)
     {
-        transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,height);
+        transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
     }
 
     public static byte[] ReadAllBytes(this Stream stream)
@@ -43,17 +43,17 @@ public static class UtilsExtensions
         stream.Read(bytes, 0, (int)stream.Length);
         return bytes;
     }
-    public static void WriteAllBytes(this Stream stream,byte[] bytes)
+    public static void WriteAllBytes(this Stream stream, byte[] bytes)
     {
         stream.Write(bytes, 0, bytes.Length);
     }
 
-    public static void AppText(this TMPro.TextMeshProUGUI TMP,string text,Color c, bool newline=false)
+    public static void AppText(this TMPro.TextMeshProUGUI TMP, string text, Color c, bool newline = false)
     {
-        var colorCode = BitConverter.ToString(new byte[] { (byte)(c.r*255), (byte)(c.g*255), (byte)(c.b*255) }).Replace("-", string.Empty); ;
-        TMP.text += $"<color=#{colorCode}>{text}</color>"+ (newline ? "\n": String.Empty);
+        var colorCode = BitConverter.ToString(new byte[] { (byte)(c.r * 255), (byte)(c.g * 255), (byte)(c.b * 255) }).Replace("-", string.Empty); ;
+        TMP.text += $"<color=#{colorCode}>{text}</color>" + (newline ? "\n" : String.Empty);
     }
-    public static void AppText(this TMPro.TextMeshProUGUI TMP, string text, bool newline=false)
+    public static void AppText(this TMPro.TextMeshProUGUI TMP, string text, bool newline = false)
     {
         TMP.text += text + (newline ? "\n" : String.Empty);
     }
@@ -72,7 +72,7 @@ public static class UtilsExtensions
         return (int)Math.Floor(f);
     }
 
-    public static U Get<T,U>(this Dictionary<T,U> dict,T key, U _default)
+    public static U Get<T, U>(this Dictionary<T, U> dict, T key, U _default)
     {
         if (dict.ContainsKey(key))
         {

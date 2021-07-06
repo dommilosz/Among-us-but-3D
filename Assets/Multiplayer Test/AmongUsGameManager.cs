@@ -1,7 +1,5 @@
-﻿using ExitGames.Client.Photon;
-using Photon.Pun;
+﻿using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -68,9 +66,9 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
                 {
                     ShowPlayer(true, item);
                 }
-                if (!(bool)item.GetComponent<PlayerInfo>().getSetting("Alive")&& !(bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Alive"))
+                if (!(bool)item.GetComponent<PlayerInfo>().getSetting("Alive") && !(bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Alive"))
                 {
-                    ShowPlayer(true,item);
+                    ShowPlayer(true, item);
                 }
                 if (item.transform.Find("PlayerCamera") != null && item.transform.Find("Point Light") != null)
                 {
@@ -91,7 +89,7 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
         LoadTempData();
     }
 
-    public void ShowPlayer(bool show,GameObject item)
+    public void ShowPlayer(bool show, GameObject item)
     {
         item.transform.Find("Orientation").Find("playerbestmodel").gameObject.SetActive(show);
         item.transform.Find($"{item.GetComponent<Photon.Pun.PhotonView>().Controller.NickName}- [label]").gameObject.SetActive(show);

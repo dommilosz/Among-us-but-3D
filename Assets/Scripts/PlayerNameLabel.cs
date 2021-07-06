@@ -1,8 +1,5 @@
 ﻿using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerNameLabel : MonoBehaviour
 {
@@ -11,7 +8,7 @@ public class PlayerNameLabel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var label = GameObject.Instantiate(labelPrefab,transform);
+        var label = GameObject.Instantiate(labelPrefab, transform);
         label.name = gameObject.GetComponent<PlayerInfo>().getPUNPlayer().NickName + "- [label]";
         label.GetComponent<TMPro.TextMeshPro>().text = gameObject.GetComponent<PlayerInfo>().getPUNPlayer().NickName;
         label.transform.localPosition = new Vector3(0, YOffset, 0);
@@ -20,10 +17,11 @@ public class PlayerNameLabel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (getLabel() != null)
+        var label = getLabel();
+        if (label != null)
         {
             var mainCam = PhotonNetwork.LocalPlayer.GetPlayerObject().transform.Find("PlayerCamera");
-            getLabel().transform.rotation = mainCam.rotation;
+            label.transform.rotation = mainCam.rotation;
         }
     }
 

@@ -1,7 +1,5 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class KillScript : MonoBehaviour
@@ -10,7 +8,7 @@ public class KillScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        KillAbility =new TimedAbility(KillAction, (float)SettingsHandler.getSetting("KillCooldown"));
+        KillAbility = new TimedAbility(KillAction, (float)SettingsHandler.getSetting("KillCooldown"));
         KillAbility.Start();
     }
 
@@ -51,7 +49,7 @@ public class KillScript : MonoBehaviour
     public void KillPlayer(Player player)
     {
         PhotonView photonView = PhotonView.Get(this);
-        photonView.RPC("KillPlayer", RpcTarget.All, new object[] { player,PhotonNetwork.LocalPlayer });
+        photonView.RPC("KillPlayer", RpcTarget.All, new object[] { player, PhotonNetwork.LocalPlayer });
     }
 
     public bool IsImpostor()
@@ -93,7 +91,7 @@ public class KillScript : MonoBehaviour
     public string SelectedPlayer;
 
     [PunRPC]
-    public void KillPlayer(Player deadPlayer,Player sender)
+    public void KillPlayer(Player deadPlayer, Player sender)
     {
         if (PhotonNetwork.LocalPlayer.UserId == deadPlayer.UserId)
         {

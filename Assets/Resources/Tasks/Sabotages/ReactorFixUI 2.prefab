@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 5229256390622306012}
   - component: {fileID: 4756736354449902891}
   - component: {fileID: 2707825139877886170}
+  - component: {fileID: 4201512192473397149}
   m_Layer: 5
   m_Name: ReactorFixUI 2
   m_TagString: Untagged
@@ -324,6 +325,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4756736354449902891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,3 +357,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ThisState: 2
   image: {fileID: 1806358243681622659}
+--- !u!114 &4201512192473397149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8035659798389031325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485463a9c2929de46b57443ddad6268c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

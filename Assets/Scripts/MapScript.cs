@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static SabotageScript;
 
-public class MapScript: MonoBehaviour
+public class MapScript : MonoBehaviour
 {
     public GameObject pointer;
     public float canvasW = 500;
@@ -15,7 +13,7 @@ public class MapScript: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -41,7 +39,7 @@ public class MapScript: MonoBehaviour
         var xRatio = ppos.x / mapW;
         var yRatio = ppos.z / mapH;
 
-        pointer.transform.localPosition = new Vector3(xRatio*canvasW, yRatio * canvasH, 0);
+        pointer.transform.localPosition = new Vector3(xRatio * canvasW, yRatio * canvasH, 0);
     }
 
     public void StartSabotage(Sabotages sabotage, float TimeLeft)

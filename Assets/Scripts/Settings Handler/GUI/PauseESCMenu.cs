@@ -1,8 +1,5 @@
 ﻿using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseESCMenu : MonoBehaviour
 {
@@ -17,7 +14,7 @@ public class PauseESCMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)&&active)
+        if (Input.GetKeyDown(KeyCode.Escape) && active)
         {
             if (GameObject.Find("PauseMenu") == null)
             {
@@ -28,26 +25,20 @@ public class PauseESCMenu : MonoBehaviour
                 Hide();
             }
 
-            
+
         }
     }
 
     public void Show()
     {
-        GameObject.Instantiate(menuPrefab).name = "PauseMenu";
-        var menu = GameObject.Find("PauseMenu");
-
-        foreach (var item in GameObject.FindGameObjectsWithTag("GUI"))
-        {
-            item.Destroy();
-        }
-
-        MouseUnLocker.UnlockMouse();
+        var go = GuiLock.InstantiateGUI(menuPrefab, true, true, true);
+        if (go != null)
+            go.name = "PauseMenu";
     }
 
-    public void Hide() {
+    public void Hide()
+    {
         Destroy(GameObject.Find("PauseMenu"));
-        MouseUnLocker.LockMouse();
     }
 
     public void LeaveRoom()

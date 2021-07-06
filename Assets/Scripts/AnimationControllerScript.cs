@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimationControllerScript : MonoBehaviour
@@ -19,7 +17,7 @@ public class AnimationControllerScript : MonoBehaviour
     void Update()
     {
         Vector3 currpos = transform.position;
-        bool moved = ((Time.deltaTime*(Math.Abs(currpos.x - pos.x)) > minimumMoveToTrigger) || ((Time.deltaTime*(Math.Abs(currpos.z - pos.z)) > minimumMoveToTrigger)));
+        bool moved = ((Time.deltaTime * (Math.Abs(currpos.x - pos.x)) > minimumMoveToTrigger) || ((Time.deltaTime * (Math.Abs(currpos.z - pos.z)) > minimumMoveToTrigger)));
         if (PlayerInfo.isMine(gameObject.transform.parent.parent.gameObject))
         {
             if (Input.GetKey("w") && moved)

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
 public class CircleOverImage : MonoBehaviour
@@ -16,7 +13,7 @@ public class CircleOverImage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     private void Awake()
@@ -32,7 +29,7 @@ public class CircleOverImage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void CreatePoints()

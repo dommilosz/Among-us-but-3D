@@ -1,7 +1,4 @@
-﻿using Photon.Pun;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -28,7 +25,7 @@ public class ActionObject : MonoBehaviour
         if (!ActionEnabled) return;
         if (global)
         {
-            if (Key!=null&&Input.GetKeyDown(Key)) m_event.Invoke();
+            if (Key != null && Input.GetKeyDown(Key)) m_event.Invoke();
         }
     }
 

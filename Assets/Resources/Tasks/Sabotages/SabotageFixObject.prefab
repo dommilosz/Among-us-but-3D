@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7222685709326985753}
   - component: {fileID: 3381088872688763653}
   - component: {fileID: -8612728576597038904}
-  - component: {fileID: 3084476375224028989}
   m_Layer: 0
   m_Name: SabotageFixObject
   m_TagString: Untagged
@@ -130,15 +129,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SabotageType: 0
   UIPrefab: {fileID: 0}
---- !u!114 &3084476375224028989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6628749603499539158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 485463a9c2929de46b57443ddad6268c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  OutlineState: 0

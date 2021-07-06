@@ -1,5 +1,4 @@
-﻿using Photon.Pun;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using static SabotageScript;
 
@@ -7,14 +6,14 @@ public class CommsSabotageFix : MonoBehaviour
 {
     public RadialValueSelect rvs;
     public Image statusLight;
-    [Range(0,360)]
-    public int DegreesPerCheck=9;
+    [Range(0, 360)]
+    public int DegreesPerCheck = 9;
 
     // Start is called before the first frame update
     void Start()
     {
-        if((int)AmongUsGameManager.GetGameManager().TempData["CommsSabotage"]== -1)
-        AmongUsGameManager.GetGameManager().TempData["CommsSabotage"]=Random.Range(((rvs.rangeMin) / DegreesPerCheck).Floor() + 1, ((rvs.rangeMax) / DegreesPerCheck).Floor() - 1);
+        if ((int)AmongUsGameManager.GetGameManager().TempData["CommsSabotage"] == -1)
+            AmongUsGameManager.GetGameManager().TempData["CommsSabotage"] = Random.Range(((rvs.rangeMin) / DegreesPerCheck).Floor() + 1, ((rvs.rangeMax) / DegreesPerCheck).Floor() - 1);
         AmongUsGameManager.GetGameManager().SaveTempData();
     }
 
@@ -29,7 +28,7 @@ public class CommsSabotageFix : MonoBehaviour
         {
             statusLight.color = Color.red;
         }
-        if ((((int)rvs.value)/ DegreesPerCheck) == (int)AmongUsGameManager.GetGameManager().TempData.Get("CommsSabotage", 0)&&!rvs.isRotating)
+        if ((((int)rvs.value) / DegreesPerCheck) == (int)AmongUsGameManager.GetGameManager().TempData.Get("CommsSabotage", 0) && !rvs.isRotating)
         {
             statusLight.color = Color.green;
             SabotageScript.StartSabotage(Sabotages.None, true);

@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using System;
 using UnityEngine;
 
 public class SabotageScript : MonoBehaviour
@@ -36,7 +35,7 @@ public class SabotageScript : MonoBehaviour
             }
         }
 
-        if (GameObject.Find("CurrentTask")==null)
+        if (GameObject.Find("CurrentTask") == null)
             ReactorSabotageFix.SetState(0);
 
         if (CurrentSabotage.TimeLeft < 0 && CurrentSabotage.TimeLeft != -1)
@@ -45,15 +44,15 @@ public class SabotageScript : MonoBehaviour
         }
     }
 
-    public static void StartSabotage(Sabotages type,bool force=false)
+    public static void StartSabotage(Sabotages type, bool force = false)
     {
         float TimeLeft = -1f;
         switch (type)
         {
             case Sabotages.FixLights:
-                TimeLeft = -1;break;
+                TimeLeft = -1; break;
             case Sabotages.Reactor:
-                TimeLeft = 60f;break;
+                TimeLeft = 60f; break;
             case Sabotages.Comms:
                 TimeLeft = -1; break;
             case Sabotages.None:
@@ -61,7 +60,7 @@ public class SabotageScript : MonoBehaviour
             default:
                 break;
         }
-        StartSabotage(type, TimeLeft,force);
+        StartSabotage(type, TimeLeft, force);
     }
 
     public enum Sabotages
@@ -88,7 +87,7 @@ public class SabotageScript : MonoBehaviour
             AmongUsGameManager.GetGameManager().TempData["Switch:0"] = -1;
             AmongUsGameManager.GetGameManager().SaveTempData();
         }
-        
+
     }
 
     public static SabotageScript GetSabotageScript()

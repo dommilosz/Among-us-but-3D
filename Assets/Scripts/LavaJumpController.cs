@@ -1,7 +1,5 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -91,7 +89,6 @@ public class LavaJumpController : MonoBehaviour
     public void HideMsg()
     {
         PhotonNetwork.LocalPlayer.GetPlayerObject().transform.position = GameObject.Find("AfterMeetingLocation").transform.position;
-        MouseUnLocker.LockMouse();
         GameObject.Find("MeetingCanvas").Destroy();
         TimedAbility.ResetAllAbilities();
     }

@@ -1,12 +1,10 @@
-﻿using Photon.Pun;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class TaskManager : MonoBehaviour
 {
@@ -20,14 +18,14 @@ public class TaskManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        var CTasks = AmongUsGameManager.GetGameManager().TempData.Get("CommonTasks",null);
-        if (CTasks != null&&CTasks.GetType() == typeof(byte[]))
+        var CTasks = AmongUsGameManager.GetGameManager().TempData.Get("CommonTasks", null);
+        if (CTasks != null && CTasks.GetType() == typeof(byte[]))
         {
             AllTasks.AddCommonTasks((byte[])CTasks);
         }
@@ -61,13 +59,13 @@ public class TaskManager : MonoBehaviour
             return null;
         }
 
-        public static Task GetByName(string name,TaskTypes type)
+        public static Task GetByName(string name, TaskTypes type)
         {
             var Tasks = PlayerInfo.getPlayerInfo().Tasks.FullTaskList.Clone();
             Tasks.Shuffle();
             foreach (var item in Tasks)
             {
-                if (item.name == name&&item.TaskType==type) return item;
+                if (item.name == name && item.TaskType == type) return item;
             }
             return null;
         }
@@ -185,8 +183,8 @@ public class TaskManager : MonoBehaviour
                 {
                     tmpTasks.Add(Task.GetByName(item2));
                 }
-                if(!tmpTasks.Contains(null))
-                PossibleLongTasks.Add(new LongTask(tmpTasks.ToArray()));
+                if (!tmpTasks.Contains(null))
+                    PossibleLongTasks.Add(new LongTask(tmpTasks.ToArray()));
             }
             //Pairs.Add(new string[] {"wires","wires","wires","wires" });
 

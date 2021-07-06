@@ -13,6 +13,7 @@ public class TimedCallback
     public bool executed = false;
     public bool enabled = false;
     public string name = "";
+    public bool repeat = false;
 
     public TimedCallback(Action action, float delay, string name = "")
     {
@@ -35,16 +36,21 @@ public class TimedCallback
         if (executed) return;
         if (!enabled) return;
         RemDelay -= Time.deltaTime;
-        if (RemDelay <= 0) { Execute(); RemDelay = 0; }
+        if (RemDelay <= 0) { Execute(); }
         else if (TickingAction != null) TickingAction.Invoke();
     }
 
     public void Execute()
     {
         if (action != null)
-        action.Invoke();
+            action.Invoke();
         Stop();
         executed = true;
+        RemDelay = 0;
+        if (repeat)
+        {
+            Start();
+        }
     }
 
     public void Start()
@@ -256,8 +262,8 @@ public class TimedAbility
     {
         foreach (var item in abilities)
         {
-            if(item!=null)
-            item.Reset();
+            if (item != null)
+                item.Reset();
         }
     }
 }

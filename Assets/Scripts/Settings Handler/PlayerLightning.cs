@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerLightning : MonoBehaviour
@@ -7,7 +5,7 @@ public class PlayerLightning : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -21,7 +19,7 @@ public class PlayerLightning : MonoBehaviour
         else
         {
             lc.range = (float)SettingsHandler.getSetting("PlayerVision");
-            if (SabotageScript.GetCurrentSabotage()!=null&&SabotageScript.GetCurrentSabotage().Type==SabotageScript.Sabotages.FixLights)
+            if (SabotageScript.GetCurrentSabotage() != null && SabotageScript.GetCurrentSabotage().Type == SabotageScript.Sabotages.FixLights)
             {
                 lc.range = (float)(0.2 * lc.range);
             }

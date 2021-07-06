@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class LobbyTopPanel : MonoBehaviour
 {
     private readonly string connectionStatusMessage = "    Connection Status: ";
@@ -17,7 +16,7 @@ public class LobbyTopPanel : MonoBehaviour
     public void Update()
     {
         ConnectionStatusText.text = connectionStatusMessage + PhotonNetwork.NetworkClientState;
-        if(PhotonNetwork.LocalPlayer!=null&& PhotonNetwork.LocalPlayer.NickName != null&& PhotonNetwork.LocalPlayer.NickName.Length>0)
+        if (PhotonNetwork.LocalPlayer != null && PhotonNetwork.LocalPlayer.NickName != null && PhotonNetwork.LocalPlayer.NickName.Length > 0)
         {
             PlayerNameText.text = playerNameMessage + PhotonNetwork.LocalPlayer.NickName;
         }

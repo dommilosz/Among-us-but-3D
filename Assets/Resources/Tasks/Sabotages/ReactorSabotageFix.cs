@@ -1,6 +1,5 @@
 ﻿using Photon.Pun;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static SabotageScript;
 
@@ -13,7 +12,7 @@ public class ReactorSabotageFix : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -24,7 +23,7 @@ public class ReactorSabotageFix : MonoBehaviour
         foreach (var item in PhotonNetwork.PlayerList)
         {
             var pi = item.GetPlayerInfo();
-            if ((byte)pi.TempData.Get("ReactorState", 0)==1)
+            if ((byte)pi.TempData.Get("ReactorState", 0) == 1)
             {
                 enabled1 = true;
             }
@@ -41,7 +40,7 @@ public class ReactorSabotageFix : MonoBehaviour
             this.enabled = false;
         }
 
-        if (image.GetComponent<IsMouseOn>().isMouseOn&& Input.GetMouseButton(0))
+        if (image.GetComponent<IsMouseOn>().isMouseOn && Input.GetMouseButton(0))
         {
             SetState(ThisState);
         }
@@ -51,7 +50,7 @@ public class ReactorSabotageFix : MonoBehaviour
         }
         var pil = PlayerInfo.getPlayerInfo();
         image.color = ((byte)pil.TempData["ReactorState"] == ThisState) ? Color.green : Color.red;
-        
+
     }
 
     public static void SetState(byte state)

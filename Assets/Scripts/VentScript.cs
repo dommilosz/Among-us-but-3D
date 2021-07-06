@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VentScript : MonoBehaviour
@@ -12,19 +10,19 @@ public class VentScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         var playerInfo = PlayerInfo.getPlayerInfo();
-        if (Input.GetKeyDown(KeyCode.F)&&playerInfo.VentStanding==this&&!(bool)playerInfo.getSetting("inVent"))
+        if (Input.GetKeyDown(KeyCode.F) && playerInfo.VentStanding == this && !(bool)playerInfo.getSetting("inVent"))
         {
             enterVent();
             return;
         }
-        if (Input.GetKeyDown(KeyCode.F) && playerInfo.VentStanding == this&& (bool)playerInfo.getSetting("inVent"))
+        if (Input.GetKeyDown(KeyCode.F) && playerInfo.VentStanding == this && (bool)playerInfo.getSetting("inVent"))
         {
             exitVent();
             return;
@@ -39,7 +37,7 @@ public class VentScript : MonoBehaviour
             ventNext();
             return;
         }
-        if (SpawnedVentCanvas != null&&!(bool)playerInfo.getSetting("inVent"))
+        if (SpawnedVentCanvas != null && !(bool)playerInfo.getSetting("inVent"))
         {
             Destroy(SpawnedVentCanvas);
         }
@@ -47,7 +45,7 @@ public class VentScript : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        if (collision.transform.tag.Contains("Player")&& PlayerInfo.isMine(collision.gameObject))
+        if (collision.transform.tag.Contains("Player") && PlayerInfo.isMine(collision.gameObject))
         {
             var player = collision.gameObject;
             var playerInfo = collision.gameObject.GetComponent<PlayerInfo>();
@@ -68,7 +66,8 @@ public class VentScript : MonoBehaviour
     public void enterVent()
     {
         enterVentS(gameObject);
-    }public void exitVent()
+    }
+    public void exitVent()
     {
         exitVentS(gameObject);
     }

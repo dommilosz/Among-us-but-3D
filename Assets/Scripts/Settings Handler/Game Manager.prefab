@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8637977191308645730}
   - component: {fileID: 2329647473248444073}
   - component: {fileID: 1627192752353261764}
+  - component: {fileID: 2513755361686458681}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -116,7 +117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d74f1fb5cc6f335469e88dc4183d8eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tasks: []
 --- !u!114 &1627192752353261764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,3 +130,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HUDPrefab: {fileID: 5205855501429442418, guid: fe9a34b6868ef62428c8ebb335f83938, type: 3}
+--- !u!114 &2513755361686458681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446199624171668683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699c139ace985d4418ac037b0196718b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreventOpeningGUIs: 0
+  UnlockMouse: 0
+  Closable: 0
+  Destroyable: 0

@@ -1,16 +1,13 @@
 ﻿using Photon.Pun;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class PlayerColors : MonoBehaviour
 {
     public Shader OutlineShader;
     public Shader TransparencyShader;
-    public Color mainColor = new Color(255,0,0);
-    public Color outlineColor = new Color(0,0,0);
+    public Color mainColor = new Color(255, 0, 0);
+    public Color outlineColor = new Color(0, 0, 0);
     public float outlineWidth = 0.007f;
 
     // Start is called before the first frame update
@@ -18,7 +15,7 @@ public class PlayerColors : MonoBehaviour
     {
         var playerInfo = gameObject.GetComponent<PlayerInfo>();
         var mats = playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials;
-        
+
         playerInfo.gameObject.transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials = mats;
     }
 
@@ -38,7 +35,7 @@ public class PlayerColors : MonoBehaviour
 
         var mats = transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials;
 
-        if (!(bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Alive")&&!(bool)playerInfo.getSetting("Alive"))
+        if (!(bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Alive") && !(bool)playerInfo.getSetting("Alive"))
         {
             mainColor.a = 0.3f;
 
