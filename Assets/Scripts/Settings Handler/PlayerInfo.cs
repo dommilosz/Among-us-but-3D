@@ -38,9 +38,15 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     public void Start()
     {
         settings = SettingsValues.ReturnDefaultPlayerSettings().ToList();
+        InitPlayer();
+        CheckColors();
+    }
+
+    public void InitPlayer()
+    {
         TempData.Clear();
         SaveTempData();
-        if (isMine(getPlayer()))
+        if (IsMine)
         {
             sendSettings();
             int MeetingsLeft = (int)SettingsHandler.getSetting("Emergency_Count");
@@ -49,30 +55,9 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
             MeetingAbility.SetUses(MeetingsLeft);
             MeetingAbility.Start();
             TasksGenerated = false;
-            List<string> claimed_colors = new List<string>();
-            foreach (var item in PhotonNetwork.PlayerList)
-            {
-                try
-                {
-                    claimed_colors.Add((string)item.GetPlayerInfo().getSetting("Color"));
-                }
-                catch { }
-            }
-
-            if (claimed_colors.Contains(PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Color")))
-            {
-                foreach (var item in Enums.Colors.AllColors)
-                {
-                    if (!claimed_colors.Contains(item))
-                    {
-                        setSetting("Color", item);
-                        break;
-                    }
-                }
-            }
+            
 
         }
-
     }
 
     // Update is called once per frame
@@ -91,14 +76,18 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         }
         if (getPUNPlayer().IsLocal)
         {
-            setSetting("DoneTasks", Tasks.CompletedTasks.Count);
-            if (!(bool)getSetting("Alive") || (bool)getSetting("inVent"))
+            var tprogress = Tasks.GetTasksProgress();
+            TempData["DoneTasksCount"] = tprogress[0];
+            TempData["AllTasks"] = tprogress[1];
+            SaveTempData();
+
+            if (!IsAlive || InVent)
             {
-                setSetting("Invisible", true);
+                IsInvisible = true;
             }
-            else if ((bool)getSetting("Invisible"))
+            else if (IsInvisible)
             {
-                setSetting("Invisible", false);
+                IsInvisible = false;
             }
         }
 
@@ -237,14 +226,100 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         return null;
     }
 
-    public bool IsImpostor()
+    public bool IsImpostor
     {
-        return (bool)getSetting("isImpostor");
+        get
+        {
+            return (bool)getSetting("isImpostor");
+        }
+        set
+        {
+            setSetting("isImpostor",value);
+        }
     }
 
-    public bool IsAlive()
+    public bool IsAlive
     {
-        return (bool)getSetting("Alive");
+        get
+        {
+            return (bool)getSetting("Alive");
+        }
+        set
+        {
+            setSetting("Alive", value);
+        }
+    }
+
+    public bool InVent
+    {
+        get
+        {
+            return (bool)getSetting("inVent");
+        }
+        set
+        {
+            setSetting("inVent", value);
+        }
+    }
+
+    public bool IsInvisible
+    {
+        get
+        {
+            return (bool)getSetting("Invisible");
+        }
+        set
+        {
+            setSetting("Invisible", value);
+        }
+    }
+
+    public bool IsMine
+    {
+        get
+        {
+            return isMine(getPlayer());
+        }
+    }
+
+    public string Color
+    {
+        get
+        {
+            return (string)getSetting("Color");
+        }
+        set
+        {
+            setSetting("Color", value);
+        }
+    }
+
+    public void CheckColors()
+    {
+        List<string> claimed_colors = new List<string>();
+        foreach (var item in PhotonNetwork.PlayerList)
+        {
+            try
+            {
+                claimed_colors.Add((string)item.GetPlayerInfo().getSetting("Color"));
+            }
+            catch { }
+        }
+
+        if (claimed_colors.Contains(PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Color")))
+        {
+            var rndColors = Enums.Colors.AllColors;
+            rndColors.Shuffle();
+
+            foreach (var item in rndColors)
+            {
+                if (!claimed_colors.Contains(item))
+                {
+                    this.Color = item;
+                    break;
+                }
+            }
+        }
     }
 }
 public static class PlayerExt

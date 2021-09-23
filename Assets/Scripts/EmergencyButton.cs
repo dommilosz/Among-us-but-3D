@@ -20,7 +20,7 @@ public class EmergencyButton : MonoBehaviour
     public GameObject InstantinatedObj;
     public void ShowPreMeeting()
     {
-        if (!PlayerInfo.getPlayerInfo().IsAlive()) return;
+        if (!PlayerInfo.getPlayerInfo().IsAlive) return;
         if (GameObject.Find("PreMeetingCanvas") != null) return;
         InstantinatedObj = GuiLock.InstantiateGUI(PreMeetingCanvas, true, true, true);
         if (InstantinatedObj != null)

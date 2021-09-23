@@ -198,22 +198,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TaskObject (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 7222685709326985753, guid: 664c38620a6e60c469ef8f5d2529405b, type: 3}
-      propertyPath: m_Size.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222685709326985753, guid: 664c38620a6e60c469ef8f5d2529405b, type: 3}
-      propertyPath: m_Size.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222685709326985753, guid: 664c38620a6e60c469ef8f5d2529405b, type: 3}
-      propertyPath: m_Size.z
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222685709326985753, guid: 664c38620a6e60c469ef8f5d2529405b, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 664c38620a6e60c469ef8f5d2529405b, type: 3}
 --- !u!1001 &271634457
@@ -493,20 +477,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 583bbb695835fdf49b42a1c700bc3a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &414213694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 414213685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5af428588ecf8f34fbea810730b05ef0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ToRunSabotageType: 0
-  RunSabotage: 0
 --- !u!1 &460062425
 GameObject:
   m_ObjectHideFlags: 0

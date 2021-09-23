@@ -32,7 +32,7 @@ public class Debug_Reload : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            PlayerInfo.getPlayerInfo().setSetting("isImpostor", !PlayerInfo.getPlayerInfo().IsImpostor());
+            PlayerInfo.getPlayerInfo().setSetting("isImpostor", !PlayerInfo.getPlayerInfo().IsImpostor);
         }
     }
 }

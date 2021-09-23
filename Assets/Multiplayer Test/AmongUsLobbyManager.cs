@@ -23,6 +23,7 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
         {
             SettingsHandler.setSetting("Impostors", 0);
             SettingsHandler.setSetting("Map", "debug");
+            SettingsHandler.setSetting("Can_Win", false);
             LoadGameScene();
         }
 

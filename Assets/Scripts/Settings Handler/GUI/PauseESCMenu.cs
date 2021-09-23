@@ -43,7 +43,6 @@ public class PauseESCMenu : MonoBehaviour
 
     public void LeaveRoom()
     {
-        PhotonNetwork.Disconnect();
-        PhotonNetwork.ConnectUsingSettings();
+        AmongUsGameManager.Leave();
     }
 }

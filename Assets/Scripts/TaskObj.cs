@@ -43,7 +43,7 @@ public class TaskObj : MonoBehaviour
 
     public bool CanDoTask()
     {
-        if (PlayerInfo.getPlayerInfo().IsImpostor()) return false;
+        if (PlayerInfo.getPlayerInfo().IsImpostor) return false;
         if (!task.Active) return false;
         if (task.Done) return false;
         if (task.TaskType == TaskTypes.Long && task.GetLongTask().GetCurrentTask() != task) return false;

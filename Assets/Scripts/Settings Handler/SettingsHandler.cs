@@ -11,6 +11,7 @@ public class SettingsHandler : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        settings = SettingsValues.ReturnDefaultSettings().ToList();
         if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Settings"))
         {
             var settings = (object[])PhotonNetwork.CurrentRoom.CustomProperties["Settings"];
@@ -112,6 +113,7 @@ public static class SettingsValues
 
         properties.Add(new SettingProperty("Map", Enums.Maps.Polus));
         properties.Add(new SettingProperty("Impostors", 2));
+        properties.Add(new SettingProperty("Can_Win", true));
 
         properties.Add(new SettingProperty("Emergency_Count", 1));
         properties.Add(new SettingProperty("Emergency_Cooldown", 30f));
@@ -134,6 +136,8 @@ public static class SettingsValues
         properties.Add(new SettingProperty("Visual_Tasks", true));
         properties.Add(new SettingProperty("TaskBar_Updates", Enums.TaskbarUpdates.Always));
 
+        
+
         return properties.ToArray();
     }
 
@@ -147,7 +151,6 @@ public static class SettingsValues
         properties.Add(new SettingProperty("PlayerName", ""));
         properties.Add(new SettingProperty("Alive", true));
         properties.Add(new SettingProperty("Invisible", false));
-        properties.Add(new SettingProperty("DoneTasks", 0));
 
         return properties.ToArray();
     }

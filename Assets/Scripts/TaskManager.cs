@@ -175,6 +175,9 @@ public class TaskManager : MonoBehaviour
             Pairs.Clear();
             PossibleLongTasks.Clear();
             Pairs.Add(new string[] { "download", "upload" });
+            Pairs.Add(new string[] { "Fix weather node (1)", "Fix weather node (2)" });
+            Pairs.Add(new string[] { "Fuel Engines (1)", "Fuel Engines (2)", "Fuel Engines (3)", "Fuel Engines (4)" });
+            Pairs.Add(new string[] { "Open Waterways (1)", "Open Waterways (2)", "Open Waterways (3)" });
 
             foreach (var item in Pairs)
             {
@@ -299,7 +302,7 @@ public class TaskManager : MonoBehaviour
 
         public int[] GetTasksProgress()
         {
-            if (PlayerInfo.getPlayerInfo().IsImpostor()) return new int[] { 0, 0 };
+            if (PlayerInfo.getPlayerInfo().IsImpostor) return new int[] { 0, 0 };
             int completed = 0;
             foreach (var item in LongTasks)
             {

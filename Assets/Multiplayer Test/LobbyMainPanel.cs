@@ -150,7 +150,7 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
 
         byte maxPlayers;
         byte.TryParse(MaxPlayersInputField.text, out maxPlayers);
-        maxPlayers = (byte)Mathf.Clamp(maxPlayers, 4, 10);
+        maxPlayers = (byte)Mathf.Clamp(maxPlayers, 4, 20);
 
         RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers, PlayerTtl = 10000, BroadcastPropsChangeToAll = true, PublishUserId = true };
 

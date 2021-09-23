@@ -33,6 +33,8 @@ public class MeetingHandler : MonoBehaviour
         Hashtable ht = new Hashtable();
         ht.Add("Voted", "");
         PhotonNetwork.LocalPlayer.SetCustomProperties(ht);
+
+        AmongUsGameManager.GetGameManager().cachedprogress = AmongUsGameManager.GetGameManager().CountAllTaskProgress();
     }
 
     // Update is called once per frame
@@ -45,7 +47,7 @@ public class MeetingHandler : MonoBehaviour
         foreach (var item in PhotonNetwork.PlayerList)
         {
             bool voted = false;
-            if (!(bool)item.GetPlayerInfo().IsAlive()) voted = true;
+            if (!item.GetPlayerInfo().IsAlive) voted = true;
             if ((string)item.CustomProperties["Voted"] != null && (string)item.CustomProperties["Voted"] != "") voted = true;
 
             if (!voted) { allVoted = false; break; }

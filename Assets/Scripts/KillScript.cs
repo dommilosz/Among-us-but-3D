@@ -54,7 +54,7 @@ public class KillScript : MonoBehaviour
 
     public bool IsImpostor()
     {
-        return PhotonNetwork.LocalPlayer.GetPlayerInfo().IsImpostor();
+        return PhotonNetwork.LocalPlayer.GetPlayerInfo().IsImpostor;
     }
 
     public Player getClosestPlayer()
@@ -79,7 +79,7 @@ public class KillScript : MonoBehaviour
 
     public bool canKillPlayer(Player p)
     {
-        if (p.GetPlayerInfo().IsImpostor()) return false;
+        if (p.GetPlayerInfo().IsImpostor) return false;
         if (getDistanceToPlayer(p) <= (int)SettingsHandler.getSetting("KillDistance")) return true;
         return false;
     }

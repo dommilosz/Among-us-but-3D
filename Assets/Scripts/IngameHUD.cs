@@ -18,7 +18,8 @@ public class IngameHUD : MonoBehaviour
     {
         if (gameObject.name != "HUD") return;
         var playerInfo = PlayerInfo.getPlayerInfo();
-        gameObject.transform.Find("Status").GetComponent<TMPro.TextMeshProUGUI>().text = $"Alive: {playerInfo.IsAlive()}\nImpostor: {playerInfo.IsImpostor()}";
+        var gamemanager = AmongUsGameManager.GetGameManager();
+        gameObject.transform.Find("Status").GetComponent<TMPro.TextMeshProUGUI>().text = $"Alive: {playerInfo.IsAlive}\nImpostor: {playerInfo.IsImpostor}";
         var taskProgress = playerInfo.Tasks.GetTasksProgress();
         gameObject.transform.Find("LBL_Tasks").GetComponent<TMPro.TextMeshProUGUI>().SetText($"Tasks: {taskProgress[0]}/{taskProgress[1]}", playerInfo.Tasks.Done ? Color.green : Color.white, true);
         var tasksLbl = gameObject.transform.Find("Tasks").GetComponent<TMPro.TextMeshProUGUI>();
@@ -47,5 +48,15 @@ public class IngameHUD : MonoBehaviour
 
         if (SabotageScript.GetCurrentSabotage() != null)
             gameObject.transform.Find("Sabotage").GetComponent<TMPro.TextMeshProUGUI>().text = SabotageScript.GetCurrentSabotage().ToString();
+
+        if((string)SettingsHandler.getSetting("TaskBar_Updates") == Enums.TaskbarUpdates.Always)
+        {
+            AmongUsGameManager.GetGameManager().cachedprogress = AmongUsGameManager.GetGameManager().CountAllTaskProgress();
+        }
+
+        gameObject.transform.Find("GameResult").GetComponent<TMPro.TextMeshProUGUI>().text = gamemanager.GetGameResultStr();
+        gameObject.transform.Find("TaskProgress").GetComponent<TMPro.TextMeshProUGUI>().text = "Task Progress: "+AmongUsGameManager.GetGameManager().cachedprogress.ToString()+"%";
+
+
     }
 }

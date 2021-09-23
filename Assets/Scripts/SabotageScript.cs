@@ -38,10 +38,6 @@ public class SabotageScript : MonoBehaviour
         if (GameObject.Find("CurrentTask") == null)
             ReactorSabotageFix.SetState(0);
 
-        if (CurrentSabotage.TimeLeft < 0 && CurrentSabotage.TimeLeft != -1)
-        {
-
-        }
     }
 
     public static void StartSabotage(Sabotages type, bool force = false)

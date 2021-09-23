@@ -25,7 +25,7 @@ public class MapScript : MonoBehaviour
         var parent = transform.Find(SceneManager.GetActiveScene().name.Replace("AmongUs_", ""));
         pointer.transform.SetParent(parent);
 
-        if (PlayerInfo.getPlayerInfo().IsImpostor())
+        if (PlayerInfo.getPlayerInfo().IsImpostor)
         {
             parent.Find("Normal").gameObject.SetActive(false);
             parent.Find("Sabotage").gameObject.SetActive(true);

@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 2329647473248444073}
   - component: {fileID: 1627192752353261764}
   - component: {fileID: 2513755361686458681}
+  - component: {fileID: 3942710586530945096}
+  - component: {fileID: 3991730698681904432}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -51,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 1074354477615942807, guid: 61382cb46ce9046458f5388eb2ef7a6d, type: 3}
   debug: 0
+  cachedprogress: 0
 --- !u!114 &3287707898679341980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,3 +149,30 @@ MonoBehaviour:
   UnlockMouse: 0
   Closable: 0
   Destroyable: 0
+--- !u!114 &3942710586530945096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446199624171668683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7969341426ed2364497f1d3239e4a4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _WinScreen: {fileID: 4920346793769693270, guid: c3b76554ae837c94fb61895e9199bb6f, type: 3}
+--- !u!114 &3991730698681904432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446199624171668683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af428588ecf8f34fbea810730b05ef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ToRunSabotageType: 0
+  RunSabotage: 0

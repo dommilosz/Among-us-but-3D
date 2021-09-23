@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,11 +31,17 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
 
         TimedAbility.ResetAllAbilities();
 
-        PhotonNetwork.LocalPlayer.GetPlayerInfo().Start();
+        PhotonNetwork.LocalPlayer.GetPlayerInfo().InitPlayer();
         PhotonNetwork.LocalPlayer.GetPlayerObject().transform.position = GetGameManager().transform.position;
         PhotonNetwork.LocalPlayer.GetPlayerObject().transform.rotation = GetGameManager().transform.rotation;
 
         PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().KillAbility.Reset();
+    }
+
+    public static void Leave()
+    {
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.ConnectUsingSettings();
     }
 
     // Update is called once per frame
@@ -145,5 +152,107 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
         {
             TempData = new Dictionary<string, object>();
         }
+    }
+
+    public PlayerInfo[] GetAllPlayerInfo()
+    {
+        var pis = new List<PlayerInfo>();
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var item in players)
+        {
+            var pi = item.GetComponent<PlayerInfo>();
+            pis.Add(pi);
+        }
+        return pis.ToArray();
+    }
+
+    public int CountImpostors()
+    {
+        var pis = GetAllPlayerInfo();
+        int c = 0;
+        foreach (var item in pis)
+        {
+            if (item.IsImpostor && item.IsAlive)
+            {
+                c++;
+            }
+        }
+        return c;
+    }
+
+    public int CountCrewmates()
+    {
+        var pis = GetAllPlayerInfo();
+        int c = 0;
+        foreach (var item in pis)
+        {
+            if (!item.IsImpostor && item.IsAlive)
+            {
+                c++;
+            }
+        }
+        return c;
+    }
+
+    public int cachedprogress = 0;
+    public int CountAllTaskProgress()
+    {
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        int done = 0;
+        int all = 0;
+        foreach (var item in players)
+        {
+            var pi = item.GetComponent<PlayerInfo>();
+            done += (int)pi.TempData.Get("DoneTasksCount",0);
+            all += (int)pi.TempData.Get("AllTasks", 0);
+        }
+        return (int)Math.Floor(((float)done/all)*100);
+    }
+
+    public enum GameResult
+    {
+        CREWMATES_WON,
+        IMPOSTORS_WON,
+        NONE,
+    }
+    public GameResult GetGameResult()
+    {
+        if (CountImpostors() <= 0)
+        {
+            return GameResult.CREWMATES_WON;
+        }
+        if (CountImpostors() >= CountCrewmates())
+        {
+            return GameResult.IMPOSTORS_WON;
+        }
+
+        if (CountAllTaskProgress() >= 100)
+        {
+            return GameResult.CREWMATES_WON;
+        }
+
+        var CurrentSabotage = SabotageScript.GetCurrentSabotage();
+        if (CurrentSabotage.TimeLeft < 0 && CurrentSabotage.TimeLeft != -1)
+        {
+            if (CurrentSabotage.critical)
+            {
+                return GameResult.IMPOSTORS_WON;
+            }
+        }
+        return GameResult.NONE;
+    }
+
+    public string GetGameResultStr()
+    {
+        var gr = GetGameResult();
+        if (gr == GameResult.CREWMATES_WON)
+        {
+            return "Crewmates Won";
+        }
+        if (gr == GameResult.IMPOSTORS_WON)
+        {
+            return "Impostors Won";
+        }
+        return "";
     }
 }
