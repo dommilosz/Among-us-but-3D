@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = System.Random;
 
 public static class UtilsExtensions
@@ -82,5 +85,40 @@ public static class UtilsExtensions
         {
             return _default;
         }
+    }
+
+    public static U Get<U>(this ExitGames.Client.Photon.Hashtable dict, string key, U _default)
+    {
+        if (dict.ContainsKey(key))
+        {
+            return (U)dict[key];
+        }
+        else
+        {
+            return _default;
+        }
+    }
+
+    public static string btoa(this string str)
+    {
+        return System.Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(str));
+    }
+
+    public static string atob(this string str)
+    {
+        return ASCIIEncoding.ASCII.GetString(System.Convert.FromBase64String(str));
+    }
+
+    public static void DontDestroyUntil0(this GameObject ga)
+    {
+        void Destroy(Scene current, Scene next)
+        {
+            if (next.buildIndex == 0)
+            {
+                ga.Destroy();
+            }
+        }
+        GameObject.DontDestroyOnLoad(ga);
+        SceneManager.activeSceneChanged += Destroy;
     }
 }

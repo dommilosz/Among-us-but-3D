@@ -138,6 +138,9 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
+            var ht = new ExitGames.Client.Photon.Hashtable();
+            ht["Started"] = true;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(ht);
 
             int[] Impostors = new int[(int)SettingsHandler.getSetting("Impostors")];
             foreach (var item in PhotonNetwork.PlayerList)

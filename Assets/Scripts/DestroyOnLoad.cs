@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class DestroyOnLoad : MonoBehaviour
 {
+    public bool DestroyOn0Scene = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,9 +13,9 @@ public class DestroyOnLoad : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (DestroyOn0Scene)
         {
-            Destroy(gameObject);
+            gameObject.DontDestroyUntil0();
         }
     }
 }

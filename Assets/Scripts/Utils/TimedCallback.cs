@@ -194,6 +194,7 @@ public class TimedAbility
     {
         RemCooldown = cooldown;
         this.cooldown = cooldown;
+        this.action = action;
         abilities.Add(this);
     }
 

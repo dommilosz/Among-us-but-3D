@@ -77,6 +77,10 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
             RoomOptions options = new RoomOptions { MaxPlayers = 10, PlayerTtl = 10000, BroadcastPropsChangeToAll = true, PublishUserId = true };
             PhotonNetwork.CreateRoom("debug", options, null);
         }
+        if (RPCHandler.IsGameJoinPending)
+        {
+            PhotonNetwork.JoinRoom(RPCHandler.GetGameToJoin());
+        }
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
