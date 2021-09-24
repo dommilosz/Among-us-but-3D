@@ -167,7 +167,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'A - Previous Vent
 
-    B - Next Vent
+    D - Next Vent
 
     F - Exit Vent'
   m_isRightToLeft: 0
