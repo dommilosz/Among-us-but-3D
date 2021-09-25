@@ -525,6 +525,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f3b1c8520c0d44dbbcfd6a47097e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LobbySceneName: Lobby
+  LobbyLightning: 200
 --- !u!95 &7040938647732031017
 Animator:
   serializedVersion: 3

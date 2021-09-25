@@ -37,6 +37,17 @@ public class RPCHandler : MonoBehaviour
     public void JoinGame(string secret)
     {
         RPCRoomName = secret.atob().Split(':')[1].atob();
+        if (PhotonNetwork.InRoom)
+        {
+            RPCRoomName = "";
+            return;
+        }
+
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.JoinRoom(GetGameToJoin());
+        }
+        
     }
 
     public static string GetGameToJoin()

@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerLightning : MonoBehaviour
 {
+    public string LobbySceneName = "Lobby";
+    public float LobbyLightning = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,6 +15,13 @@ public class PlayerLightning : MonoBehaviour
     void Update()
     {
         var lc = gameObject.GetComponent<Light>();
+
+        if(SceneManager.GetActiveScene().name == LobbySceneName)
+        {
+            lc.range = LobbyLightning;
+            return;
+        }
+
         if ((bool)PlayerInfo.getPlayerInfo().getSetting("isImpostor"))
         {
             lc.range = (float)SettingsHandler.getSetting("ImpostorVision");

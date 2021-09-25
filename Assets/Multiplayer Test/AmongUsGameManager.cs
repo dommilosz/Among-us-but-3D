@@ -23,6 +23,7 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
         {
             SaveTempData();
         }
+        Instantiate((GameObject)Resources.Load("ChatBox"));
     }
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
@@ -106,10 +107,12 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
     {
         base.OnPlayerLeftRoom(otherPlayer);
 
+        ChatRenderer.GetChatRenderer().AddMsg($"<color=#00ffffff>{otherPlayer.NickName}</color> left the game");
         Destroy(PlayerInfo.getPlayerObject(otherPlayer));
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        ChatRenderer.GetChatRenderer().AddMsg($"<color=#00ffffff>{newPlayer.NickName}</color> joined the game");
         base.OnPlayerEnteredRoom(newPlayer);
     }
 

@@ -108,7 +108,7 @@ public class AmongUsLobbyManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.CurrentRoom != null)
         {
-            int count = PhotonNetwork.PlayerList.Length;
+            int count = PhotonNetwork.CurrentRoom.PlayerCount;
             var label = playersCount.GetComponent<TextMeshProUGUI>();
             var max = PhotonNetwork.CurrentRoom.MaxPlayers;
             label.text = $"{count}/{max}";

@@ -10,6 +10,9 @@ using UnityEngine.UI;
 
 public class LobbyMainPanel : MonoBehaviourPunCallbacks
 {
+    [Header("Connecting Panel")]
+    public GameObject ConnectingPanel;
+
     [Header("Login Panel")]
     public GameObject LoginPanel;
 
@@ -59,9 +62,20 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
 
         PlayerNameInput.text = "Player " + Random.Range(1000, 10000);
 
-        if (debug)
+        SaveState.InitState();
+        var savedname = SaveState.PlayerPreferences.Get("Username", "");
+
+        if (savedname != "")
         {
-            OnLoginButtonClicked();
+            ConnectToMasterWithUsername(savedname);
+        }
+        else if (debug)
+        {
+            ConnectToMasterWithUsername(PlayerNameInput.text);
+        }
+        else
+        {
+            this.SetActivePanel(LoginPanel.name);
         }
     }
 
@@ -74,7 +88,7 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         this.SetActivePanel(SelectionPanel.name);
         if (debug)
         {
-            RoomOptions options = new RoomOptions { MaxPlayers = 10, PlayerTtl = 10000, BroadcastPropsChangeToAll = true, PublishUserId = true };
+            RoomOptions options = new RoomOptions { MaxPlayers = 10, PlayerTtl = 0, BroadcastPropsChangeToAll = true, PublishUserId = true };
             PhotonNetwork.CreateRoom("debug", options, null);
         }
         if (RPCHandler.IsGameJoinPending)
@@ -100,19 +114,25 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
+        PopupScript.SinglePopup(message, "OK", PopupScript.ButtonType.Info);
+
         SetActivePanel(SelectionPanel.name);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
+        PopupScript.SinglePopup(message, "OK", PopupScript.ButtonType.Info);
+
         SetActivePanel(SelectionPanel.name);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         SetActivePanel(SelectionPanel.name);
+
+        PopupScript.SinglePopup(message, "OK", PopupScript.ButtonType.Info);
+
         base.OnJoinRandomFailed(returnCode, message);
-        //TODO Popup
     }
 
     public override void OnJoinedRoom()
@@ -147,16 +167,28 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         SetActivePanel(SelectionPanel.name);
     }
 
-    public void OnCreateRoomButtonClicked()
+    public async void OnCreateRoomButtonClicked()
     {
         string roomName = RoomNameInputField.text;
+        bool nameValid = !roomName.Equals(string.Empty);
         roomName = (roomName.Equals(string.Empty)) ? "Room " + Random.Range(1000, 10000) : roomName;
-
+        
         byte maxPlayers;
-        byte.TryParse(MaxPlayersInputField.text, out maxPlayers);
-        maxPlayers = (byte)Mathf.Clamp(maxPlayers, 4, 20);
+        bool countValid = byte.TryParse(MaxPlayersInputField.text, out maxPlayers);
+        if(maxPlayers<4 || maxPlayers > 20)
+        {
+            countValid = false;
+        }
 
-        RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers, PlayerTtl = 10000, BroadcastPropsChangeToAll = true, PublishUserId = true };
+        if (!nameValid || !countValid)
+        {
+            if(!await PopupScript.YNPopup("Some properties are invalid. Do you want to continue with fixed ones?", "Yes", "No"))
+            {
+                return;
+            }
+        }
+        maxPlayers = (byte)Mathf.Clamp(maxPlayers, 4, 20);
+        RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers, PlayerTtl = 0, BroadcastPropsChangeToAll = true, PublishUserId = true };
 
         PhotonNetwork.CreateRoom(roomName, options, null);
     }
@@ -176,11 +208,18 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
     public void OnLoginButtonClicked()
     {
         string playerName = PlayerNameInput.text;
+        ConnectToMasterWithUsername(playerName);
+    }
 
-        if (!playerName.Equals("") && playerName.Length < 20)
+    public void ConnectToMasterWithUsername(string username)
+    {
+        if (username.Length < 20 && username.Length > 3)
         {
-            PhotonNetwork.LocalPlayer.NickName = playerName;
+            PhotonNetwork.LocalPlayer.NickName = username;
             PhotonNetwork.ConnectUsingSettings();
+            PlayerNameInput.text = username;
+            SaveState.PlayerPreferences["Username"] = username;
+            SaveState.WriteState();
         }
         else
         {
@@ -232,6 +271,7 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         JoinRandomRoomPanel.SetActive(activePanel.Equals(JoinRandomRoomPanel.name));
         RoomListPanel.SetActive(activePanel.Equals(RoomListPanel.name));    // UI should call OnRoomListButtonClicked() to activate this
         InsideRoomPanel.SetActive(activePanel.Equals(InsideRoomPanel.name));
+        ConnectingPanel.SetActive(activePanel.Equals(ConnectingPanel.name));
     }
 
     private void UpdateCachedRoomList(List<RoomInfo> roomList)

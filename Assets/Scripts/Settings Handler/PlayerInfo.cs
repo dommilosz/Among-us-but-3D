@@ -306,7 +306,9 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
             catch { }
         }
 
-        if (claimed_colors.Contains(PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Color")))
+        var PrefferedColor = SaveState.PlayerPreferences.Get("Color", "red");
+
+        if (claimed_colors.Contains(PrefferedColor))
         {
             var rndColors = Enums.Colors.AllColors;
             rndColors.Shuffle();
@@ -327,6 +329,8 @@ public static class PlayerExt
     public static void changeColor(this Player player, string color)
     {
         player.GetPlayerInfo().setSetting("Color", color);
+        SaveState.PlayerPreferences["Color"] = color;
+        SaveState.WriteState();
     }
     public static PlayerInfo GetPlayerInfo(this Player player)
     {
