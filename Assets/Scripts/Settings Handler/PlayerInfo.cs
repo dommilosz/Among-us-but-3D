@@ -322,6 +322,10 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
                 }
             }
         }
+        else
+        {
+            this.Color = PrefferedColor;
+        }
     }
 }
 public static class PlayerExt
