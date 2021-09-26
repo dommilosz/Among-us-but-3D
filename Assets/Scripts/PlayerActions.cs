@@ -130,7 +130,8 @@ public class PlayerActions : MonoBehaviour
         {
             if (GameObject.Find("MeetingCanvas") != null || hit.transform == null) return;
             if (!hit.transform.CompareTag("Body")) return;
-            ReportAction(hit.transform.name.Replace("Body ", ""));
+            var bs = hit.transform.gameObject.GetComponent<BodyScript>();
+            ReportAction(bs.color);
         }
 
         if (gameObject.transform.position.y < -1)

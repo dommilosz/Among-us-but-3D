@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -17,46 +18,68 @@ public class Enums : MonoBehaviour
     }
     public static class Colors
     {
-        public static string[] AllColors = new string[] { "red", "blue", "green", "pink", "orange", "yellow", "gray", "white", "purple", "brown", "aqua", "lime" };
-        public static string[] AllColorsCodes = new string[] { "#BA1010", "#132DCE", "#107B2B", "#E752B6", "#F07D0D", "#F6F657", "#3E464C", "#D7E1F1", "#6B2FBC", "#6F471D", "#38FFDD", "#50F039" };
-
-        public static string getColorCodeByName(string code)
+        public class ColorObj
         {
-            try
+            public Color color;
+            public string name = "";
+            public string colorCode
             {
-                return AllColorsCodes[AllColors.ToList().IndexOf(code)];
+                get
+                {
+                    int r = Mathf.FloorToInt(color.r*255);
+                    int g = Mathf.FloorToInt(color.g*255);
+                    int b = Mathf.FloorToInt(color.b*255);
+
+                    return r.ToString("X") + g.ToString("X") + b.ToString("X");
+                }
+                set
+                {
+                    int hexInt = int.Parse(value, System.Globalization.NumberStyles.HexNumber);
+                    var values = new int[] { (hexInt & 0xFF0000) >> 16, (hexInt & 0x00FF00) >> 8, hexInt & 0x0000FF };
+
+                    color = new Color(values[0] / 255f, values[1] / 255f, values[2] / 255f);
+                }
             }
-            catch { return ""; }
+
+            public ColorObj(string name,Color color)
+            {
+                this.name = name;
+                this.color = color;
+            }
+
+            public ColorObj(string name, string code)
+            {
+                this.name = name;
+                this.colorCode = code;
+            }
         }
 
-        public static Color getColorByName(string color)
+        public static ColorObj[] colors = new ColorObj[] { new ColorObj("red", "BA1010"), new ColorObj("blue", "132DCE"), new ColorObj("green", "107B2B"), new ColorObj("pink", "E752B6"), new ColorObj("orange", "F07D0D"), new ColorObj("yellow", "F6F657"), new ColorObj("gray", "3E464C"), new ColorObj("white", "D7E1F1"), new ColorObj("purple", "6B2FBC"), new ColorObj("brown", "6F471D"), new ColorObj("aqua", "38FFDD"), new ColorObj("lime", "50F039") };
+
+        public static ColorObj getColorObjByName(string name)
         {
-            var values = getColorValuesByName(color);
-            return new Color((float)values[0] / 255, (float)values[1] / 255, (float)values[2] / 255);
+            foreach (var item in colors)
+            {
+                if(item.name == name)
+                {
+                    return item;
+                }
+            }
+            return null;
         }
-
-        public static int[] getColorValuesByName(string color)
-        {
-            var hex = getColorCodeByNameNoHash(color);
-            int hexInt = int.Parse(hex, System.Globalization.NumberStyles.HexNumber);
-
-            return new int[] { (hexInt & 0xFF0000) >> 16, (hexInt & 0x00FF00) >> 8, hexInt & 0x0000FF };
-        }
-
-        public static string getColorCodeByNameNoHash(string color)
-        {
-            return getColorCodeByName(color).Replace("#", "");
-        }
-
-        public static Material getMaterial(Color color)
+        public static Material getMaterial(Color c)
         {
             var mat = new Material(Shader.Find("Standard"));
-            mat.color = color;
+            mat.color = c;
             return mat;
+        }
+        public static Material getMaterial(ColorObj obj)
+        {
+            return getMaterial(obj.color);
         }
         public static Material getMaterial(string color)
         {
-            return getMaterial(getColorByName(color));
+            return getMaterial(getColorObjByName(color));
         }
     }
 }

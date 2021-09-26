@@ -13,7 +13,7 @@ public class WinScreenRenderer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ColorImg.color = Enums.Colors.getColorByName((string)PlayerInfo.getPlayerInfo().getSetting("Color"));
+        ColorImg.color = PlayerInfo.getPlayerInfo().ColorParsed.color;
         bool impostor = (bool)PlayerInfo.getPlayerInfo().getSetting("isImpostor");
         var gameResult = AmongUsGameManager.GetGameManager().GetGameResult();
 

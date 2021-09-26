@@ -28,7 +28,7 @@ public class LavaJumpController : MonoBehaviour
         else
         {
             var colorToDrop = (string)playerToDrop.GetPlayerInfo().getSetting("Color");
-            playerbestmodel.transform.Find("Image").GetComponent<Image>().color = Enums.Colors.getColorByName(colorToDrop);
+            playerbestmodel.transform.Find("Image").GetComponent<Image>().color = Enums.Colors.getColorObjByName(colorToDrop).color;
         }
     }
 

@@ -23,7 +23,7 @@ public class VoteSpawner : MonoBehaviour
                     pp.transform.SetParent(transform);
                     pp.transform.localPosition = new Vector3(x, y, 0);
                     x += 20;
-                    pp.GetComponent<Image>().color = AW ? Enums.Colors.getColorByName((string)item.GetPlayerInfo().getSetting("Color")) : Enums.Colors.getColorByName("gray");
+                    pp.GetComponent<Image>().color = AW ? item.GetPlayerInfo().ColorParsed.color : Enums.Colors.getColorObjByName("gray").color;
                 }
             }
         }

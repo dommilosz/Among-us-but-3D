@@ -98,7 +98,7 @@ public class KillScript : MonoBehaviour
             PhotonNetwork.LocalPlayer.GetPlayerInfo().setSetting("Alive", false);
             GameObject kbc = GameObject.Instantiate(KilledByCanvas);
             var color = (string)sender.GetPlayerInfo().getSetting("Color");
-            var colorCode = Enums.Colors.getColorCodeByName(color);
+            var colorCode = Enums.Colors.getColorObjByName(color).colorCode;
 
             kbc.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = $"Killed by <color={colorCode}>{color}</color>";
             kbc.Destroy(5);

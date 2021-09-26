@@ -13,7 +13,7 @@ public class DBReported : MonoBehaviour
     void Start()
     {
 
-        transform.Find("DBReported").Find("BodyColor").GetComponent<Image>().color = Enums.Colors.getColorByName(bodyColor);
+        transform.Find("DBReported").Find("BodyColor").GetComponent<Image>().color = Enums.Colors.getColorObjByName(bodyColor).color;
         MeetingCallback = new TimedCallback(Meeting, 5);
         MeetingCallback.Start();
         Hashtable ht = new Hashtable();
@@ -25,7 +25,7 @@ public class DBReported : MonoBehaviour
     void Update()
     {
         MeetingCallback.Tick();
-        transform.Find("DBReported").Find("BodyColor").GetComponent<Image>().color = Enums.Colors.getColorByName(bodyColor);
+        transform.Find("DBReported").Find("BodyColor").GetComponent<Image>().color = Enums.Colors.getColorObjByName(bodyColor).color;
         transform.Find("DBReported").Find("Meeting").gameObject.SetActive(meeting);
         transform.Find("DBReported").Find("DeadBodyReported").gameObject.SetActive(!meeting);
     }
@@ -40,7 +40,7 @@ public class DBReported : MonoBehaviour
     {
         if (Application.isEditor)
         {
-            transform.Find("DBReported").Find("BodyColor").GetComponent<Image>().color = Enums.Colors.getColorByName(bodyColor);
+            transform.Find("DBReported").Find("BodyColor").GetComponent<Image>().color = Enums.Colors.getColorObjByName(bodyColor).color;
         }
     }
 }

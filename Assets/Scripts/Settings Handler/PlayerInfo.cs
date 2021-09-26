@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Enums.Colors;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerInfo : MonoBehaviourPunCallbacks
@@ -294,6 +295,14 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         }
     }
 
+    public ColorObj ColorParsed
+    {
+        get
+        {
+            return (Enums.Colors.getColorObjByName(Color));
+        }
+    }
+
     public void CheckColors()
     {
         List<string> claimed_colors = new List<string>();
@@ -301,7 +310,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         {
             try
             {
-                claimed_colors.Add((string)item.GetPlayerInfo().getSetting("Color"));
+                claimed_colors.Add(item.GetPlayerInfo().Color);
             }
             catch { }
         }
@@ -310,14 +319,14 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
 
         if (claimed_colors.Contains(PrefferedColor))
         {
-            var rndColors = Enums.Colors.AllColors;
+            var rndColors = Enums.Colors.colors;
             rndColors.Shuffle();
 
             foreach (var item in rndColors)
             {
-                if (!claimed_colors.Contains(item))
+                if (!claimed_colors.Contains(item.name))
                 {
-                    this.Color = item;
+                    this.Color = item.name;
                     break;
                 }
             }

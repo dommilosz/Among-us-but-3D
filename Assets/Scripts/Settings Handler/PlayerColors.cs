@@ -25,9 +25,9 @@ public class PlayerColors : MonoBehaviour
         var playerInfo = gameObject.GetComponent<PlayerInfo>();
         outlineWidth = 0.007f;
         outlineColor = new Color(0, 0, 0);
-        mainColor = Enums.Colors.getColorByName((string)playerInfo.getSetting("Color"));
+        mainColor = playerInfo.ColorParsed.color;
 
-        if ((bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("isImpostor") && PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().SelectedPlayer == gameObject.GetComponent<PhotonView>().Owner.UserId)
+        if (PhotonNetwork.LocalPlayer.GetPlayerInfo().IsImpostor && PhotonNetwork.LocalPlayer.GetPlayerObject().GetComponent<KillScript>().SelectedPlayer == gameObject.GetComponent<PhotonView>().Owner.UserId)
         {
             outlineColor = new Color(0.8f, 0, 0);
             outlineWidth = 0.02f;
@@ -35,7 +35,7 @@ public class PlayerColors : MonoBehaviour
 
         var mats = transform.Find("Orientation").Find("playerbestmodel").Find("Cube").GetComponent<SkinnedMeshRenderer>().materials;
 
-        if (!(bool)PhotonNetwork.LocalPlayer.GetPlayerInfo().getSetting("Alive") && !(bool)playerInfo.getSetting("Alive"))
+        if (!PhotonNetwork.LocalPlayer.GetPlayerInfo().IsAlive && !playerInfo.IsAlive)
         {
             mainColor.a = 0.3f;
 

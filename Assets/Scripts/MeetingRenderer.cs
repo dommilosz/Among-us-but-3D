@@ -88,7 +88,7 @@ public class MeetingRenderer : MonoBehaviour
         {
             mP.transform.Find("Voted").gameObject.SetActive(true);
         }
-        mP.GetComponent<Image>().color = Enums.Colors.getColorByName((string)item.GetPlayerInfo().getSetting("Color"));
+        mP.GetComponent<Image>().color = item.GetPlayerInfo().ColorParsed.color;
         if (!(bool)item.GetPlayerInfo().getSetting("Alive"))
         {
             mP.transform.Find("Dead").gameObject.SetActive(true);
