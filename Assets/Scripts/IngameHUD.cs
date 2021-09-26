@@ -51,7 +51,7 @@ public class IngameHUD : MonoBehaviour
 
         if((string)SettingsHandler.getSetting("TaskBar_Updates") == Enums.TaskbarUpdates.Always)
         {
-            AmongUsGameManager.GetGameManager().cachedprogress = AmongUsGameManager.GetGameManager().CountAllTaskProgress();
+            AmongUsGameManager.GetGameManager().UpdateCachedProgress();
         }
 
         gameObject.transform.Find("GameResult").GetComponent<TMPro.TextMeshProUGUI>().text = gamemanager.GetGameResultStr();

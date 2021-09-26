@@ -209,7 +209,13 @@ public class AmongUsGameManager : MonoBehaviourPunCallbacks
             done += (int)pi.TempData.Get("DoneTasksCount",0);
             all += (int)pi.TempData.Get("AllTasks", 0);
         }
+        if (all <= 0) return 100;
         return (int)Math.Floor(((float)done/all)*100);
+    }
+
+    public void UpdateCachedProgress()
+    {
+        cachedprogress = CountAllTaskProgress();
     }
 
     public enum GameResult

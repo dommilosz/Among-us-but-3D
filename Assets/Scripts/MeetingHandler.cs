@@ -34,7 +34,7 @@ public class MeetingHandler : MonoBehaviour
         ht.Add("Voted", "");
         PhotonNetwork.LocalPlayer.SetCustomProperties(ht);
 
-        AmongUsGameManager.GetGameManager().cachedprogress = AmongUsGameManager.GetGameManager().CountAllTaskProgress();
+        AmongUsGameManager.GetGameManager().UpdateCachedProgress();
     }
 
     // Update is called once per frame
