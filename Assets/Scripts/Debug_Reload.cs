@@ -13,7 +13,8 @@ public class Debug_Reload : MonoBehaviour
     void Update()
     {
         Time.timeScale = 1;
-        if (Input.GetKeyDown(KeyCode.R))
+        var canReport = PlayerInfo.getPlayer().GetComponent<PlayerActions>().canReport;
+        if (Input.GetKeyDown(KeyCode.R)&&!canReport)
         {
             Photon.Pun.PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().name);
             if (Input.GetKey(KeyCode.LeftShift))
