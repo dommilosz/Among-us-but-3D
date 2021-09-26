@@ -16,6 +16,7 @@ public class SabotageObj : MonoBehaviour
         ao.m_event = new UnityEngine.Events.UnityEvent();
         ao.m_event.AddListener(StartTask);
         ao.ActionEnabled = false;
+        ao.OnlyAlive = true;
         OutlineChanger = new TimedCallback(ChangeOutline, 0.5f);
         OutlineChanger.repeat = true;
         OutlineChanger.Start();
